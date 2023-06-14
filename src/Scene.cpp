@@ -6,3 +6,7 @@
 Scene::Scene() {
     refractiveIndex = 1;
 };
+
+void Scene::generateDefault(){
+    sources.addSource();
+}

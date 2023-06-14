@@ -5,6 +5,7 @@
 #include "../include/Sources.h"
 #include "../include/Shapes.h"
 
+
 class Scene {
     private:
         Rays rays;
@@ -13,6 +14,7 @@ class Scene {
         double refractiveIndex; // property of scene medium
     public:
         Scene();
+        void generateDefault();
 };
 
 #endif

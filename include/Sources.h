@@ -8,6 +8,7 @@ class Sources {
 private:
     std::vector<Source> sources;
 public:
+    void addSource(); // generates default source
     void addSource(const Source& source);
 };
 
