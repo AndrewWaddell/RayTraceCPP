@@ -3,12 +3,14 @@
 
 #include "../include/Rays.h"
 #include "../include/Sources.h"
+#include "../include/Shapes.h"
 
 class Scene {
     private:
         Rays rays;
         Sources sources;
-        double refractiveIndex; // condition of scene medium
+        Shapes shapes;
+        double refractiveIndex; // property of scene medium
     public:
         Scene();
 };

@@ -3,9 +3,9 @@
 
 int main() {
     
-    Scene scene;
+    Scene opticalBench;
 
-    scene.printIndex();
+    
 
     return 0;
 }
