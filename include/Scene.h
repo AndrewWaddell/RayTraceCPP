@@ -13,8 +13,10 @@ class Scene {
         Shapes shapes;
         double refractiveIndex; // property of scene medium
     public:
+        int loopLimit;
         Scene();
-        void generateDefault();
+        void generateDefault(); // manual constructor for default scene for testing
+        void trace();
 };
 
 #endif
