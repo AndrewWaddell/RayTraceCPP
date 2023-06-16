@@ -7,6 +7,8 @@ class Source {
     private:
         Matrix2d points;
         Matrix2d unit;
+    public:
+        void generateDefault();
 };
 
 #endif
