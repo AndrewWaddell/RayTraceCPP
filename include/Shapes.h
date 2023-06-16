@@ -7,6 +7,8 @@
 class Shapes {
     private:
         std::vector<Shape> shapes;
+    public:
+        void addShape();
 };
 
 #endif
