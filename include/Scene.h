@@ -17,6 +17,7 @@ class Scene {
         Scene();
         void generateDefault(); // manual constructor for default scene for testing
         void trace();
+        void traceStep();
 };
 
 #endif

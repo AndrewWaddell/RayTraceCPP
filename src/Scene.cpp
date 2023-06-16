@@ -11,11 +11,15 @@ Scene::Scene() {
 void Scene::generateDefault(){
     sources.addSource();
     shapes.addShape();
-}
+};
 
 void Scene::trace(){
     rays.addSources(sources);
     for (int i = 0; i < loopLimit; ++i) {
         rays.areActive() ? traceStep() : void();
     }
-}
+};
+
+void Scene::traceStep(){
+    
+};
