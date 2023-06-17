@@ -2,13 +2,9 @@
 #include "../include/Rays.h"
 
 
-
-Scene::Scene() {
+void Scene::generateDefault(){
     refractiveIndex = 1;
     loopLimit = 1;
-};
-
-void Scene::generateDefault(){
     sources.addSource();
     shapes.addShape();
 };
@@ -21,5 +17,6 @@ void Scene::trace(){
 };
 
 void Scene::traceStep(){
-    
+    // executes a single step within the trace. All rays bounce to the next shape.
+
 };

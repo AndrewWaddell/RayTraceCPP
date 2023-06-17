@@ -12,12 +12,11 @@ class Scene {
         Sources sources;
         Shapes shapes;
         double refractiveIndex; // property of scene medium
+        int loopLimit; // maximum number of trace steps before stopping trace
+        void traceStep();
     public:
-        int loopLimit;
-        Scene();
         void generateDefault(); // manual constructor for default scene for testing
         void trace();
-        void traceStep();
 };
 
 #endif

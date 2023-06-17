@@ -3,7 +3,7 @@
 void Rays::addSources(Sources sources){
     // take all of the sources and combine them into a rays object
 
-    // run algorithm
+    
 
     blocked.generate(numrays);
 
