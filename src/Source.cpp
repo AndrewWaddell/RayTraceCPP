@@ -7,4 +7,5 @@ void Source::generateDefault(){
     // the matrix class construction might have to be fairly empty,
     // and setting of the actual values might have to happen as a method
     // the local matrix values in matrix class should be set by a constructor
+    numrays = 3;
 }

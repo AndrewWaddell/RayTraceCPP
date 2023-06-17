@@ -9,6 +9,7 @@ class Source {
         Matrix2d unit;
     public:
         void generateDefault();
+        int numrays;
 };
 
 #endif

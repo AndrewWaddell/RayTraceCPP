@@ -1,8 +1,12 @@
 #include "../include/Rays.h"
 
 void Rays::addSources(Sources sources){
-    // take all of the sources and combine them into a rays object
+    // builds a single instance of rays based on all sources in the scene
 
+    numrays = 0;
+    while (sources.bucketNotEmpty()) {
+        numrays += sources.grabSource().numrays;
+    }
     
 
     blocked.generate(numrays);
