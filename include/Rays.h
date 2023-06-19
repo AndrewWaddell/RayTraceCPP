@@ -2,14 +2,16 @@
 #define RAYS_H
 
 
-#include "../include/Source.h"
-#include "../include/Sources.h"
-#include "../include/BoolArray.h"
+#include "Source.h"
+#include "Sources.h"
+#include "BoolArray.h"
+#include "Matrix.h"
 
 class Rays {
     private:
         BoolArray blocked;
         int numrays;
+        Matrix points;
     public:
         void addSources(Sources sources);
         bool areActive();

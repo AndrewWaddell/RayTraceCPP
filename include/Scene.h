@@ -1,9 +1,9 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "../include/Rays.h"
-#include "../include/Sources.h"
-#include "../include/Shapes.h"
+#include "Rays.h"
+#include "Sources.h"
+#include "Shapes.h"
 
 
 class Scene {
