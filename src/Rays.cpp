@@ -3,13 +3,13 @@
 void Rays::addSources(Sources sources){
     // builds a single instance of rays based on all sources in the scene
 
-    numrays = 0;
+    numRays = 0;
     while (sources.bucketNotEmpty()) {
-        numrays += sources.grabSource().numrays;
+        numRays += sources.grabSource().numRays;
     }
     
 
-    blocked.generate(numrays);
+    blocked.generate(numRays);
 
 };
 

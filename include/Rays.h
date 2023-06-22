@@ -10,7 +10,7 @@
 class Rays {
     private:
         BoolArray blocked;
-        int numrays;
+        int numRays;
         Matrix points;
     public:
         void addSources(Sources sources);

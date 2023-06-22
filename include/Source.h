@@ -9,7 +9,7 @@ class Source {
         Matrix unit;
     public:
         void generateDefault();
-        int numrays;
+        int numRays;
 };
 
 #endif
