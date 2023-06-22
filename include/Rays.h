@@ -16,6 +16,8 @@ class Rays {
         BoolArray inside; // are the rays inside a shape
         Matrix pointsAcc; // accumulated points between steps
         Matrix unitAcc; // accumulated unit vectors between steps
+        Matrix distancesAcc; // accumulated lengths of each array
+        Matrix origins; // // index of ray in distancesAcc
     public:
         void addSources(Sources sources);
         bool areActive();

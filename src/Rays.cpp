@@ -2,7 +2,6 @@
 
 void Rays::addSources(Sources sources){
     // builds a single instance of rays based on all sources in the scene
-    
     points = sources.points();
     unit = sources.unit();
     numRays = sources.numRays();
@@ -12,6 +11,8 @@ void Rays::addSources(Sources sources){
     pointsAcc.append(points);
     unitAcc.generate();
     unitAcc.append(unit);
+    distancesAcc.zeros(numRays);
+    origins.range(numRays);
 };
 
 bool Rays::areActive(){
