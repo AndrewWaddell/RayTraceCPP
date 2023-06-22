@@ -7,7 +7,11 @@ void Rays::addSources(Sources sources){
     while (sources.bucketNotEmpty()) {
         numRays += sources.grabSource().numRays;
     }
+
     
+    points.generate(numRays);
+
+    unit.generate(numRays);
 
     blocked.generate(numRays);
 

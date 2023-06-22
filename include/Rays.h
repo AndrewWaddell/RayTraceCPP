@@ -11,7 +11,8 @@ class Rays {
     private:
         BoolArray blocked;
         int numRays;
-        Matrix points;
+        Matrix points; // location of each ray
+        Matrix unit; // unit vector pointing in the direction of the ray
     public:
         void addSources(Sources sources);
         bool areActive();
