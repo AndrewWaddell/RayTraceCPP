@@ -10,7 +10,6 @@ void Sources::addSource(const Source& source) {
 }
 
 void Sources::addSource() {
-    // default constructor
     Source newSource;
     newSource.generateDefault();
     sources.push_back(newSource);

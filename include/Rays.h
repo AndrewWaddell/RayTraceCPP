@@ -13,6 +13,7 @@ class Rays {
         int numRays;
         Matrix points; // location of each ray
         Matrix unit; // unit vector pointing in the direction of the ray
+        BoolArray inside; // are the rays inside a shape
     public:
         void addSources(Sources sources);
         bool areActive();
