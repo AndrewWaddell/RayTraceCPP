@@ -17,6 +17,14 @@ void Sources::addSource() {
     bucket += 1;
 }
 
+int Sources::count() {
+    raysCount = 0;
+    while (bucketNotEmpty()) {
+        raysCount += grabSource().numRays;
+    }
+    return raysCount;
+}
+
 Source Sources::grabSource() {
     bucket -= 1;
     return sources[bucket];
