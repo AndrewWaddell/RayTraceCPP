@@ -4,8 +4,8 @@ Matrix::Matrix() {
     //constructor
 };
 
-void Matrix::generate(int numRays) {
+void Matrix::generate(int numColsIn) {
     numRows = 3;
-    numCols = numRays;
-    
+    numCols = numColsIn;
+    matrix.resize(numRows, std::vector<double>(numCols));
 }

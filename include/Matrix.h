@@ -10,7 +10,7 @@ class Matrix {
         int numCols;
     public:
         Matrix();
-        void generate(int numRays);
+        void generate(int numRays); // constructor with 3 rows
 };
 
 #endif
