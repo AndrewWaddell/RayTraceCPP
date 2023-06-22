@@ -7,9 +7,11 @@ void Rays::addSources(Sources sources){
     unit = sources.unit();
     numRays = sources.numRays();
     inside.generate(numRays);
-    
     blocked.generate(numRays);
-
+    pointsAcc.generate();
+    pointsAcc.append(points);
+    unitAcc.generate();
+    unitAcc.append(unit);
 };
 
 bool Rays::areActive(){
