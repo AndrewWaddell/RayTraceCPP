@@ -7,9 +7,12 @@ class Source {
     private:
         Matrix points;
         Matrix unit;
+        int numRays;
     public:
         void generateDefault();
-        int numRays;
+        int getNumRays();
+        Matrix getPoints();
+        Matrix getUnit();
 };
 
 #endif

@@ -1,34 +1,36 @@
 #include "../include/Sources.h"
 
-Sources::Sources(){
-    bucket = 0;
-};
-
 void Sources::addSource(const Source& source) {
     sources.push_back(source);
-    bucket += 1;
 }
 
 void Sources::addSource() {
     Source newSource;
     newSource.generateDefault();
     sources.push_back(newSource);
-    bucket += 1;
 }
 
-int Sources::count() {
-    raysCount = 0;
-    while (bucketNotEmpty()) {
-        raysCount += grabSource().numRays;
+Matrix Sources::points() {
+    matrix.generate();
+    for (Source source : sources) {
+        matrix.append(source.getPoints());
     }
-    return raysCount;
-}
-
-Source Sources::grabSource() {
-    bucket -= 1;
-    return sources[bucket];
+    return matrix;
 };
 
-bool Sources::bucketNotEmpty() {
-    return bucket>0;
+Matrix Sources::unit() {
+    matrix.generate();
+    for (Source source : sources) {
+        matrix.append(source.getUnit());
+    }
+    return matrix;
+};
+
+int Sources::numRays() {
+    int count = 0;
+    for (Source source : sources) {
+        count += source.getNumRays();
+    }
+    return count;
 }
+

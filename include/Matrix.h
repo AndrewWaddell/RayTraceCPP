@@ -10,7 +10,9 @@ class Matrix {
         int numCols;
     public:
         Matrix();
-        void generate(int numRays); // constructor with 3 rows
+        void generate(); // constructor with 3 rows 0 cols
+        void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
+        std::vector<double> getRow(int i); // outputs row at index i
 };
 
 #endif
