@@ -18,5 +18,5 @@ void Scene::trace(){
 
 void Scene::traceStep(){
     // executes a single step within the trace. All rays bounce to the next shape.
-
+    
 };
