@@ -30,6 +30,7 @@ class Rays {
         void addSources(Sources sources);
         bool areActive();
         void createNewBasis();
+        int size();
 };
 
 #endif

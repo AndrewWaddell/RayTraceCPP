@@ -18,5 +18,14 @@ void Scene::trace(){
 
 void Scene::traceStep(){
     // executes a single step within the trace. All rays bounce to the next shape.
-    
+    rays.createNewBasis();
+    for (Shape shape : shapes) {
+        shape.changeOfBasis(rays);
+        if (shape.traceLowRes(rays)){
+            shape.traceDistance(rays);
+            distances.append(shape.shortestDistances);
+            normals.append(shape.normals);
+        }
+    }
+
 };

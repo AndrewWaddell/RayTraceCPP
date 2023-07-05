@@ -8,9 +8,7 @@ void Rays::addSources(Sources sources){
     numRays = sources.numRays();
     inside.generate(numRays);
     blocked.generate(numRays);
-    pointsAcc.generate();
     pointsAcc.append(points);
-    unitAcc.generate();
     unitAcc.append(unit);
     distancesAcc.zeros(numRays);
     origins.range(numRays);
@@ -31,9 +29,11 @@ void Rays::createNewBasis(){
         inverse.generate();
         orth1.rotate90(unitCol);
         orth2.cross(orth1,unitCol);
+
         inverse.append(orth1);
         inverse.append(orth2);
         inverse.append(unitCol);
+
         inverse.inverse();
         inverse.normCol();
         COB.append(inverse);
@@ -45,4 +45,8 @@ void Rays::createNewBasis(){
         pointsCOB.append(pointCOB);
     }
 
-}
+};
+
+int Rays::size(){
+    return numRays;
+};

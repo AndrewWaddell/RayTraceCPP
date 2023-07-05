@@ -4,14 +4,31 @@ Matrix::Matrix() {
     //constructor
 };
 
-void Matrix::generate() {
-    numRows = 3;
+
+void Matrix::generate(){
+    generate(3);
+}
+
+void Matrix::generate(int rows) {
+    numRows = rows;
     numCols = 0;
     matrix.resize(numRows, std::vector<double>(numCols));
+    constructed = true;
 };
+
+void Matrix::fill(double val){
+    // implementation
+};
+
+void Matrix::fillInf(){
+    fill(1/0.0);
+}
 
 
 void Matrix::append(Matrix inMat) {
+    if (!constructed){
+        generate(inMat.numRows);
+    }
     for (int i=0; i<inMat.numRows;i++) {
         auto inRow = inMat.getRow(i);
         matrix[i].insert(matrix[i].end(), inRow.begin(), inRow.end());
@@ -70,4 +87,8 @@ void Matrix::multiply(Matrix mat1,Matrix mat2){
     // Proper matrix multiply result = A * B
     // number of columns in A must equal number of rows in B
     // output is this matrix, resized
+
+    
 };
+
+
