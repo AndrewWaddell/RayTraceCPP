@@ -131,22 +131,10 @@ MatrixList Matrix::iterateRow(){
 
 void Matrix::transpose(){
     Matrix output;
-    if (numRows==1){ // make row into column
-        output.generate(numCols);
-        for (int i=0;i<numCols;i++){
-            output.append(i,matrix[0][i]);
-        }
-    }
-    else if (numCols==1) { // make column into row
-        output.generate(1);
-        for (int i=0;i<numRows;i++){
-            output.append(matrix[i][0]);
-        }
-    }
-    else { // matrix
-        output.generate(numRows,numCols);
-        for (Matrix col : iterateCol()){
-            // do this later
+    output.generate(numCols,numRows);
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            output.insert(j,i,matrix[i][j]);
         }
     }
     reset(output);
