@@ -35,6 +35,20 @@ void Matrix::append(Matrix inMat) {
     }
 };
 
+void Matrix::append(double inVal) {
+    if (!constructed){
+        generate(1);
+    }
+    matrix[0].push_back(inVal);
+};
+
+void Matrix::append(int row,double inVal) {
+    if (!constructed){
+        generate(row);
+    }
+    matrix[row].push_back(inVal);
+};
+
 std::vector<double> Matrix::getRow(int i) {
     return matrix[i];
 };
@@ -83,12 +97,75 @@ MatrixList Matrix::iterateCol(){
     return output;
 };
 
-void Matrix::multiply(Matrix mat1,Matrix mat2){
-    // Proper matrix multiply result = A * B
-    // number of columns in A must equal number of rows in B
-    // output is this matrix, resized
-
-    
+MatrixList Matrix::iterateRow(){
+    MatrixList output;
+    Matrix row;
+    for (std::vector<double> rowVec : matrix){
+        // turn vector into matrix
+        row.generate(1);
+        for (double val : rowVec){
+            row.append(val);
+        }
+        // turn row into column
+        row.transpose();
+        output.append(row.getCol(0));
+    }
+    return output;
 };
 
+void Matrix::transpose(){
+    Matrix output;
+    if (numRows==1){ // make row into column
+        output.generate(numCols);
+        for (int i=0;i<numCols;i++){
+            output.append(i,matrix[0][i]);
+        }
+    }
+    else if (numCols==1) { // make column into row
+        output.generate(1);
+        for (int i=0;i<numRows;i++){
+            output.append(matrix[i][0]);
+        }
+    }
+    else { // matrix
+        output.generate(numRows,numCols);
+        for (Matrix col : iterateCol()){
+            // do this later
+        }
+    }
+    generate(numCols,numRows);
+    append(output);
+};
+
+void Matrix::multiply(Matrix A,Matrix B){
+    // Matrix multiply: result = A * B
+    // number of columns in A must equal number of rows in B
+    // output is this matrix, resized to rows from A and cols from B
+    Matrix output;
+    output.generate(1);
+    for (Matrix row : A.iterateRow()) {
+        for (Matrix col : B.iterateCol()) {
+            output.append(output.dot(row,col));
+        }
+    }
+    output.reshape(B.numCols);
+};
+
+double Matrix::dot(Matrix A, Matrix B){
+    double output = 0;
+    for (int i=0;i<A.numRows;i++){
+        output += A.get(i,0) * A.get(i,0);
+    }
+    return output;
+};
+
+double Matrix::get(int i, int j){
+    return matrix[i][j];
+};
+
+void Matrix::reshape(int newCols){
+    for (int i=0;i<numCols;i++){
+        
+    }
+};
 

@@ -14,9 +14,12 @@ class Matrix {
         Matrix();
         void generate(); // constructor with 3 rows 0 cols
         void generate(int rows); // constructor with inputted rows and 0 columns
+        void generate(int rows,int cols); // constructs empty matrix with specified dimensions.
         void fill(double val); // fill entire matrix with items
         void fillInf(); // fill with infinity
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
+        void append(double inVal); // assume row vector. Append to end of vector will be a single value
+        void append(int row,double inVal); // append to end of vector on specified row
         std::vector<double> getRow(int i); // outputs row at index i, exists because matrix is private
         Matrix getCol(int i);
         void insertCol(Matrix col,int i); // replace column at index i with column vector input col
@@ -27,7 +30,12 @@ class Matrix {
         void inverse(); // calculate the inverse of 3x3 matrix
         void normCol(); // normalise columns in matrix
         MatrixList iterateCol(); // reorganise into matrixList of columns for range based looping
-        void multiply(Matrix mat1,Matrix mat2); // performs matrix multiplication
+        MatrixList iterateRow(); // same as above but returns matrix rows as column vectors in matrixlist
+        void multiply(Matrix A,Matrix B); // performs matrix multiplication
+        void transpose(); // works for matrix and vectors
+        double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
+        double get(int i,int j); // get a value from within matrix
+        void reshape(int newCols); // reshape a row vector into a matrix with specified numCols. assume divisible by numCols
 };
 
 #endif
