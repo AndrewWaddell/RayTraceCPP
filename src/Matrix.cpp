@@ -16,8 +16,19 @@ void Matrix::generate(int rows) {
     constructed = true;
 };
 
+void Matrix::generate(int rows,int cols){
+    generate(rows);
+    for (int i;i<rows;i++){
+        matrix[i].resize(cols, 0.0);
+    }
+};
+
 void Matrix::fill(double val){
-    // implementation
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            insert(i,j,val);
+        }
+    }
 };
 
 void Matrix::fillInf(){
@@ -33,6 +44,7 @@ void Matrix::append(Matrix inMat) {
         auto inRow = inMat.getRow(i);
         matrix[i].insert(matrix[i].end(), inRow.begin(), inRow.end());
     }
+    numCols += inMat.numCols;
 };
 
 void Matrix::append(double inVal) {
@@ -48,6 +60,10 @@ void Matrix::append(int row,double inVal) {
     }
     matrix[row].push_back(inVal);
 };
+
+void Matrix::insert(int row,int col,double val){
+    matrix[row][col] = val;
+}
 
 std::vector<double> Matrix::getRow(int i) {
     return matrix[i];
@@ -133,8 +149,7 @@ void Matrix::transpose(){
             // do this later
         }
     }
-    generate(numCols,numRows);
-    append(output);
+    reset(output);
 };
 
 void Matrix::multiply(Matrix A,Matrix B){
@@ -148,13 +163,14 @@ void Matrix::multiply(Matrix A,Matrix B){
             output.append(output.dot(row,col));
         }
     }
-    output.reshape(B.numCols);
+    output.reshape(A.numRows,B.numCols);
+    reset(output);
 };
 
 double Matrix::dot(Matrix A, Matrix B){
     double output = 0;
     for (int i=0;i<A.numRows;i++){
-        output += A.get(i,0) * A.get(i,0);
+        output += A.get(i,0) * B.get(i,0);
     }
     return output;
 };
@@ -163,9 +179,23 @@ double Matrix::get(int i, int j){
     return matrix[i][j];
 };
 
-void Matrix::reshape(int newCols){
+void Matrix::reshape(int newRows,int newCols){
+    // example output for 3 cols:
+    //   i: 0 1 2 3 4 5
+    // row: 0 0 0 1 1 1
+    // col: 0 1 2 0 1 2
+    Matrix output;
+    output.generate(newRows,newCols);
     for (int i=0;i<numCols;i++){
-        
+        int row = (int) i/numCols;
+        int col = i - (row*numCols);
+        output.insert(row,col,matrix[0][i]);
     }
+    reset(output);
 };
+
+void Matrix::reset(Matrix output){
+    generate(output.numRows,output.numCols);
+    append(output);
+}
 

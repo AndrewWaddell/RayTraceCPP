@@ -10,6 +10,7 @@ class Matrix {
         int numRows;
         int numCols;
         bool constructed; // tells us whether we have called the constructor yet
+        void reset(Matrix output); // void function output, so reset matrix as output
     public:
         Matrix();
         void generate(); // constructor with 3 rows 0 cols
@@ -20,6 +21,7 @@ class Matrix {
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
+        void insert(int row,int col,double val); // insert value at specified index
         std::vector<double> getRow(int i); // outputs row at index i, exists because matrix is private
         Matrix getCol(int i);
         void insertCol(Matrix col,int i); // replace column at index i with column vector input col
@@ -35,7 +37,7 @@ class Matrix {
         void transpose(); // works for matrix and vectors
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
         double get(int i,int j); // get a value from within matrix
-        void reshape(int newCols); // reshape a row vector into a matrix with specified numCols. assume divisible by numCols
+        void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows
 };
 
 #endif
