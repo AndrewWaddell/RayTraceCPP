@@ -39,19 +39,18 @@ void Matrix::fillInf(){
 void Matrix::append(Matrix inMat) {
     if (!constructed){
         generate(inMat.numRows);
+    } else {
+        for (int i=0; i<inMat.numRows;i++) {
+            for (int j=0; j<inMat.numCols;j++){
+                append(i,inMat.get(i,j));
+            }
+        }
+        numCols += inMat.numCols;
     }
-    for (int i=0; i<inMat.numRows;i++) {
-        auto inRow = inMat.getRow(i);
-        matrix[i].insert(matrix[i].end(), inRow.begin(), inRow.end());
-    }
-    numCols += inMat.numCols;
 };
 
 void Matrix::append(double inVal) {
-    if (!constructed){
-        generate(1);
-    }
-    matrix[0].push_back(inVal);
+    append(0,inVal);
 };
 
 void Matrix::append(int row,double inVal) {
@@ -65,12 +64,30 @@ void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
 }
 
-std::vector<double> Matrix::getRow(int i) {
-    return matrix[i];
+Matrix Matrix::getRow(int i) {
+    Matrix row;
+    row.generate(1);
+    for (int j=0;j<numCols;j++){
+        row.append(get(i,j));
+    }
+    return row;
 };
 
-Matrix Matrix::getCol(int i){
-    // outputs the chosen column as a new matrix
+Matrix Matrix::getCol(int j){
+    Matrix output;
+    output.generate(numRows);
+    for (int i=0;i<numRows;i++){
+        output.append(i,get(i,j));
+    }
+    return output;
+};
+
+void Matrix::sliceBack(int cols){
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<cols;j++){
+            matrix[i].pop_back();
+        }
+    }
 };
 
 void Matrix::zeros(int n) {
@@ -98,7 +115,68 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
 };
 
 void Matrix::inverse() {
-    // overwrites existing matrix
+    this->append(identity());
+
+    // matrix is currently in the form
+    // [ a b c | 1 0 0 ]
+    // [ d e f | 0 1 0 ]
+    // [ g h i | 0 0 1 ]
+
+    // zero the following letters
+    rowOperation(1,0); // d
+    rowOperation(2,0); // g
+    rowOperation(2,1); // h
+    rowOperation(1,2); // f
+    rowOperation(0,2); // c
+    rowOperation(0,1); // b
+    
+    // make the following letters 1
+    rowOperation(0); // a
+    rowOperation(1); // e
+    rowOperation(2); // i
+    
+    // inverse will be where identity started
+    // shift inverse into 3x3 space
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] = matrix[i][j+3];
+        }
+    }
+
+    sliceBack(3);
+    numCols=3;
+};
+
+Matrix Matrix::identity() {
+    Matrix output;
+    output.generate(3,3);
+    for (int i = 0; i < 3; i++) {
+        output.insert(i,i,1);
+    }
+    return output;
+};
+
+void Matrix::rowOperation(int ROW1, int ROW2){
+    // row1 + (scalar)*row2 --> row1
+    double scalar = -get(ROW1,ROW2)/get(ROW2,ROW2);
+    Matrix row1 = getRow(ROW1);
+    Matrix row2 = getRow(ROW2);
+    row2.multiply(scalar);
+    row1.add(row2);
+    replaceRow(row1,ROW1);
+};
+
+void Matrix::rowOperation(int i){
+    double scalar = 1/get(i,i);
+    Matrix row = getRow(i);
+    row.multiply(scalar);
+    replaceRow(row,i);
+};
+
+void Matrix::replaceRow(Matrix row, int i){
+    for (int j=0;j<numCols;j++){
+        insert(i,j,row.get(0,j));
+    }
 };
 
 void Matrix::normCol(){
@@ -143,7 +221,6 @@ void Matrix::transpose(){
 void Matrix::multiply(Matrix A,Matrix B){
     // Matrix multiply: result = A * B
     // number of columns in A must equal number of rows in B
-    // output is this matrix, resized to rows from A and cols from B
     Matrix output;
     output.generate(1);
     for (Matrix row : A.iterateRow()) {
@@ -153,6 +230,23 @@ void Matrix::multiply(Matrix A,Matrix B){
     }
     output.reshape(A.numRows,B.numCols);
     reset(output);
+};
+
+void Matrix::multiply(double val){
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] *= val;
+        }
+    }
+};
+
+void Matrix::add(Matrix inMat){
+    // assume both matrices have the same dimensions
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] += inMat.get(i,j);
+        }
+    }
 };
 
 double Matrix::dot(Matrix A, Matrix B){
