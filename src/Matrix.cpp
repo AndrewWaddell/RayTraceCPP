@@ -179,8 +179,19 @@ void Matrix::replaceRow(Matrix row, int i){
     }
 };
 
+void Matrix::replaceCol(Matrix col,int j){
+    for (int i=0;i<numRows;i++){
+        insert(i,j,col.get(i,0));
+    }
+};
+
 void Matrix::normCol(){
-    // overwrites existing matrix
+    for (int j=0;j<numCols;j++){
+        Matrix col = getCol(j);
+        double sum = col.sum();
+        col.multiply(1/sum);
+        replaceCol(col,j);
+    }
 };
 
 MatrixList Matrix::iterateCol(){
@@ -247,6 +258,16 @@ void Matrix::add(Matrix inMat){
             matrix[i][j] += inMat.get(i,j);
         }
     }
+};
+
+double Matrix::sum(){
+    double output;
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            output += matrix[i][j];
+        }
+    }
+    return output;
 };
 
 double Matrix::dot(Matrix A, Matrix B){
