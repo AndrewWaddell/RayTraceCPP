@@ -111,7 +111,30 @@ void Matrix::rotate90(Matrix inMat){
 };
 
 void Matrix::cross(Matrix mat1,Matrix mat2){
-    // input mat, mat2, output is this
+    generate();
+    for (int j=0;j<mat1.numCols;j++){
+        // setup
+        double cx,cy,cz;
+        double ax = mat1.get(0,j);
+        double ay = mat1.get(1,j);
+        double az = mat1.get(2,j);
+        double bx = mat2.get(0,j);
+        double by = mat2.get(1,j);
+        double bz = mat2.get(2,j);
+
+        // perform operation
+        cx = ay*bz - az-by;
+        cy = az*bx - ax*bz;
+        cz = ax*by - ay*bx;
+
+        // store output
+        Matrix col;
+        col.generate(3,1);
+        col.insert(0,0,cx);
+        col.insert(1,0,cy);
+        col.insert(2,0,cz);
+        append(col);
+    }
 };
 
 void Matrix::inverse() {
@@ -136,10 +159,6 @@ void Matrix::inverse() {
     rowOperation(2); // i
     
     // inverse will be where identity started
-    // shift inverse into 3x3 space
-    
-
-
     shiftLeft(3);
     sliceBack(3);
     numCols=3;
@@ -303,7 +322,7 @@ void Matrix::reset(Matrix output){
 void Matrix::shiftLeft(int n){
     for (int i=0;i<numRows;i++){
         for (int j=0;j<numCols;j++){
-            matrix[i][j] = matrix[i][j+3];
+            matrix[i][j] = matrix[i][j+n];
         }
     }
 };;

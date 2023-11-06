@@ -29,12 +29,13 @@ class Matrix {
         void zeros(int n); // assume empty row vector, creates n columns of 0
         void range(int n); // assuming empty row vector, punches in values from 0 to n
         void rotate90(Matrix inMat); // rotate all vectors by 90deg in unimportant direction
-        void cross(Matrix mat1,Matrix mat2); // cross product mat1 cross mat2
+        void cross(Matrix mat1,Matrix mat2); // cross product mat1 (n cols) cross mat2 (n cols), output this. 3 rows.
         void inverse(); // calculate the inverse of 3x3 matrix using gaussian elimination
         Matrix identity(); // generates a 3x3 identity matrix
         void rowOperation(int ROW1, int ROW2); //perform guassian elimination via scalar multiple of another row on 3x3
         void rowOperation(int i); // multiply row/col i by scalar
         void replaceRow(Matrix row, int i); // replace row i with row
+        void replaceCol(Matrix col,int j); // replace col j with col
         void normCol(); // normalise columns in matrix
         MatrixList iterateCol(); // reorganise into matrixList of columns for range based looping
         MatrixList iterateRow(); // same as above but returns matrix rows as column vectors in matrixlist
@@ -45,6 +46,7 @@ class Matrix {
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
         double get(int i,int j); // get a value from within matrix
         void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows
+        void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
 };
 
 #endif

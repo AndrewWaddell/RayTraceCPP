@@ -26,10 +26,10 @@ void Rays::createNewBasis(){
     // is in the direction of the ray.
 
     for (Matrix unitCol : unit.iterateCol()){
-        inverse.generate();
         orth1.rotate90(unitCol);
         orth2.cross(orth1,unitCol);
 
+        inverse.generate();
         inverse.append(orth1);
         inverse.append(orth2);
         inverse.append(unitCol);
