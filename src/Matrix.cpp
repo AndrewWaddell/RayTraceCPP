@@ -137,12 +137,10 @@ void Matrix::inverse() {
     
     // inverse will be where identity started
     // shift inverse into 3x3 space
-    for (int i=0;i<numRows;i++){
-        for (int j=0;j<numCols;j++){
-            matrix[i][j] = matrix[i][j+3];
-        }
-    }
+    
 
+
+    shiftLeft(3);
     sliceBack(3);
     numCols=3;
 };
@@ -300,5 +298,13 @@ void Matrix::reshape(int newRows,int newCols){
 void Matrix::reset(Matrix output){
     generate(output.numRows,output.numCols);
     append(output);
-}
+};
+
+void Matrix::shiftLeft(int n){
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] = matrix[i][j+3];
+        }
+    }
+};;
 
