@@ -250,8 +250,8 @@ void Matrix::replaceCol(Matrix col,int j){
 void Matrix::normCol(){
     for (int j=0;j<numCols;j++){
         Matrix col = getCol(j);
-        double sum = col.sum();
-        col.multiply(1/sum);
+        double summ = col.sum();
+        col.multiply(1/summ);
         replaceCol(col,j);
     }
 };

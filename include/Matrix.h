@@ -46,6 +46,7 @@ class Matrix {
         void multiply(Matrix A,Matrix B); // performs matrix multiplication
         void multiply(double val); // multiplies scalar with each element
         void add(Matrix inMat); // add each value in inMat to this matrix, store result in this matrix
+        double sum(); // adds all matrix elements into a single number
         void transpose(); // works for matrix and vectors
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
         double get(int i,int j); // get a value from within matrix
