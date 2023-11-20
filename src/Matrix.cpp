@@ -101,14 +101,59 @@ void Matrix::range(int n) {
     }
 };
 
-void Matrix::rotate90(Matrix inMat){
+void Matrix::rotate90(Matrix A){
     // I rotate all vectors about the x-axis
     // however if a vector is the x-axis, then I rotate it about the y-axis
     // output is this matrix
 
-    //function
+    Matrix rotated;
 
+    if (A.isXaxis()){
+        rotated.multiply(Ry(),A);
+    } else {
+        rotated.multiply(Rx(),A);
+    }
+
+    reset(rotated);
 };
+
+bool Matrix::isXaxis(){
+    // assume input is column vector
+    // test for [ 1 0 0 ]
+    if (get(0,0)!=0){ // 1
+        if (get(1,0)==0){ // 0
+            if (get(2,0)==0){ // 0
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+Matrix Matrix::Rx(){
+    // 1 0 0
+    // 0 0 -1
+    // 0 1 0
+    Matrix a;
+    a.generate(3,3);
+    a.insert(0,0,1);
+    a.insert(1,2,-1);
+    a.insert(2,1,1);
+    return a;
+};
+
+Matrix Matrix::Ry(){
+    // 0 0 1
+    // 0 1 0
+    //-1 0 0
+    Matrix a;
+    a.generate(3,3);
+    a.insert(0,2,1);
+    a.insert(1,1,1);
+    a.insert(2,0,-1);
+    return a;
+};
+
 
 void Matrix::cross(Matrix mat1,Matrix mat2){
     generate();
@@ -315,7 +360,7 @@ void Matrix::reshape(int newRows,int newCols){
 };
 
 void Matrix::reset(Matrix output){
-    generate(output.numRows,output.numCols);
+    generate(output.numRows);
     append(output);
 };
 
