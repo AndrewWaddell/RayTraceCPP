@@ -7,7 +7,9 @@ void Shape::generateDefault(){
 };
 
 void Shape::changeOfBasis(Rays rays){
-
+    for (int i=0;i<rays.numRays;i++){
+        pointsCOB.append();
+    }
 };
 
 bool Shape::traceLowRes(Rays rays){

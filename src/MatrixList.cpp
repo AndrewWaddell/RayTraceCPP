@@ -7,3 +7,7 @@ auto MatrixList::begin(){
 auto MatrixList::end(){
     return matrices.end();
 };
+
+void MatrixList::append(Matrix inMat){
+    matrices.push_back(inMat);
+};

@@ -6,10 +6,10 @@
 
 class MatrixList {
     private:
-        std::vector<std::vector<Matrix>> matrices;
+        std::vector<Matrix> matrices;
     public:
         Matrix get(int i); // index matrix at index i
-        void append(Matrix inMat);
+        void append(Matrix inMat); // add new matrix to the list
         auto begin(); // vector property
         auto end(); // vector property
 };
