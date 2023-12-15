@@ -11,3 +11,7 @@ auto MatrixList::end(){
 void MatrixList::append(Matrix inMat){
     matrices.push_back(inMat);
 };
+
+Matrix MatrixList::get(int i){
+    return matrices[i];
+};

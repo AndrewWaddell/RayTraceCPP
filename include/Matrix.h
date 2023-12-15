@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
+#include <algorithm>
 #include "../include/MatrixList.h"
 
 class Matrix {
@@ -51,6 +52,8 @@ class Matrix {
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
         double get(int i,int j); // get a value from within matrix
         void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows
+        double minRow(int i); // gives the minimum value along row i
+        double maxRow(int i); // gives the maximum value along row i
 };
 
 #endif

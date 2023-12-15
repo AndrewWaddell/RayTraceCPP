@@ -24,14 +24,14 @@ class Rays {
         Matrix inverse; // used to calculate change of basis
         Matrix unitCol; // a single unit vector, already indexed
         Matrix pointCOB; // pointsCOB but for a single point
-        MatrixList COB; // change of basis matrix
-        Matrix pointsCOB; // points in terms of the change of basis
     public:
         int numRays; // number of rays are treated as columns in matrices
         void addSources(Sources sources);
         bool areActive();
         void createNewBasis();
         int size();
+        MatrixList COB; // change of basis matrix
+        Matrix pointsCOB; // points in terms of the change of basis
 };
 
 #endif

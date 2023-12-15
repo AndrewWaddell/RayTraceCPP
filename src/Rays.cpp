@@ -41,6 +41,7 @@ void Rays::createNewBasis(){
 
     pointsCOB.generate();
     for (int i=0;i<numRays;i++){
+        pointCOB.generate(3,1);
         pointCOB.multiply(COB.get(i),points.getCol(i));
         pointsCOB.append(pointCOB);
     }
