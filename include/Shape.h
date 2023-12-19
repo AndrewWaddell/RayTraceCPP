@@ -8,7 +8,7 @@ class Shape {
     private:
         double refractiveIndex;
         Matrix points; // dimension 1 is x,y,z, dim 2 is each point
-        Matrix connectivity; // dimension 1 is each triangle, dim 2 is index for each point
+        Matrix connectivity; // dimension 1 is triangle point indices, dim 2 is each triangle
         MatrixList pointsCOB; // points in terms of new basis. Each matrix is for a single ray.
         Matrix pointsCOBSingleRay; // temporary pointsCOB for a single ray, all shape points
         Matrix pointCOB; // temporary array to handle columns of pointsCOBRay
@@ -26,7 +26,8 @@ class Shape {
         Matrix l; // vector in the direction of Line, magnitude 1. used in distanceLinePlane
         Matrix n; // normal vector of Plane, magnitude 1. Used in distanceLinePlane
         Matrix l0; // current location of ray. Used in distanceLinePlane
-        Matrix p0; // any point on the plan. Used in distanceLinePlane
+        Matrix p0; // any point on the plane. Used in distanceLinePlane
+        Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
     public:
         void generateDefault();
         void changeOfBasis(Rays rays); // outputs points in terms of new basis from change of basis matrix COB

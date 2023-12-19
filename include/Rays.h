@@ -10,7 +10,6 @@
 
 class Rays {
     private:
-        Matrix points; // location of each ray
         BoolArray inside; // are the rays inside a shape
         Matrix pointsAcc; // accumulated points between steps
         Matrix unitAcc; // accumulated unit vectors between steps
@@ -23,6 +22,7 @@ class Rays {
         Matrix pointCOB; // pointsCOB but for a single point
     public:
         int numRays; // number of rays are treated as columns in matrices
+        Matrix points; // location of each ray
         Matrix unit; // unit vector pointing in the direction of the ray
         void addSources(Sources sources);
         bool areActive();

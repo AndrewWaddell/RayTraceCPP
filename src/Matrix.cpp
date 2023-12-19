@@ -23,6 +23,10 @@ void Matrix::generate(int rows,int cols){
     }
 };
 
+void Matrix::generate(Matrix inMat){
+    generate(inMat.numRows,inMat.numCols);
+};
+
 void Matrix::fill(double val){
     for (int i=0;i<numRows;i++){
         for (int j=0;j<numCols;j++){
@@ -320,6 +324,13 @@ void Matrix::add(Matrix inMat){
             matrix[i][j] += inMat.get(i,j);
         }
     }
+};
+
+void Matrix::subtract(Matrix A,Matrix B){
+    generate(A);
+    add(B);
+    multiply(-1);
+    add(A);
 };
 
 double Matrix::sum(){

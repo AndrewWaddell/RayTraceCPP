@@ -24,6 +24,7 @@ class Matrix {
         void generate(); // constructor with 3 rows 0 cols
         void generate(int rows); // constructor with inputted rows and 0 columns
         void generate(int rows,int cols); // constructs empty matrix with specified dimensions.
+        void generate(Matrix inMat); // constructs empty matrix with the same dimensions as inMat
         void fill(double val); // fill entire matrix with items
         void fillInf(); // fill with infinity
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
@@ -47,6 +48,7 @@ class Matrix {
         void multiply(Matrix A,Matrix B); // performs matrix multiplication
         void multiply(double val); // multiplies scalar with each element
         void add(Matrix inMat); // add each value in inMat to this matrix, store result in this matrix
+        void subtract(Matrix A, Matrix B); // subtract (A-B) each matrix element and store in this.
         double sum(); // adds all matrix elements into a single number
         void transpose(); // works for matrix and vectors
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each

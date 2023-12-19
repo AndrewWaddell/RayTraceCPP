@@ -86,13 +86,28 @@ double Shape::distanceLinePlane(Rays rays, int i, int j){
     // dot(l0-p0,n)=dot(-l*d,n)
     // d = dot(p0-l0,n) / dot(l,n)
 
+    l0 = rays.points.getCol(i);
     l = rays.unit.getCol(i);
-    n = connectivity // i think i should swap axes for connectivity. i hesitate to index it here
-
+    p0 = indexPoint(i,j);
+    n = triangleNormal(j);
+    
+    Matrix difference;
+    difference.subtract(p0,l0);
+    double numerator = p0.dot(difference,n);
+    double denominator = p0.dot(l,n);
+    return numerator/denominator;
 };
 
 bool Shape::rightDirection(double d){
     return d>0;
 };
 
-Matrix Shape::triangleNormal(int i){};
+Matrix Shape::triangleNormal(int i){
+    connectivity.getCol(i);
+};
+
+Matrix Shape::indexPoint(int i, int j){
+    double indexDouble = connectivity.get(i,j);
+    int indexInt = int(indexDouble);
+    return points.getCol(indexInt);
+};
