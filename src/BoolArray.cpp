@@ -12,4 +12,8 @@ void BoolArray::generate(int size) {
     vals.resize(size, false);
 };
 
+bool BoolArray::get(int i){
+    return vals[i];
+}
+
 

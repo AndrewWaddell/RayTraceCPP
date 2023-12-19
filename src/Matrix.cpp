@@ -374,13 +374,18 @@ void Matrix::shiftLeft(int n){
 
 double Matrix::minRow(int i){
     std::vector<double> vec = matrix[i];
-    auto min = std::min_element(vec.begin(),vec.end());
-    return *min; // not sure if this will work. min is an... iterator?
+    auto iterator = std::max_element(vec.begin(),vec.end());
+    return *iterator;
 };
 
 double Matrix::maxRow(int i){
     std::vector<double> vec = matrix[i];
-    auto max = std::max_element(vec.begin(),vec.end());
-    return *max;
+    auto iterator = std::max_element(vec.begin(),vec.end());
+    return *iterator;
 };
 
+int Matrix::minRowIndex(int i){
+    std::vector<double> vec = matrix[i];
+    auto iterator = std::min_element(vec.begin(),vec.end());
+    return std::distance(vec.begin(),iterator);
+}

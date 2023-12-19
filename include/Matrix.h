@@ -54,6 +54,7 @@ class Matrix {
         void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows
         double minRow(int i); // gives the minimum value along row i
         double maxRow(int i); // gives the maximum value along row i
+        int minRowIndex(int i); // gives the index of the minimum value along row i
 };
 
 #endif

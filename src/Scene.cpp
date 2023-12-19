@@ -23,7 +23,7 @@ void Scene::traceStep(){
         shape.changeOfBasis(rays);
         if (shape.traceLowRes(rays)){
             shape.traceDistance(rays);
-            distances.append(shape.shortestDistances);
+            distances.append(shape.shortestDistances(rays));
             normals.append(shape.normals);
         }
     }

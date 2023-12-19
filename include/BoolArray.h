@@ -10,6 +10,7 @@ class BoolArray {
     public:
         bool anyFalse(); // returns true if any of the items are false
         void generate(int size); // like a constructor
+        bool get(int i); // return output at index i
         
 };
 

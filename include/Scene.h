@@ -15,7 +15,7 @@ class Scene {
         double refractiveIndex; // property of scene medium
         int loopLimit; // maximum number of trace steps before stopping trace
         void traceStep();
-        Matrix distances;
+        Matrix distances; // to each shape for each ray. dims: (rays * shapes)
         MatrixList normals;
     public:
         void generateDefault(); // manual constructor for default scene for testing
