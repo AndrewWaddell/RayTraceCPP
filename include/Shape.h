@@ -39,6 +39,9 @@ class Shape {
         Matrix n; // normal vector of Plane, magnitude 1. Used in distanceLinePlane
         Matrix l0; // current location of ray. Used in distanceLinePlane
         Matrix p0; // any point on the plane. Used in distanceLinePlane
+        Matrix AB; // vector used in triangle normal function
+        Matrix AC; // vector used in triangle normal function
+        Matrix normal; // temporary column vector used in triangle normal function
         Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j
     public:
@@ -49,6 +52,7 @@ class Shape {
         Matrix shortestDistances(Rays rays); // column of distances for each ray to closest triangles
         Matrix normals; // for each ray upon each closest triangle. dims: 3 * rays
         int numPoints; // number of points of shape
+        bool blocker; // shape property. true if type fully absorbs ray. stop tracing after this shape.
 };
 
 #endif

@@ -64,6 +64,13 @@ void Matrix::append(int row,double inVal) {
     matrix[row].push_back(inVal);
 };
 
+void Matrix::append(){
+    Matrix z;
+    z.zeros(numCols);
+    z.transpose();
+    append(z);
+};
+
 void Matrix::construct(Matrix A, Matrix B, Matrix C){
     append(A);
     append(B);

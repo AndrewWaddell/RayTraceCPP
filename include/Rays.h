@@ -4,6 +4,7 @@
 
 #include "Source.h"
 #include "Sources.h"
+#include "Shapes.h"
 #include "BoolArray.h"
 #include "Matrix.h"
 #include "MatrixList.h"
@@ -31,6 +32,7 @@ class Rays {
         MatrixList COB; // change of basis matrix
         Matrix pointsCOB; // points in terms of the change of basis
         BoolArray blocked; // has each ray hit a blocker?
+        void update(int i,double d,Matrix normal,double refractiveIndex,bool blocker); // update ray i at intersection with shape j
 };
 
 #endif

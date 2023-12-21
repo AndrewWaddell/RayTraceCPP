@@ -31,6 +31,7 @@ class Matrix {
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
+        void append(); // append a column of zeros to matrix
         void construct(Matrix A, Matrix B, Matrix C); // append into matrix ABC
         void insert(int row,int col,double val); // insert value at specified index
         Matrix getRow(int i); // outputs row at index i

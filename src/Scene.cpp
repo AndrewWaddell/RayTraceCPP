@@ -27,5 +27,12 @@ void Scene::traceStep(){
             normals.append(shape.normals);
         }
     }
-
+    for (int i=0;i<rays.numRays;i++){
+        int j; // closest shape index
+        j = distances.minRowIndex(i);
+        double d = distances.get(i,j);
+        Matrix normal = normals.getCol(j,i);
+        bool blocker = shapes.get(j).blocker;
+        rays.update(i,d,normal,refractiveIndex,blocker);
+    }
 };

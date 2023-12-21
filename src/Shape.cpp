@@ -42,10 +42,10 @@ void Shape::traceDistance(Rays rays){
     distance.generate(rays.numRays,numTriangles);
     distance.fillInf();
     for (int i=0;i<rays.numRays;i++){
+        if (rays.blocked.get(i)){
+            continue;
+        }
         for (int j=0;j<numTriangles;j++){
-            if (rays.blocked.get(i)){
-                continue;
-            }
             if (triangleInterior(rays,i,j)){
                 double d = distanceLinePlane(rays,i,j);
                 if (rightDirection(d)){
@@ -62,9 +62,14 @@ Matrix Shape::shortestDistances(Rays rays){
     for (int i=0;i<rays.numRays;i++){
         int j; // closest triangle index
         j = distance.minRowIndex(i);
-        distancesCol.append(i,distance.get(i,j));
-        // while we know the closest triangle, we calculate the corresponding normal
-        normals.append(triangleNormal(j));
+        double d = distance.get(i,j);
+        if (d!=1/0){
+            distancesCol.append(i,d);
+            normals.append(triangleNormal(j));
+        } else { // if ray doesn't intersect
+            distancesCol.append(i,0);
+            normals.append();
+        }
     }
     return distancesCol;
 };
@@ -200,9 +205,6 @@ Matrix Shape::triangleNormal(int j){
     A = indexPoint(0,j);
     B = indexPoint(1,j);
     C = indexPoint(2,j);
-    Matrix AB;
-    Matrix AC;
-    Matrix normal;
 
     AB.subtract(B,A);
     AC.subtract(C,A);

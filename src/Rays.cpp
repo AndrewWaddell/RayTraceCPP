@@ -51,3 +51,7 @@ void Rays::createNewBasis(){
 int Rays::size(){
     return numRays;
 };
+
+void Rays::update(int i,double d,Matrix normal,double refractiveIndex,bool blocker){
+    // fill this function
+};

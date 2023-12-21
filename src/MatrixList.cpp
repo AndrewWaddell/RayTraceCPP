@@ -15,3 +15,7 @@ void MatrixList::append(Matrix inMat){
 Matrix MatrixList::get(int i){
     return matrices[i];
 };
+
+Matrix MatrixList::getCol(int i,int j){
+    return get(i).getCol(j);
+};

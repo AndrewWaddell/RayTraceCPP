@@ -17,3 +17,7 @@ auto Shapes::begin(){
 auto Shapes::end(){
     return shapes.end();
 };
+
+Shape Shapes::get(int i){
+    return shapes[i];
+};
