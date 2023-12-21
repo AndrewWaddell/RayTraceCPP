@@ -64,9 +64,15 @@ void Matrix::append(int row,double inVal) {
     matrix[row].push_back(inVal);
 };
 
+void Matrix::construct(Matrix A, Matrix B, Matrix C){
+    append(A);
+    append(B);
+    append(C);
+};
+
 void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
-}
+};
 
 Matrix Matrix::getRow(int i) {
     Matrix row;
@@ -355,6 +361,15 @@ double Matrix::get(int i, int j){
     return matrix[i][j];
 };
 
+double Matrix::get(int i){
+    if (numRows==1){
+        return get(0,i);
+    }
+    if (numCols==1){
+        return get(i,0);
+    }
+}
+
 void Matrix::reshape(int newRows,int newCols){
     // example output for 3 cols:
     //   i: 0 1 2 3 4 5
@@ -399,4 +414,51 @@ int Matrix::minRowIndex(int i){
     std::vector<double> vec = matrix[i];
     auto iterator = std::min_element(vec.begin(),vec.end());
     return std::distance(vec.begin(),iterator);
-}
+};
+
+int Matrix::maxRowIndex(int i){
+    std::vector<double> vec = matrix[i];
+    auto iterator = std::max_element(vec.begin(),vec.end());
+    return std::distance(vec.begin(),iterator);
+};
+
+double Matrix::signedArea(){
+    // calculate using determinant formula
+    // also known as a ccw formula
+    return determinant2D(*this);
+};
+
+double Matrix::determinant2D(){
+    double ax = get(0,0);
+    double bx = get(0,1);
+    double cx = get(0,2);
+    double ay = get(1,0);
+    double by = get(1,1);
+    double cy = get(1,2);
+    return (bx - ax)*(cy - ay) - (cx - ax)*(by - ay);
+};
+
+double Matrix::cosTheta(){
+    // consider vectors A, B. We know:
+    // dot(A,B) = |A|*|B|*cos(theta)
+    // cos(theta) = dot(A,B) / (|A|*|B|)
+    // 2D problem
+    Matrix A; // A is from E to D
+    Matrix B; // B is from E to F
+    Matrix D = getCol(0);
+    Matrix E = getCol(1);
+    Matrix F = getCol(2);
+    A.subtract(D,E);
+    B.subtract(F,E);
+    A.insert(2,0,0); // ignore 3rd dimension
+    B.insert(2,0,0); // ignore 3rd dimension
+    return dot(A,B) / (A.magnitude()*B.magnitude());
+};
+
+double Matrix::magnitude(){
+    double radicand = 0;
+    for (int i=0;i<numRows;i++){
+        radicand += get(i);
+    }
+    return sqrt(radicand);
+};

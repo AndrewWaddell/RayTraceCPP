@@ -46,8 +46,8 @@ void Shape::traceDistance(Rays rays){
             if (rays.blocked.get(i)){
                 continue;
             }
-            if (triangleInterior()){
-                double d = distanceLinePlane();
+            if (triangleInterior(rays,i,j)){
+                double d = distanceLinePlane(rays,i,j);
                 if (rightDirection(d)){
                     distance.insert(i,j,d);
                 }
@@ -73,7 +73,97 @@ Matrix Shape::shortestDistances(Rays rays){
 bool Shape::triangleInterior(Rays rays,int i,int j){
     // 2D problem
     // test whether query point Q lies within triangle constructed by points A,B,C
+    // if Q lies on edge of triangle, it is considered outside triangle
 
+    // initial setup
+    for (int k;k<3;k++){
+        ABC.append(indexPointCOB(i,j,k));
+    }
+    Q = rays.pointsCOB.getCol(i);
+
+    // optimisation step
+    if (!interiorLowRes(ABC,Q)){
+        return false;
+    }
+
+    // Define A as triangle point with minimum x, B as maximum x, C as other index
+    int indexA = ABC.minRowIndex(0);
+    int indexB = ABC.maxRowIndex(0);
+    int indexC = (indexA+indexB-3)*-1;
+    A = ABC.getCol(indexA);
+    B = ABC.getCol(indexB);
+    C = ABC.getCol(indexC);
+
+    // perform algorithm
+    ACB.construct(A,C,B);
+    AQB.construct(A,Q,B);
+    if (checkPolarity()){
+        return false;
+    }
+    
+    // The remaining triangle region is bounded by two angles
+    // first angle about A
+    QAB.construct(Q,A,B);
+    CAB.construct(C,A,B);
+    if (compareAngles(QAB,CAB)){
+        return false;
+    }
+    // second angle about B
+    ABQ.construct(A,B,Q);
+    ABC.construct(A,B,C);
+    if (compareAngles(ABQ,ABC)){
+        return false;
+    }
+    // query is bounded by both angles
+    return true;
+};
+
+bool Shape::interiorLowRes(Matrix ABC,Matrix Q){
+    for (int row;row<2;row++){ // only x, y because 2D problem
+        if (Q.get(row) > ABC.maxRow(row)){
+            return false;
+        }
+        if (Q.get(row) < ABC.minRow(row)){
+            return false;
+        }
+    }
+    return true;
+};
+
+bool Shape::checkPolarity(){
+    // returns true if they point in the opposite direction. ray misses. not interior.
+    if (trianglePointsUpwards(ACB)){
+        if (trianglePointsDownwards(AQB)||trianglePointsFlat(AQB)){
+            return true;
+        }
+    } else if (trianglePointsDownwards(ACB)){
+        if (trianglePointsUpwards(AQB)||trianglePointsFlat(AQB)){
+            return true;
+        }
+    } else if (trianglePointsFlat(ACB)){
+        return true; // triangle is side on, ray skims past
+    }
+    return false;
+};
+
+bool Shape::trianglePointsUpwards(Matrix ABC){
+    return ABC.signedArea()>0;
+};
+
+bool Shape::trianglePointsDownwards(Matrix ABC){
+    return ABC.signedArea()<0;
+};
+
+bool Shape::trianglePointsFlat(Matrix ABC){
+    return ABC.signedArea() == 0;
+};
+
+bool Shape::compareAngles(Matrix angle1, Matrix angle2){
+    // works for angles between 0 and 90deg
+    // comparing the cos of both angles will allow us to compare both angles
+    // cos is decreasing, therefore to determine angle1 > angle2,
+    // we flip the sign: cos(angle1) < cos(angle2)
+    return angle1.cosTheta() < angle2.cosTheta();
 };
 
 double Shape::distanceLinePlane(Rays rays, int i, int j){
@@ -125,4 +215,10 @@ Matrix Shape::indexPoint(int i, int j){
     double indexDouble = connectivity.get(i,j);
     int indexInt = int(indexDouble);
     return points.getCol(indexInt);
+};
+
+Matrix Shape::indexPointCOB(int i, int j, int k){
+    double indexDouble = connectivity.get(i,j);
+    int indexInt = int(indexDouble);
+    return pointsCOB.get(k).getCol(indexInt);
 };

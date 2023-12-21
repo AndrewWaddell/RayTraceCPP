@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <cmath>
 #include "../include/MatrixList.h"
 
 class Matrix {
@@ -30,6 +31,7 @@ class Matrix {
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
+        void construct(Matrix A, Matrix B, Matrix C); // append into matrix ABC
         void insert(int row,int col,double val); // insert value at specified index
         Matrix getRow(int i); // outputs row at index i
         Matrix getCol(int j); // outputs the chosen column as a new matrix
@@ -53,10 +55,16 @@ class Matrix {
         void transpose(); // works for matrix and vectors
         double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
         double get(int i,int j); // get a value from within matrix
+        double get(int i); // if matrix is a vector (row or col), then only index the ith element from the top or from the left
         void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows
         double minRow(int i); // gives the minimum value along row i
         double maxRow(int i); // gives the maximum value along row i
         int minRowIndex(int i); // gives the index of the minimum value along row i
+        int maxRowIndex(int i); // gives the index of the maximum value along row i
+        double signedArea(); // calculates the signed area of 2D triangle A->B->C
+        double determinant2D(); // calculates the determinant of a 2D matrix inMat. rows x,y. cols a,b.
+        double cosTheta(); // theta is angle DEF (about E) within triangle DEF as this matrix. find Cos(theta)
+        double magnitude(); // find magnitude of column vector
 };
 
 #endif
