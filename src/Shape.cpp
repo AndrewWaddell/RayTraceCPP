@@ -73,6 +73,7 @@ Matrix Shape::shortestDistances(Rays rays){
 bool Shape::triangleInterior(Rays rays,int i,int j){
     // 2D problem
     // test whether query point Q lies within triangle constructed by points A,B,C
+
 };
 
 double Shape::distanceLinePlane(Rays rays, int i, int j){
@@ -102,8 +103,22 @@ bool Shape::rightDirection(double d){
     return d>0;
 };
 
-Matrix Shape::triangleNormal(int i){
-    connectivity.getCol(i);
+Matrix Shape::triangleNormal(int j){
+    // we connect triangle points A,B,C into two vectors
+    // plane is spanned by these vectors: AB,AC
+    // cross product AB and AC to get normal of plane
+    A = indexPoint(0,j);
+    B = indexPoint(1,j);
+    C = indexPoint(2,j);
+    Matrix AB;
+    Matrix AC;
+    Matrix normal;
+
+    AB.subtract(B,A);
+    AC.subtract(C,A);
+    normal.cross(AB,AC);
+    normal.normCol();
+    return normal;
 };
 
 Matrix Shape::indexPoint(int i, int j){

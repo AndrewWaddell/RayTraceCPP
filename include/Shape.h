@@ -18,7 +18,7 @@ class Shape {
         bool triangleInterior(Rays rays,int i,int j); // determine if query point i is in triangle j (2D)
         double distanceLinePlane(Rays rays, int i, int j); // distance from line i at location i to intersection with plane j
         bool rightDirection(double d); // determine if distance d to intersection is in right direction
-        Matrix triangleNormal(int i); // determine normal vector of plane for triangle i.
+        Matrix triangleNormal(int j); // determine normal vector of plane for triangle j.
         Matrix Q; // query point used in triangle interior function
         Matrix A; // triangle point used in triangle interior function
         Matrix B; // triangle point used in triangle interior function
