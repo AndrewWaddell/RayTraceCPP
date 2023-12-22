@@ -26,10 +26,14 @@ class Rays {
         Shape shape; // temporary reference to shape used in update()
         double nShape; // refractive index of shape. used in update()
         double nScene; // refractive index of scene, of atmosphere surrounding shapes. used in update()
+        double ratio; // ratio of refractive indices n1/n2 as ray passes through boundary
         Matrix refract(int i); // implement Snell's law for ray i refracting at plane described by "normal"
         Matrix reflect(int i); // calculate mirror bounce of ray i onto plane described by "normal"
         void updateRayLocation(int i); // replace ray i location with next intersection location
         void updateRayDirection(int i); // replace ray i direction with the reflected/refracted direction
+        void flipNormal(int i); // normal must point in direction of incoming ray. flip if necessary.
+        double cosTheta(int i); // calculates cos of angle using vector dot product
+        double cosThetaRefract(int i); // calculate cos of angle of refraction
     public:
         int numRays; // number of rays are treated as columns in matrices
         Matrix points; // location of each ray
