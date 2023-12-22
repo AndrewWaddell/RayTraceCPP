@@ -34,6 +34,7 @@ class Rays {
         void flipNormal(int i); // normal must point in direction of incoming ray. flip if necessary.
         double cosTheta(int i); // calculates cos of angle using vector dot product
         double cosThetaRefract(int i); // calculate cos of angle of refraction
+        void absorbRay(int i); // absorb ray i into blocker. stop ray from propagating onwards
     public:
         int numRays; // number of rays are treated as columns in matrices
         Matrix points; // location of each ray

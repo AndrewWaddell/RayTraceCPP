@@ -81,6 +81,10 @@ void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
 };
 
+void Matrix::insert(int col,double val){
+    insert(0,col,val);
+};
+
 Matrix Matrix::getRow(int i) {
     Matrix row;
     row.generate(1);

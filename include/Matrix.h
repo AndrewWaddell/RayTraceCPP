@@ -34,6 +34,7 @@ class Matrix {
         void append(); // append a column of zeros to matrix
         void construct(Matrix A, Matrix B, Matrix C); // append into matrix ABC
         void insert(int row,int col,double val); // insert value at specified index
+        void insert(int col,double val); // insert when matrix is a row vector
         Matrix getRow(int i); // outputs row at index i
         Matrix getCol(int j); // outputs the chosen column as a new matrix
         void insertCol(Matrix col,int j); // replace column at index j with column vector input col

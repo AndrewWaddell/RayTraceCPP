@@ -63,9 +63,11 @@ void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneI
     updateRayLocation(i);
     updateRayDirection(i);
 
-    //acc
-
-    blocked.insert(i,shape.blocker); // absorb rays into blockers
+    pointsAcc.append(points.getCol(i));
+    unitAcc.append(unit.getCol(i));
+    distancesAcc.insert(i,d); // we know now distance from previous location
+    distancesAcc.append(); // we do not know the distance to the next location
+    absorbRay(i);
 };
 
 void Rays::updateRayLocation(int i){
@@ -133,4 +135,8 @@ double Rays::cosTheta(int i){
     Matrix n = normal;
     n.multiply(-1);
     return n.dot(n,unit.getCol(i));
+};
+
+void Rays::absorbRay(int i){
+    blocked.insert(i,shape.blocker);
 };
