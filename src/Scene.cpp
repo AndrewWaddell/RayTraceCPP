@@ -28,11 +28,7 @@ void Scene::traceStep(){
         }
     }
     for (int i=0;i<rays.numRays;i++){
-        int j; // closest shape index
-        j = distances.minRowIndex(i);
-        double d = distances.get(i,j);
-        Matrix normal = normals.getCol(j,i);
-        bool blocker = shapes.get(j).blocker;
-        rays.update(i,d,normal,refractiveIndex,blocker);
+        int j = distances.minRowIndex(i); // closest shape index
+        rays.update(i,j,distances,normals,refractiveIndex,shapes);
     }
 };

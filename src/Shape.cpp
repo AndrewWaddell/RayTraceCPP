@@ -60,8 +60,7 @@ Matrix Shape::shortestDistances(Rays rays){
     distancesCol.generate(rays.numRays);
     normals.generate();
     for (int i=0;i<rays.numRays;i++){
-        int j; // closest triangle index
-        j = distance.minRowIndex(i);
+        int j = distance.minRowIndex(i); // closest triangle index
         double d = distance.get(i,j);
         if (d!=1/0){
             distancesCol.append(i,d);

@@ -6,7 +6,6 @@
 
 class Shape {
     private:
-        double refractiveIndex;
         Matrix points; // dimension 1 is x,y,z, dim 2 is each point
         Matrix connectivity; // dimension 1 is triangle point indices, dim 2 is each triangle
         MatrixList pointsCOB; // points in terms of new basis. Each matrix is for a single ray.
@@ -45,6 +44,7 @@ class Shape {
         Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j
     public:
+        double refractiveIndex;
         void generateDefault();
         void changeOfBasis(Rays rays); // outputs points in terms of new basis from change of basis matrix COB
         bool traceLowRes(Rays rays); // optimisation step. quick check to determine rays are even nearby
@@ -53,6 +53,7 @@ class Shape {
         Matrix normals; // for each ray upon each closest triangle. dims: 3 * rays
         int numPoints; // number of points of shape
         bool blocker; // shape property. true if type fully absorbs ray. stop tracing after this shape.
+        bool mirror; // shape property. true if rays reflect off shape. false if rays refract through shape.
 };
 
 #endif

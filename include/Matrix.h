@@ -36,7 +36,7 @@ class Matrix {
         void insert(int row,int col,double val); // insert value at specified index
         Matrix getRow(int i); // outputs row at index i
         Matrix getCol(int j); // outputs the chosen column as a new matrix
-        void insertCol(Matrix col,int i); // replace column at index i with column vector input col
+        void insertCol(Matrix col,int j); // replace column at index j with column vector input col
         void zeros(int n); // assume empty row vector, creates n columns of 0
         void range(int n); // assuming empty row vector, punches in values from 0 to n
         void rotate90(Matrix inMat); // rotate all vectors by 90deg in unimportant direction

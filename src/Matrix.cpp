@@ -99,6 +99,12 @@ Matrix Matrix::getCol(int j){
     return output;
 };
 
+void Matrix::insertCol(Matrix col,int j){
+    for (int i=0;i<col.numRows;i++){
+        insert(i,j,col.get(i));
+    }
+};
+
 void Matrix::sliceBack(int cols){
     for (int i=0;i<numRows;i++){
         for (int j=0;j<cols;j++){

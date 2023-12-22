@@ -52,6 +52,34 @@ int Rays::size(){
     return numRays;
 };
 
-void Rays::update(int i,double d,Matrix normal,double refractiveIndex,bool blocker){
-    // fill this function
+void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneIn,Shapes shapes){
+    //setup variables
+    d = distances.get(i,j);
+    normal = normals.getCol(j,i);
+    shape = shapes.get(j);
+    nShape = shape.refractiveIndex;
+    nScene = nSceneIn;
+    
+    updateRayLocation(i);
+    updateRayDirection(i);
+
+    blocked.insert(i,shape.blocker); // absorb rays into blockers
 };
+
+void Rays::updateRayLocation(int i){
+    // line equation: p_new = p_old + d * unit
+};
+
+void Rays::updateRayDirection(int i){
+    Matrix newUnit;
+    if (shape.mirror){
+        newUnit = reflect(i);
+    } else {
+        newUnit = refract(i);
+    }
+    unit.insertCol(newUnit,i);
+};
+
+Matrix Rays::refract(int i){};
+
+Matrix Rays::reflect(int i){};
