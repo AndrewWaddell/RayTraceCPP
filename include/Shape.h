@@ -4,7 +4,6 @@
 #include "../include/Rays.h"
 #include "../include/Matrix.h"
 
-class Rays;
 
 class Shape {
     private:
