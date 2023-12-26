@@ -4,6 +4,8 @@
 #include "../include/Rays.h"
 #include "../include/Matrix.h"
 
+class Rays;
+
 class Shape {
     private:
         Matrix points; // dimension 1 is x,y,z, dim 2 is each point

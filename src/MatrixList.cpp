@@ -1,10 +1,10 @@
 #include "../include/MatrixList.h"
 
-auto MatrixList::begin(){
+std::vector<Matrix>::iterator MatrixList::begin(){
     return matrices.begin();
 };
 
-auto MatrixList::end(){
+std::vector<Matrix>::iterator MatrixList::end(){
     return matrices.end();
 };
 

@@ -36,7 +36,7 @@ void Matrix::fill(double val){
 };
 
 void Matrix::fillInf(){
-    fill(1/0.0);
+    fill(std::numeric_limits<double>::infinity());
 }
 
 
@@ -385,7 +385,9 @@ double Matrix::get(int i){
     if (numCols==1){
         return get(i,0);
     }
-}
+    throw std::runtime_error("Must be a vector");
+    return 0;
+};
 
 void Matrix::reshape(int newRows,int newCols){
     // example output for 3 cols:
@@ -442,7 +444,7 @@ int Matrix::maxRowIndex(int i){
 double Matrix::signedArea(){
     // calculate using determinant formula
     // also known as a ccw formula
-    return determinant2D(*this);
+    return determinant2D();
 };
 
 double Matrix::determinant2D(){
@@ -478,4 +480,13 @@ double Matrix::magnitude(){
         radicand += get(i);
     }
     return sqrt(radicand);
+};
+
+void Matrix::print(){
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            std::cout << matrix[i][j];
+        }
+        std::cout << std::endl;
+    }
 };

@@ -10,11 +10,11 @@ int Shapes::size(){
     return shapes.size();
 };
 
-auto Shapes::begin(){
+std::vector<Shape>::iterator Shapes::begin(){
     return shapes.begin();
 };
 
-auto Shapes::end(){
+std::vector<Shape>::iterator Shapes::end(){
     return shapes.end();
 };
 

@@ -4,7 +4,9 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include "../include/MatrixList.h"
+#include <iostream>
+
+class MatrixList;
 
 class Matrix {
     private:
@@ -67,6 +69,7 @@ class Matrix {
         double determinant2D(); // calculates the determinant of a 2D matrix inMat. rows x,y. cols a,b.
         double cosTheta(); // theta is angle DEF (about E) within triangle DEF as this matrix. find Cos(theta)
         double magnitude(); // find magnitude of column vector
+        void print(); // print matrix to the screen for testing
 };
 
 #endif

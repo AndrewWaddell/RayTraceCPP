@@ -12,8 +12,8 @@ class Shapes {
         void addShape();
         Shape get(int i); // return shape i
         int size(); // return numShapes
-        auto begin(); // vector property
-        auto end(); // vector property
+        std::vector<Shape>::iterator begin(); // vector property
+        std::vector<Shape>::iterator end(); // vector property
 };
 
 #endif
