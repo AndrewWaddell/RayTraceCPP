@@ -1,9 +1,11 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include "../include/Rays.h"
-#include "../include/Matrix.h"
+#include "Rays.h"
+#include "Matrix.h"
+#include "MatrixList.h"
 
+class Rays;
 
 class Shape {
     private:
