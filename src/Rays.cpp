@@ -61,8 +61,9 @@ void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneI
     //setup variables
     d = distances.get(i,j);
     normal = normals.getCol(j,i);
-    shape = shapes.get(j);
-    nShape = shape.refractiveIndex;
+    Shape shapeObj = shapes.get(j);
+    shape = &shapeObj;
+    nShape = shape->refractiveIndex;
     nScene = nSceneIn;
     
     updateRayLocation(i);
@@ -87,7 +88,7 @@ void Rays::updateRayLocation(int i){
 void Rays::updateRayDirection(int i){
     Matrix newUnit;
     flipNormal(i);
-    if (shape.mirror){
+    if (shape->mirror){
         newUnit = reflect(i);
     } else {
         newUnit = refract(i);
@@ -143,5 +144,5 @@ double Rays::cosTheta(int i){
 };
 
 void Rays::absorbRay(int i){
-    blocked.insert(i,shape.blocker);
+    blocked.insert(i,shape->blocker);
 };

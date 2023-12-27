@@ -25,7 +25,7 @@ class Rays {
         Matrix pointCOB; // pointsCOB but for a single point
         double d; // distance to next intersection. used in update()
         Matrix normal; // normal of intersecting plane. used in update()
-        Shape shape; // temporary reference to shape used in update()
+        Shape* shape; // temporary reference to shape used in update()
         double nShape; // refractive index of shape. used in update()
         double nScene; // refractive index of scene, of atmosphere surrounding shapes. used in update()
         double ratio; // ratio of refractive indices n1/n2 as ray passes through boundary
