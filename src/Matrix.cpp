@@ -284,22 +284,6 @@ void Matrix::normCol(){
     }
 };
 
-MatrixList Matrix::iterateRow(){
-    MatrixList output;
-    Matrix row;
-    for (std::vector<double> rowVec : matrix){
-        // turn vector into matrix
-        row.generate(1);
-        for (double val : rowVec){
-            row.append(val);
-        }
-        // turn row into column
-        row.transpose();
-        output.append(row.getCol(0));
-    }
-    return output;
-};
-
 void Matrix::transpose(){
     Matrix output;
     output.generate(numCols,numRows);

@@ -47,8 +47,6 @@ class Matrix {
         void replaceRow(Matrix row, int i); // replace row i with row
         void replaceCol(Matrix col,int j); // replace col j with col
         void normCol(); // normalise columns in matrix
-        MatrixList* iterateCol(); // reorganise into matrixList of columns for range based looping
-        MatrixList iterateRow(); // same as above but returns matrix rows as column vectors in matrixlist
         void multiply(Matrix A,Matrix B); // performs matrix multiplication
         void multiply(double val); // multiplies scalar with each element
         void add(Matrix inMat); // add each value in inMat to this matrix, store result in this matrix
