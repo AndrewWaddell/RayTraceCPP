@@ -8,15 +8,16 @@ void Matrix::generate(){
 void Matrix::generate(int rows) {
     numRows = rows;
     numCols = 0;
-    matrix.resize(numRows, std::vector<double>(numCols));
+    matrix.resize(numRows);
     constructed = true;
 };
 
 void Matrix::generate(int rows,int cols){
     generate(rows);
-    for (int i;i<rows;i++){
+    for (int i=0;i<numRows;i++){
         matrix[i].resize(cols, 0.0);
     }
+    numCols = cols;
 };
 
 void Matrix::generate(Matrix inMat){
@@ -38,7 +39,13 @@ void Matrix::fillInf(){
 
 void Matrix::append(Matrix inMat) {
     if (!constructed){
-        generate(inMat.numRows);
+        generate(inMat);
+        for (int i=0;i<numRows;i++){
+            for (int j=0;j<numCols;j++){
+                matrix[i][j] = inMat.get(i,j);
+            }
+        }
+        constructed = true;
     } else {
         for (int i=0; i<inMat.numRows;i++) {
             for (int j=0; j<inMat.numCols;j++){
@@ -54,10 +61,13 @@ void Matrix::append(double inVal) {
 };
 
 void Matrix::append(int row,double inVal) {
-    if (!constructed){
-        generate(row);
+    if (!constructed){ // assume row==0
+        generate(1,1);
+        insert(0,0,inVal);
+    } else {
+        matrix[row].push_back(inVal);
+        numCols += 1;
     }
-    matrix[row].push_back(inVal);
 };
 
 void Matrix::append(){
@@ -114,7 +124,12 @@ void Matrix::sliceBack(int cols){
 };
 
 void Matrix::zeros(int n) {
+    if (matrix.empty()) {
+        matrix.resize(1); // Initialize with one row
+    }
     matrix[0].resize(n, 0.0);
+    numRows = 1;
+    numCols = n;
 };
 
 void Matrix::range(int n) {
@@ -294,7 +309,6 @@ void Matrix::multiply(Matrix A,Matrix B){
     // Matrix multiply: result = A * B
     // number of columns in A must equal number of rows in B
     Matrix output;
-    output.generate();
     for (int i=0;i<A.numRows;i++){
         Matrix row = A.getRow(i);
         for (int j=0;j<B.numCols;j++){
@@ -378,7 +392,7 @@ void Matrix::reshape(int newRows,int newCols){
     reset(output);
 };
 
-void Matrix::reset(Matrix output){
+void Matrix::reset(const Matrix& output){
     generate(output.numRows);
     append(output);
 };

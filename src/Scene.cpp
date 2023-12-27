@@ -10,7 +10,9 @@ void Scene::generateDefault(){
 void Scene::trace(){
     rays.addSources(sources);
     for (int i = 0; i < loopLimit; ++i) {
-        rays.areActive() ? traceStep() : void();
+        if (rays.areActive()){
+            traceStep();
+        }
     }
     rays.unit.print();
 };

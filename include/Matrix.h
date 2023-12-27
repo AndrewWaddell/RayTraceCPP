@@ -11,7 +11,7 @@ class Matrix {
     private:
         std::vector<std::vector<double>> matrix;
         bool constructed; // tells us whether we have called the constructor yet
-        void reset(Matrix output); // void function output, so reset matrix as output
+        void reset(const Matrix& output); // void function output, so reset matrix as output
         Matrix Rx(); // generate rotation matrix 90deg about x axis
         Matrix Ry(); // generate rotation matrix 90deg about y axis
         bool isXaxis(); // determines whether inputed vector is in line with the x axis

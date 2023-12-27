@@ -11,7 +11,6 @@ void Sources::addSource() {
 }
 
 Matrix Sources::points() {
-    matrix.generate();
     for (Source source : sources) {
         matrix.append(source.getPoints());
     }
