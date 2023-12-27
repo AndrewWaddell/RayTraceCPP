@@ -2,12 +2,14 @@
 #define RAYS_H
 
 
-#include "Source.h"
-#include "Sources.h"
-#include "Shapes.h"
+
 #include "BoolArray.h"
 #include "Matrix.h"
 #include "MatrixList.h"
+
+class Shapes;
+class Shape;
+class Sources;
 
 class Rays {
     private:
@@ -39,14 +41,14 @@ class Rays {
         int numRays; // number of rays are treated as columns in matrices
         Matrix points; // location of each ray
         Matrix unit; // unit vector pointing in the direction of the ray
-        void addSources(Sources sources);
+        void addSources(Sources& sources);
         bool areActive();
         void createNewBasis();
         int size();
         MatrixList COB; // change of basis matrix
         Matrix pointsCOB; // points in terms of the change of basis
         BoolArray blocked; // has each ray hit a blocker?
-        void update(int i,int j,Matrix distances,MatrixList normals,double nScene,Shapes shapes);// update ray i at int with shape j
+        void update(int i,int j,Matrix distances,MatrixList normals,double nScene,Shapes& shapes);// update ray i at int with shape j
 };
 
 #endif

@@ -1,9 +1,4 @@
 #include "../include/Matrix.h"
-#include "../include/MatrixList.h"
-
-Matrix::Matrix() {
-    //constructor
-};
 
 
 void Matrix::generate(){

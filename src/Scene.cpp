@@ -1,6 +1,4 @@
 #include "../include/Scene.h"
-#include "../include/Rays.h"
-
 
 void Scene::generateDefault(){
     refractiveIndex = 1;

@@ -1,7 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include "Rays.h"
+
 #include "Matrix.h"
 #include "MatrixList.h"
 
@@ -17,14 +17,14 @@ class Shape {
         Matrix distance; // each ray-triangle distance. dims: (rays, triangles). inf if no intersection.
         Matrix distancesCol; // temporary array used in shortestDistances() to contain these values
         int numTriangles; // number of triangles for shape
-        bool triangleInterior(Rays rays,int i,int j); // determine if ray i goes inside triangle j
+        bool triangleInterior(Rays& rays,int i,int j); // determine if ray i goes inside triangle j
         bool interiorLowRes(Matrix ABC,Matrix Q); // reject rays that fall outside box hugging triangle. optimise.
         bool checkPolarity(); // do triangles point in the opposite direction?
         bool trianglePointsUpwards(Matrix ABC); // does middle point B in triangle ABC point upwards?
         bool trianglePointsDownwards(Matrix ABC); // does middle point B in triangle ABC point downwards?
         bool trianglePointsFlat(Matrix ABC); // does middle point B in triangle ABC point neither upwards nor downwards?
         bool compareAngles(Matrix angle1, Matrix angle2); // return a1>a2 for angles constructed with 3 points (cols)
-        double distanceLinePlane(Rays rays, int i, int j); // distance from line i at location i to intersection with plane j
+        double distanceLinePlane(Rays& rays, int i, int j); // distance from line i at location i to intersection with plane j
         bool rightDirection(double d); // determine if distance d to intersection is in right direction
         Matrix triangleNormal(int j); // determine normal vector of plane for triangle j.
         Matrix Q; // query point used in triangle interior function
@@ -49,10 +49,10 @@ class Shape {
     public:
         double refractiveIndex;
         void generateDefault();
-        void changeOfBasis(Rays rays); // outputs points in terms of new basis from change of basis matrix COB
-        bool traceLowRes(Rays rays); // optimisation step. quick check to determine rays are even nearby
-        void traceDistance(Rays rays); // find the distance to each triangle, for each ray
-        Matrix shortestDistances(Rays rays); // column of distances for each ray to closest triangles
+        void changeOfBasis(Rays& rays); // outputs points in terms of new basis from change of basis matrix COB
+        bool traceLowRes(Rays& rays); // optimisation step. quick check to determine rays are even nearby
+        void traceDistance(Rays& rays); // find the distance to each triangle, for each ray
+        Matrix shortestDistances(Rays& rays); // column of distances for each ray to closest triangles
         Matrix normals; // for each ray upon each closest triangle. dims: 3 * rays
         int numPoints; // number of points of shape
         bool blocker; // shape property. true if type fully absorbs ray. stop tracing after this shape.

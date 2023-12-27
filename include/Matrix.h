@@ -6,7 +6,6 @@
 #include <cmath>
 #include <iostream>
 
-class MatrixList;
 
 class Matrix {
     private:
@@ -21,7 +20,6 @@ class Matrix {
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
     public:
-        Matrix();
         void generate(); // constructor with 3 rows 0 cols
         void generate(int rows); // constructor with inputted rows and 0 columns
         void generate(int rows,int cols); // constructs empty matrix with specified dimensions.

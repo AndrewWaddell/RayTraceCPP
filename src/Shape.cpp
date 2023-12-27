@@ -1,4 +1,5 @@
 #include "../include/Shape.h"
+#include "../include/Rays.h"
 
 void Shape::generateDefault(){
     refractiveIndex = 1.52;
@@ -8,7 +9,7 @@ void Shape::generateDefault(){
     numTriangles = 2;
 };
 
-void Shape::changeOfBasis(Rays rays){
+void Shape::changeOfBasis(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
         Matrix COB = rays.COB.get(i);
         pointsCOBSingleRay.generate();
@@ -22,7 +23,7 @@ void Shape::changeOfBasis(Rays rays){
     }
 };
 
-bool Shape::traceLowRes(Rays rays){
+bool Shape::traceLowRes(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
         double x = rays.pointsCOB.get(i,0);
         double y = rays.pointsCOB.get(i,1);
@@ -38,7 +39,7 @@ bool Shape::traceLowRes(Rays rays){
     return false;
 };
 
-void Shape::traceDistance(Rays rays){
+void Shape::traceDistance(Rays& rays){
     distance.generate(rays.numRays,numTriangles);
     distance.fillInf();
     for (int i=0;i<rays.numRays;i++){
@@ -56,7 +57,7 @@ void Shape::traceDistance(Rays rays){
     }
 };
 
-Matrix Shape::shortestDistances(Rays rays){
+Matrix Shape::shortestDistances(Rays& rays){
     distancesCol.generate(rays.numRays);
     normals.generate();
     for (int i=0;i<rays.numRays;i++){
@@ -74,7 +75,7 @@ Matrix Shape::shortestDistances(Rays rays){
 };
 
 
-bool Shape::triangleInterior(Rays rays,int i,int j){
+bool Shape::triangleInterior(Rays& rays,int i,int j){
     // 2D problem
     // test whether query point Q lies within triangle constructed by points A,B,C
     // if Q lies on edge of triangle, it is considered outside triangle
@@ -170,7 +171,7 @@ bool Shape::compareAngles(Matrix angle1, Matrix angle2){
     return angle1.cosTheta() < angle2.cosTheta();
 };
 
-double Shape::distanceLinePlane(Rays rays, int i, int j){
+double Shape::distanceLinePlane(Rays& rays, int i, int j){
     // find distance d from l0 to point of intersection of Line with Plane
     // Line: set of points s where s = l0 + l*d
     // Plane: set of points s where dot( (s - p0) , n) = 0

@@ -1,7 +1,11 @@
 #include "../include/Rays.h"
+#include "../include/Shape.h"
+#include "../include/Shapes.h"
+#include "../include/Source.h"
+#include "../include/Sources.h"
 
 
-void Rays::addSources(Sources sources){
+void Rays::addSources(Sources& sources){
     // builds a single instance of rays based on all sources in the scene
     points = sources.points();
     unit = sources.unit();
@@ -25,7 +29,7 @@ void Rays::createNewBasis(){
     // creates non-unique basis for each ray where the third dimension
     // is in the direction of the ray.
 
-    for (int i=0;i<unit.numCols;i++){ 
+    for (int i=0;i<unit.numCols;i++){
         Matrix unitCol = unit.getCol(i);
         orth1.rotate90(unitCol);
         orth2.cross(orth1,unitCol);
@@ -53,7 +57,7 @@ int Rays::size(){
     return numRays;
 };
 
-void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneIn,Shapes shapes){
+void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneIn,Shapes& shapes){
     //setup variables
     d = distances.get(i,j);
     normal = normals.getCol(j,i);
