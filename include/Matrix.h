@@ -11,8 +11,6 @@ class MatrixList;
 class Matrix {
     private:
         std::vector<std::vector<double>> matrix;
-        int numRows;
-        int numCols;
         bool constructed; // tells us whether we have called the constructor yet
         void reset(Matrix output); // void function output, so reset matrix as output
         Matrix Rx(); // generate rotation matrix 90deg about x axis
@@ -49,7 +47,7 @@ class Matrix {
         void replaceRow(Matrix row, int i); // replace row i with row
         void replaceCol(Matrix col,int j); // replace col j with col
         void normCol(); // normalise columns in matrix
-        MatrixList iterateCol(); // reorganise into matrixList of columns for range based looping
+        MatrixList* iterateCol(); // reorganise into matrixList of columns for range based looping
         MatrixList iterateRow(); // same as above but returns matrix rows as column vectors in matrixlist
         void multiply(Matrix A,Matrix B); // performs matrix multiplication
         void multiply(double val); // multiplies scalar with each element
@@ -70,6 +68,8 @@ class Matrix {
         double cosTheta(); // theta is angle DEF (about E) within triangle DEF as this matrix. find Cos(theta)
         double magnitude(); // find magnitude of column vector
         void print(); // print matrix to the screen for testing
+        int numRows;
+        int numCols;
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "../include/Matrix.h"
+#include "../include/MatrixList.h"
 
 Matrix::Matrix() {
     //constructor
@@ -283,14 +284,6 @@ void Matrix::normCol(){
     }
 };
 
-MatrixList Matrix::iterateCol(){
-    MatrixList output;
-    for (int i=0;i<numCols;i++){
-        output.append(getCol(i));
-    }
-    return output;
-};
-
 MatrixList Matrix::iterateRow(){
     MatrixList output;
     Matrix row;
@@ -322,10 +315,12 @@ void Matrix::multiply(Matrix A,Matrix B){
     // Matrix multiply: result = A * B
     // number of columns in A must equal number of rows in B
     Matrix output;
-    output.generate(1);
-    for (Matrix row : A.iterateRow()) {
-        for (Matrix col : B.iterateCol()) {
-            output.append(output.dot(row,col));
+    output.generate();
+    for (int i=0;i<A.numRows;i++){
+        Matrix row = A.getRow(i);
+        for (int j=0;j<B.numCols;j++){
+            Matrix col = B.getCol(j);
+            output.append(A.dot(row,col));
         }
     }
     output.reshape(A.numRows,B.numCols);

@@ -25,7 +25,8 @@ void Rays::createNewBasis(){
     // creates non-unique basis for each ray where the third dimension
     // is in the direction of the ray.
 
-    for (Matrix unitCol : unit.iterateCol()){
+    for (int i=0;i<unit.numCols;i++){ 
+        Matrix unitCol = unit.getCol(i);
         orth1.rotate90(unitCol);
         orth2.cross(orth1,unitCol);
 
