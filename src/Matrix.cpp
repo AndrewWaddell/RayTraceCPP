@@ -393,6 +393,7 @@ void Matrix::reshape(int newRows,int newCols){
 };
 
 void Matrix::reset(const Matrix& output){
+    clear();
     generate(output.numRows);
     append(output);
 };
@@ -473,8 +474,18 @@ double Matrix::magnitude(){
 void Matrix::print(){
     for (int i=0;i<numRows;i++){
         for (int j=0;j<numCols;j++){
-            std::cout << matrix[i][j];
+            std::cout << matrix[i][j] << " ";
         }
         std::cout << std::endl;
     }
+};
+
+void Matrix::clear(){
+    for (int i=0;i<numRows;i++){
+        matrix[i].clear();
+    }
+    matrix.clear();
+    numRows=0;
+    numCols=0;
+    constructed=false;
 };

@@ -7,7 +7,7 @@
         "request": "launch",
         "program": "${workspaceFolder}/a.exe",
         "args": [],
-        "stopAtEntry": true,
+        "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],
         "externalConsole": false,

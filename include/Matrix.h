@@ -66,6 +66,7 @@ class Matrix {
         void print(); // print matrix to the screen for testing
         int numRows;
         int numCols;
+        void clear(); // returns the matrix to its initial state
 };
 
 #endif
