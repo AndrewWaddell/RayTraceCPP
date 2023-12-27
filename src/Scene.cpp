@@ -12,6 +12,7 @@ void Scene::trace(){
     for (int i = 0; i < loopLimit; ++i) {
         rays.areActive() ? traceStep() : void();
     }
+    rays.unit.print();
 };
 
 void Scene::traceStep(){

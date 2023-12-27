@@ -7,4 +7,4 @@ int main() {
     opticalBench.generateDefault(); // initialise default test case
     opticalBench.trace();
     return 0;
-}
+};
