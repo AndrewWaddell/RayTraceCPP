@@ -317,6 +317,7 @@ void Matrix::multiply(Matrix A,Matrix B){
         }
     }
     output.reshape(A.numRows,B.numCols);
+    std::cout << "outside reshape";
     reset(output);
 };
 
@@ -390,6 +391,7 @@ void Matrix::reshape(int newRows,int newCols){
         output.insert(row,col,matrix[0][i]);
     }
     reset(output);
+    std::cout << "inside reshape";
 };
 
 void Matrix::reset(const Matrix& output){
