@@ -9,8 +9,6 @@ class Rays;
 
 class Shape {
     private:
-        Matrix points; // dimension 1 is x,y,z, dim 2 is each point
-        Matrix connectivity; // dimension 1 is triangle point indices, dim 2 is each triangle
         MatrixList pointsCOB; // points in terms of new basis. Each matrix is for a single ray.
         Matrix pointsCOBSingleRay; // temporary pointsCOB for a single ray, all shape points
         Matrix pointCOB; // temporary array to handle columns of pointsCOBRay
@@ -48,6 +46,8 @@ class Shape {
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j
     public:
         double refractiveIndex;
+        Matrix points; // dimension 1 is x,y,z, dim 2 is each point
+        Matrix connectivity; // dimension 1 is triangle point indices, dim 2 is each triangle
         void generateDefault();
         void changeOfBasis(Rays& rays); // outputs points in terms of new basis from change of basis matrix COB
         bool traceLowRes(Rays& rays); // optimisation step. quick check to determine rays are even nearby

@@ -14,9 +14,6 @@ class Sources;
 class Rays {
     private:
         BoolArray inside; // are the rays inside a shape
-        Matrix pointsAcc; // accumulated points between steps
-        Matrix unitAcc; // accumulated unit vectors between steps
-        Matrix distancesAcc; // accumulated lengths of each array
         Matrix origins; // index of ray in distancesAcc
         Matrix orth1; // first orthogonal vector
         Matrix orth2; // second orthogonal vector
@@ -41,6 +38,9 @@ class Rays {
         int numRays; // number of rays are treated as columns in matrices
         Matrix points; // location of each ray
         Matrix unit; // unit vector pointing in the direction of the ray
+        Matrix pointsAcc; // accumulated points between steps
+        Matrix unitAcc; // accumulated unit vectors between steps
+        Matrix distancesAcc; // accumulated lengths of each array
         void addSources(Sources& sources);
         bool areActive();
         void createNewBasis();

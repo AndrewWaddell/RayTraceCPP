@@ -21,6 +21,8 @@ class Scene {
     public:
         void generateDefault(); // manual constructor for default scene for testing
         void trace();
+        void printRays();
+        void printShape();
 };
 
 #endif

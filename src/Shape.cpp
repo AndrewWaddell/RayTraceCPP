@@ -4,7 +4,27 @@
 void Shape::generateDefault(){
     refractiveIndex = 1.52;
     // points = {1.5,1.5,0,5},{1,-1,1,1},{1,1,0.5,6}
+    points.generate(3,4);
+    points.insert(0,0,1.5);
+    points.insert(0,1,1.5);
+    points.insert(0,2,0);
+    points.insert(0,3,5);
+    points.insert(1,0,1);
+    points.insert(1,1,-1);
+    points.insert(1,2,1);
+    points.insert(1,3,1);
+    points.insert(2,0,1);
+    points.insert(2,1,1);
+    points.insert(2,2,0.5);
+    points.insert(2,3,6);
     // connectivity = {0,1,2},{0,1,3}
+    connectivity.generate(2,3);
+    connectivity.insert(0,0,2);
+    connectivity.insert(0,1,1);
+    connectivity.insert(0,2,2);
+    connectivity.insert(1,0,0);
+    connectivity.insert(1,1,1);
+    connectivity.insert(1,2,3);
     numPoints = 3;
     numTriangles = 2;
 };

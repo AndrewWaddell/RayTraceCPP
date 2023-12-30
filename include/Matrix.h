@@ -10,7 +10,6 @@
 class Matrix {
     private:
         std::vector<std::vector<double>> matrix;
-        bool constructed; // tells us whether we have called the constructor yet
         Matrix Rx(); // generate rotation matrix 90deg about x axis
         Matrix Ry(); // generate rotation matrix 90deg about y axis
         bool isXaxis(); // determines whether inputed vector is in line with the x axis
@@ -19,6 +18,7 @@ class Matrix {
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
     public:
+        bool constructed; // tells us whether we have called the constructor yet
         void generate(int rows); // default constructor with rows and 0 columns. every matrix starts here.
         void generate(); // shortcut constructor for 3 rows 0 cols
         void generate(int rows,int cols); // constructs empty matrix with specified dimensions.

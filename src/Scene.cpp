@@ -14,7 +14,6 @@ void Scene::trace(){
             traceStep();
         }
     }
-    rays.unit.print();
 };
 
 void Scene::traceStep(){
@@ -28,8 +27,32 @@ void Scene::traceStep(){
             normals.append(shape.normals);
         }
     }
-    for (int i=0;i<rays.numRays;i++){
-        int j = distances.minRowIndex(i); // closest shape index
-        rays.update(i,j,distances,normals,refractiveIndex,shapes);
+    if (distances.constructed){
+        for (int i=0;i<rays.numRays;i++){
+                int j = distances.minRowIndex(i); // closest shape index
+                rays.update(i,j,distances,normals,refractiveIndex,shapes);
+        }
     }
+};
+
+void Scene::printRays(){
+    std::cout << "Print Rays:" << std::endl;
+    std::cout << "Points" << std::endl;
+    rays.points.print();
+    std::cout << "Unit" << std::endl;
+    rays.unit.print();
+    std::cout << "PointsAcc" << std::endl;
+    rays.pointsAcc.print();
+    std::cout << "UnitAcc" << std::endl;
+    rays.unitAcc.print();
+    std::cout << "distancesAcc" << std::endl;
+    rays.distancesAcc.print();
+};
+
+void Scene::printShape(){
+    std::cout << "Print Shape 0:" << std::endl;
+    std::cout << "Points" << std::endl;
+    shapes.get(0).points.print();
+    std::cout << "Connectivity" << std::endl;
+    shapes.get(0).connectivity.print();
 };

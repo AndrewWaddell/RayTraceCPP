@@ -226,8 +226,7 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
 };
 
 void Matrix::inverse() {
-    this->append(identity());
-
+    append(identity());
     // matrix is currently in the form
     // [ a b c | 1 0 0 ]
     // [ d e f | 0 1 0 ]
@@ -311,10 +310,6 @@ void Matrix::transpose(){
 };
 
 void Matrix::multiply(Matrix A,Matrix B){
-    std::cout << "A" << std::endl;
-    A.print();
-    std::cout << "B" << std::endl;
-    B.print();
     // Matrix multiply: result = A * B
     // number of columns in A must equal number of rows in B
     Matrix output;

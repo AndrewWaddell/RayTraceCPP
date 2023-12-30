@@ -48,7 +48,6 @@ void Rays::createNewBasis(){
         pointCOB.multiply(COB.get(i),points.getCol(i));
         pointsCOB.append(pointCOB);
     }
-
 };
 
 int Rays::size(){
