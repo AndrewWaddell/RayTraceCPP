@@ -11,7 +11,6 @@ class Matrix {
     private:
         std::vector<std::vector<double>> matrix;
         bool constructed; // tells us whether we have called the constructor yet
-        void reset(const Matrix& output); // void function output, so reset matrix as output
         Matrix Rx(); // generate rotation matrix 90deg about x axis
         Matrix Ry(); // generate rotation matrix 90deg about y axis
         bool isXaxis(); // determines whether inputed vector is in line with the x axis
@@ -19,11 +18,12 @@ class Matrix {
         void rowOperation(int i); // multiply row/col i by scalar
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
+        void clear(); // returns the matrix to its initial state
     public:
-        void generate(); // constructor with 3 rows 0 cols
-        void generate(int rows); // constructor with inputted rows and 0 columns
+        void generate(int rows); // default constructor with rows and 0 columns. every matrix starts here.
+        void generate(); // shortcut constructor for 3 rows 0 cols
         void generate(int rows,int cols); // constructs empty matrix with specified dimensions.
-        void generate(Matrix inMat); // constructs empty matrix with the same dimensions as inMat
+        void generate(Matrix inMat); // constructs this matrix identical to inMat.
         void fill(double val); // fill entire matrix with items
         void fillInf(); // fill with infinity
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
@@ -66,7 +66,6 @@ class Matrix {
         void print(); // print matrix to the screen for testing
         int numRows;
         int numCols;
-        void clear(); // returns the matrix to its initial state
 };
 
 #endif

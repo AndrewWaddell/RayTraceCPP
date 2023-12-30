@@ -1,15 +1,16 @@
 #include "../include/Matrix.h"
 
 
-void Matrix::generate(){
-    generate(3);
-}
-
 void Matrix::generate(int rows) {
+    matrix.clear();
     numRows = rows;
     numCols = 0;
     matrix.resize(numRows);
     constructed = true;
+};
+
+void Matrix::generate(){
+    generate(3);
 };
 
 void Matrix::generate(int rows,int cols){
@@ -22,6 +23,11 @@ void Matrix::generate(int rows,int cols){
 
 void Matrix::generate(Matrix inMat){
     generate(inMat.numRows,inMat.numCols);
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] = inMat.get(i,j);
+        }
+    }
 };
 
 void Matrix::fill(double val){
@@ -34,18 +40,12 @@ void Matrix::fill(double val){
 
 void Matrix::fillInf(){
     fill(std::numeric_limits<double>::infinity());
-}
+};
 
 
 void Matrix::append(Matrix inMat) {
     if (!constructed){
         generate(inMat);
-        for (int i=0;i<numRows;i++){
-            for (int j=0;j<numCols;j++){
-                matrix[i][j] = inMat.get(i,j);
-            }
-        }
-        constructed = true;
     } else {
         for (int i=0; i<inMat.numRows;i++) {
             for (int j=0; j<inMat.numCols;j++){
@@ -152,7 +152,7 @@ void Matrix::rotate90(Matrix A){
         rotated.multiply(Rx(),A);
     }
 
-    reset(rotated);
+    generate(rotated);
 };
 
 bool Matrix::isXaxis(){
@@ -302,7 +302,7 @@ void Matrix::transpose(){
             output.insert(j,i,matrix[i][j]);
         }
     }
-    reset(output);
+    generate(output);
 };
 
 void Matrix::multiply(Matrix A,Matrix B){
@@ -318,7 +318,7 @@ void Matrix::multiply(Matrix A,Matrix B){
     }
     output.reshape(A.numRows,B.numCols);
     std::cout << "outside reshape";
-    reset(output);
+    generate(output);
 };
 
 void Matrix::multiply(double val){
@@ -390,14 +390,8 @@ void Matrix::reshape(int newRows,int newCols){
         int col = i - (row*numCols);
         output.insert(row,col,matrix[0][i]);
     }
-    reset(output);
+    generate(output);
     std::cout << "inside reshape";
-};
-
-void Matrix::reset(const Matrix& output){
-    clear();
-    generate(output.numRows);
-    append(output);
 };
 
 void Matrix::shiftLeft(int n){
@@ -480,14 +474,4 @@ void Matrix::print(){
         }
         std::cout << std::endl;
     }
-};
-
-void Matrix::clear(){
-    for (int i=0;i<numRows;i++){
-        matrix[i].clear();
-    }
-    matrix.clear();
-    numRows=0;
-    numCols=0;
-    constructed=false;
 };
