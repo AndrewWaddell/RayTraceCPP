@@ -7,8 +7,8 @@
 
 void Rays::addSources(Sources& sources){
     // builds a single instance of rays based on all sources in the scene
-    points = sources.points();
-    unit = sources.unit();
+    points.generate(sources.points());
+    unit.generate(sources.unit());
     numRays = sources.numRays();
     inside.generate(numRays);
     blocked.generate(numRays);
@@ -34,7 +34,6 @@ void Rays::createNewBasis(){
         orth1.rotate90(unitCol);
         orth2.cross(orth1,unitCol);
 
-        inverse.generate();
         inverse.append(orth1);
         inverse.append(orth2);
         inverse.append(unitCol);
@@ -44,7 +43,6 @@ void Rays::createNewBasis(){
         COB.append(inverse);
     }
 
-    pointsCOB.generate();
     for (int i=0;i<numRays;i++){
         pointCOB.generate(3,1);
         pointCOB.multiply(COB.get(i),points.getCol(i));

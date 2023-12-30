@@ -1,16 +1,17 @@
 #include "../include/Sources.h"
 
-void Sources::addSource(const Source& source) {
+void Sources::addSource(Source source) {
     sources.push_back(source);
 }
 
 void Sources::addSource() {
     Source newSource;
     newSource.generateDefault();
-    sources.push_back(newSource);
+    addSource(newSource);
 }
 
 Matrix Sources::points() {
+    Matrix matrix;
     for (Source source : sources) {
         matrix.append(source.getPoints());
     }
@@ -18,8 +19,9 @@ Matrix Sources::points() {
 };
 
 Matrix Sources::unit() {
-    matrix.generate();
+    Matrix matrix;
     for (Source source : sources) {
+        Matrix test = source.getUnit();
         matrix.append(source.getUnit());
     }
     return matrix;

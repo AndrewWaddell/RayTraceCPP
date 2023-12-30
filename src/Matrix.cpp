@@ -66,7 +66,12 @@ void Matrix::append(int row,double inVal) {
         insert(0,0,inVal);
     } else {
         matrix[row].push_back(inVal);
-        numCols += 1;
+        if (numCols==0){ // formation of column vector
+            numCols = 1;
+        } else if (numRows==1){ // extend a row vector
+            numCols += 1;
+        }
+
     }
 };
 
@@ -306,6 +311,10 @@ void Matrix::transpose(){
 };
 
 void Matrix::multiply(Matrix A,Matrix B){
+    std::cout << "A" << std::endl;
+    A.print();
+    std::cout << "B" << std::endl;
+    B.print();
     // Matrix multiply: result = A * B
     // number of columns in A must equal number of rows in B
     Matrix output;
@@ -317,7 +326,6 @@ void Matrix::multiply(Matrix A,Matrix B){
         }
     }
     output.reshape(A.numRows,B.numCols);
-    std::cout << "outside reshape";
     generate(output);
 };
 
@@ -391,7 +399,6 @@ void Matrix::reshape(int newRows,int newCols){
         output.insert(row,col,matrix[0][i]);
     }
     generate(output);
-    std::cout << "inside reshape";
 };
 
 void Matrix::shiftLeft(int n){
