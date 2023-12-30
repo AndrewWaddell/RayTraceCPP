@@ -385,9 +385,9 @@ void Matrix::reshape(int newRows,int newCols){
     // col: 0 1 2 0 1 2
     Matrix output;
     output.generate(newRows,newCols);
-    for (int i=0;i<numCols;i++){
-        int row = (int) i/numCols;
-        int col = i - (row*numCols);
+    for (int i=0;i<newRows*newCols;i++){
+        int row = i / newCols;
+        int col = i % newCols;
         output.insert(row,col,matrix[0][i]);
     }
     generate(output);

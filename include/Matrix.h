@@ -18,7 +18,6 @@ class Matrix {
         void rowOperation(int i); // multiply row/col i by scalar
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
-        void clear(); // returns the matrix to its initial state
     public:
         void generate(int rows); // default constructor with rows and 0 columns. every matrix starts here.
         void generate(); // shortcut constructor for 3 rows 0 cols
