@@ -150,7 +150,6 @@ void Matrix::rotate90(Matrix A){
     // output is this matrix
 
     Matrix rotated;
-
     if (A.isXaxis()){
         rotated.multiply(Ry(),A);
     } else {
@@ -199,7 +198,6 @@ Matrix Matrix::Ry(){
 
 
 void Matrix::cross(Matrix mat1,Matrix mat2){
-    generate();
     for (int j=0;j<mat1.numCols;j++){
         // setup
         double cx,cy,cz;
@@ -221,7 +219,9 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
         col.insert(0,0,cx);
         col.insert(1,0,cy);
         col.insert(2,0,cz);
+        col.print();
         append(col);
+        this->print();
     }
 };
 
@@ -360,8 +360,8 @@ double Matrix::sum(){
 
 double Matrix::dot(Matrix A, Matrix B){
     double output = 0;
-    for (int i=0;i<A.numRows;i++){
-        output += A.get(i,0) * B.get(i,0);
+    for (int i=0;i<A.numCols;i++){
+        output += A.get(0,i) * B.get(i,0);
     }
     return output;
 };

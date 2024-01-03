@@ -32,6 +32,8 @@ void Rays::createNewBasis(){
     for (int i=0;i<unit.numCols;i++){
         Matrix unitCol = unit.getCol(i);
         orth1.rotate90(unitCol);
+        orth1.print();
+        unitCol.print();
         orth2.cross(orth1,unitCol);
 
         inverse.append(orth1);
