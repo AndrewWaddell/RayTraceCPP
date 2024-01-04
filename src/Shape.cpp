@@ -45,6 +45,8 @@ void Shape::changeOfBasis(Rays& rays){
 
 bool Shape::traceLowRes(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
+        std::cout << "Shape.cpp traceLowRes rays.pointsCOB:" << std::endl;
+        rays.pointsCOB.print();
         double x = rays.pointsCOB.get(i,0);
         double y = rays.pointsCOB.get(i,1);
         pointsCOBSingleRay = pointsCOB.get(i);

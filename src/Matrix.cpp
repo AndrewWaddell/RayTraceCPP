@@ -219,9 +219,7 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
         col.insert(0,0,cx);
         col.insert(1,0,cy);
         col.insert(2,0,cz);
-        col.print();
         append(col);
-        this->print();
     }
 };
 
@@ -231,7 +229,7 @@ void Matrix::inverse() {
     // [ a b c | 1 0 0 ]
     // [ d e f | 0 1 0 ]
     // [ g h i | 0 0 1 ]
-
+    
     // zero the following letters
     rowOperation(1,0); // d
     rowOperation(2,0); // g
