@@ -15,6 +15,7 @@ class Matrix {
         bool isXaxis(); // determines whether inputed vector is in line with the x axis
         void rowOperation(int ROW1, int ROW2); //perform guassian elimination via scalar multiple of another row on 3x3
         void rowOperation(int i); // multiply row/col i by scalar
+        void swapRows(int ROW1, int ROW2); // row operation in guassian elimination
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
     public:

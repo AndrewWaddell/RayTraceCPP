@@ -231,22 +231,33 @@ void Matrix::inverse() {
     // [ g h i | 0 0 1 ]
     
     // zero the following letters
+    this->print();
     rowOperation(1,0); // d
+    this->print();
     rowOperation(2,0); // g
+    this->print();
     rowOperation(2,1); // h
+    this->print();
     rowOperation(1,2); // f
+    this->print();
     rowOperation(0,2); // c
+    this->print();
     rowOperation(0,1); // b
+    this->print();
     
     // make the following letters 1
     rowOperation(0); // a
+    this->print();
     rowOperation(1); // e
+    this->print();
     rowOperation(2); // i
+    this->print();
     
     // inverse will be where identity started
     shiftLeft(3);
     sliceBack(3);
     numCols=3;
+    this->print();
 };
 
 Matrix Matrix::identity() {
@@ -260,6 +271,10 @@ Matrix Matrix::identity() {
 
 void Matrix::rowOperation(int ROW1, int ROW2){
     // row1 + (scalar)*row2 --> row1
+    if (get(ROW2,ROW2)==0){
+        swapRows(ROW1,ROW2);
+        return;
+    }
     double scalar = -get(ROW1,ROW2)/get(ROW2,ROW2);
     Matrix row1 = getRow(ROW1);
     Matrix row2 = getRow(ROW2);
@@ -273,6 +288,13 @@ void Matrix::rowOperation(int i){
     Matrix row = getRow(i);
     row.multiply(scalar);
     replaceRow(row,i);
+};
+
+void Matrix::swapRows(int ROW1, int ROW2){
+    Matrix row1 = getRow(ROW1);
+    Matrix row2 = getRow(ROW2);
+    replaceRow(row1,ROW2);
+    replaceRow(row2,ROW1);
 };
 
 void Matrix::replaceRow(Matrix row, int i){
