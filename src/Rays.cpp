@@ -30,17 +30,38 @@ void Rays::createNewBasis(){
     // is in the direction of the ray.
 
     for (int i=0;i<unit.numCols;i++){
+        std::cout << "-------------------------------------------" << std::endl;
         Matrix unitCol = unit.getCol(i);
+        std::cout << "unitCol" << std::endl;
+        unitCol.print();
         orth1.rotate90(unitCol);
+        std::cout << "orth1" << std::endl;
+        orth1.print();
         orth2.cross(orth1,unitCol);
+        std::cout << "orth2" << std::endl;
+        orth2.print();
+
+        std::cout << "empty inverse" << std::endl;
+        inverse.print();
 
         inverse.append(orth1);
+        std::cout << "orth1 append inverse" << std::endl;
+        inverse.print();
         inverse.append(orth2);
+        std::cout << "orth2 append inverse" << std::endl;
+        inverse.print();
         inverse.append(unitCol);
+        std::cout << "unitCol" << std::endl;
+        inverse.print();
 
         inverse.inverse();
+        std::cout << "inverse inverse" << std::endl;
+        inverse.print();
         inverse.normCol();
+        std::cout << "normcol inverse" << std::endl;
+        inverse.print();
         COB.append(inverse);
+        COB.get(i).print();
     }
 
     for (int i=0;i<numRays;i++){

@@ -231,33 +231,22 @@ void Matrix::inverse() {
     // [ g h i | 0 0 1 ]
     
     // zero the following letters
-    this->print();
     rowOperation(1,0); // d
-    this->print();
     rowOperation(2,0); // g
-    this->print();
     rowOperation(2,1); // h
-    this->print();
     rowOperation(1,2); // f
-    this->print();
     rowOperation(0,2); // c
-    this->print();
     rowOperation(0,1); // b
-    this->print();
     
     // make the following letters 1
     rowOperation(0); // a
-    this->print();
     rowOperation(1); // e
-    this->print();
     rowOperation(2); // i
-    this->print();
     
     // inverse will be where identity started
     shiftLeft(3);
     sliceBack(3);
     numCols=3;
-    this->print();
 };
 
 Matrix Matrix::identity() {
