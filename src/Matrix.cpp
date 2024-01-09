@@ -47,12 +47,13 @@ void Matrix::append(Matrix inMat) {
     if (!constructed){
         generate(inMat);
     } else {
-        for (int i=0; i<inMat.numRows;i++) {
-            for (int j=0; j<inMat.numCols;j++){
+
+        for (int j=0;j<inMat.numCols;j++){
+            numCols += 1;
+            for (int i=0;i<inMat.numRows;i++){
                 append(i,inMat.get(i,j));
             }
         }
-        numCols += inMat.numCols;
     }
 };
 
