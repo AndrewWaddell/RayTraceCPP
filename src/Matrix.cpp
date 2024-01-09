@@ -199,6 +199,7 @@ Matrix Matrix::Ry(){
 
 
 void Matrix::cross(Matrix mat1,Matrix mat2){
+    generate();
     for (int j=0;j<mat1.numCols;j++){
         // setup
         double cx,cy,cz;
