@@ -35,6 +35,10 @@ void Rays::createNewBasis(){
         orth2.cross(orth1,unitCol);
 
         inverse.generate();
+        std::cout << "check" << std::endl;
+        orth1.print();
+        orth2.print();
+        unitCol.print();
         inverse.append(orth1);
         inverse.append(orth2);
         inverse.append(unitCol);
@@ -42,8 +46,6 @@ void Rays::createNewBasis(){
         std::cout << "Before" << std::endl;
         inverse.print();
         inverse.inverse();
-        std::cout << "after" << std::endl;
-        inverse.print();
         inverse.normCol();
         COB.append(inverse);
         std::cout << "COB" << std::endl;
