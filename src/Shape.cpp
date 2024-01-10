@@ -83,7 +83,7 @@ Matrix Shape::shortestDistances(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
         int j = distance.minRowIndex(i); // closest triangle index
         double d = distance.get(i,j);
-        if (d != std::numeric_limits<double>::infinity()){
+        if (std::isinf(d)){
             distancesCol.append(i,d);
             normals.append(triangleNormal(j));
         } else { // if ray doesn't intersect
@@ -223,7 +223,7 @@ Matrix Shape::triangleNormal(int j){
     // plane is spanned by these vectors: AB,AC
     // cross product AB and AC to get normal of plane
     A = indexPoint(0,j);
-    B = indexPoint(1,j);
+    B = indexPoint(0,j);
     C = indexPoint(2,j);
 
     AB.subtract(B,A);
@@ -234,18 +234,12 @@ Matrix Shape::triangleNormal(int j){
 };
 
 Matrix Shape::indexPoint(int i, int j){
-    double indexDouble = connectivity.get(i,j);
+    double indexDouble = connectivity.get(j,i);
     int indexInt = int(indexDouble);
     return points.getCol(indexInt);
 };
 
 Matrix Shape::indexPointCOB(int i, int j, int k){
-    std::cout << "connectivity" << std::endl;
-    connectivity.print();
-    std::cout << "ray i: ";
-    std::cout << i;
-    std::cout << ", triangle j: ";
-    std::cout << j << std::endl;
     double indexDouble = connectivity.get(j,k);
     int indexInt = int(indexDouble);
     return pointsCOB.get(i).getCol(indexInt);
