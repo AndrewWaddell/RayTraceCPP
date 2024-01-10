@@ -417,7 +417,7 @@ void Matrix::shiftLeft(int n){
 
 double Matrix::minRow(int i){
     std::vector<double> vec = matrix[i];
-    auto iterator = std::max_element(vec.begin(),vec.end());
+    auto iterator = std::min_element(vec.begin(),vec.end());
     return *iterator;
 };
 

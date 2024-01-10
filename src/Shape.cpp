@@ -49,11 +49,25 @@ bool Shape::traceLowRes(Rays& rays){
         rays.pointsCOB.print();
         double x = rays.pointsCOB.get(i,0);
         double y = rays.pointsCOB.get(i,1);
+        std::cout << "x" << std::endl;
+        std::cout << x << std::endl;
+        std::cout << "y" << std::endl;
+        std::cout << y << std::endl;
         pointsCOBSingleRay = pointsCOB.get(i);
+        std::cout << "pointsCOBsingleray" << std::endl;
+        pointsCOBSingleRay.print();
         double minX = pointsCOBSingleRay.minRow(0);
         double minY = pointsCOBSingleRay.minRow(1);
         double maxX = pointsCOBSingleRay.maxRow(0);
         double maxY = pointsCOBSingleRay.maxRow(1);
+        std::cout << "minX" << std::endl;
+        std::cout << minX << std::endl;
+        std::cout << "minY" << std::endl;
+        std::cout << minY << std::endl;
+        std::cout << "maxX" << std::endl;
+        std::cout << maxX << std::endl;
+        std::cout << "maxY" << std::endl;
+        std::cout << maxY << std::endl;
         if (x>minX && x<maxX && y>minY && y<maxY){
             return true; // if it works for one ray, trace object
         }
