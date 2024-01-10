@@ -45,29 +45,13 @@ void Shape::changeOfBasis(Rays& rays){
 
 bool Shape::traceLowRes(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
-        std::cout << "Shape.cpp traceLowRes rays.pointsCOB:" << std::endl;
-        rays.pointsCOB.print();
         double x = rays.pointsCOB.get(i,0);
         double y = rays.pointsCOB.get(i,1);
-        std::cout << "x" << std::endl;
-        std::cout << x << std::endl;
-        std::cout << "y" << std::endl;
-        std::cout << y << std::endl;
         pointsCOBSingleRay = pointsCOB.get(i);
-        std::cout << "pointsCOBsingleray" << std::endl;
-        pointsCOBSingleRay.print();
         double minX = pointsCOBSingleRay.minRow(0);
         double minY = pointsCOBSingleRay.minRow(1);
         double maxX = pointsCOBSingleRay.maxRow(0);
         double maxY = pointsCOBSingleRay.maxRow(1);
-        std::cout << "minX" << std::endl;
-        std::cout << minX << std::endl;
-        std::cout << "minY" << std::endl;
-        std::cout << minY << std::endl;
-        std::cout << "maxX" << std::endl;
-        std::cout << maxX << std::endl;
-        std::cout << "maxY" << std::endl;
-        std::cout << maxY << std::endl;
         if (x>minX && x<maxX && y>minY && y<maxY){
             return true; // if it works for one ray, trace object
         }
@@ -117,7 +101,7 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     // if Q lies on edge of triangle, it is considered outside triangle
 
     // initial setup
-    for (int k;k<3;k++){
+    for (int k=0;k<3;k++){ // k is each point A,B,C respectively
         ABC.append(indexPointCOB(i,j,k));
     }
     Q = rays.pointsCOB.getCol(i);
@@ -256,7 +240,13 @@ Matrix Shape::indexPoint(int i, int j){
 };
 
 Matrix Shape::indexPointCOB(int i, int j, int k){
-    double indexDouble = connectivity.get(i,j);
+    std::cout << "connectivity" << std::endl;
+    connectivity.print();
+    std::cout << "ray i: ";
+    std::cout << i;
+    std::cout << ", triangle j: ";
+    std::cout << j << std::endl;
+    double indexDouble = connectivity.get(j,k);
     int indexInt = int(indexDouble);
-    return pointsCOB.get(k).getCol(indexInt);
+    return pointsCOB.get(i).getCol(indexInt);
 };
