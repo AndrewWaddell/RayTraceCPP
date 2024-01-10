@@ -42,8 +42,6 @@ void Rays::createNewBasis(){
         inverse.inverse();
         inverse.normCol();
         COB.append(inverse);
-        std::cout << "COB" << std::endl;
-        COB.get(i).print();
     }
 
     for (int i=0;i<numRays;i++){
