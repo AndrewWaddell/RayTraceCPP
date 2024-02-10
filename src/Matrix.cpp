@@ -83,17 +83,6 @@ void Matrix::append(){
     append(z);
 };
 
-void Matrix::construct(Matrix A, Matrix B){
-    append(A);
-    append(B);
-};
-
-void Matrix::construct(Matrix A, Matrix B, Matrix C){
-    append(A);
-    append(B);
-    append(C);
-};
-
 void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
 };
@@ -256,13 +245,29 @@ void Matrix::inverse2x2(){
     double c = get(1,0);
     double d = get(1,1);
 
-    double det = 1/(a*d - b*c);
+    double det = (a*d - b*c);
+    if (det==0){
+        throw std::runtime_error("no inverse exists");
+    }
 
     insert(0,0,d);
     insert(0,1,-b);
     insert(1,0,-c);
     insert(1,1,a);
-    multiply(det);
+    multiply(1/det);
+};
+
+bool Matrix::detZero(){
+    // for matrix in the form
+    // [a b]
+    // [c d]
+    double a = get(0,0);
+    double b = get(0,1);
+    double c = get(1,0);
+    double d = get(1,1);
+
+    double det = (a*d - b*c);
+    return (det==0);
 };
 
 void Matrix::inverse3x3() {
@@ -393,8 +398,7 @@ void Matrix::add(Matrix inMat){
 };
 
 void Matrix::subtract(Matrix A,Matrix B){
-    generate(A);
-    add(B);
+    generate(B);
     multiply(-1);
     add(A);
 };
@@ -479,24 +483,6 @@ int Matrix::maxRowIndex(int i){
     return std::distance(vec.begin(),iterator);
 };
 
-double Matrix::signedArea(){
-    // calculate using determinant formula
-    // also known as a ccw formula
-    return determinant2D();
-};
-
-double Matrix::determinant2D(){
-    double ax = get(0,0);
-    double bx = get(0,1);
-    double cx = get(0,2);
-    double ay = get(1,0);
-    double by = get(1,1);
-    double cy = get(1,2);
-    double test = (bx - ax)*(cy - ay) - (cx - ax)*(by - ay);
-    std::cout << test << std::endl;
-    return (bx - ax)*(cy - ay) - (cx - ax)*(by - ay);
-};
-
 double Matrix::cosTheta(){
     // consider vectors A, B. We know:
     // dot(A,B) = |A|*|B|*cos(theta)
@@ -529,4 +515,9 @@ void Matrix::print(){
         }
         std::cout << std::endl;
     }
+};
+
+void Matrix::slice(){
+    numRows -= 1;
+    matrix[numRows].pop_back();
 };

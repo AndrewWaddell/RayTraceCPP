@@ -3,7 +3,9 @@
 
 void Shape::generateDefault(){
     refractiveIndex = 1.52;
-    // points = {1.5,1.5,0,5},{1,-1,1,1},{1,1,0.5,6}
+    // points = [1.5  1.5  0    5]
+    //          [1   -1    1    1]
+    //          [1    1    0.5  6]
     points.generate(3,4);
     points.insert(0,0,1.5);
     points.insert(0,1,1.5);
@@ -17,7 +19,8 @@ void Shape::generateDefault(){
     points.insert(2,1,1);
     points.insert(2,2,0.5);
     points.insert(2,3,6);
-    // connectivity = {0,1,2},{0,1,3}
+    // connectivity = [0,1,2]
+    //                [0,1,3]
     connectivity.generate(2,3);
     connectivity.insert(0,0,2);
     connectivity.insert(0,1,1);
@@ -106,10 +109,22 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
 
     AB.subtract(B,A);
     AC.subtract(C,A);
+
+    // keep as 2D problem
+    AB.slice();
+    AC.slice();
+
     // consider the basis made by AB and AC. We call it basis bc
     // note the current basis we shall call xy
-    COB.construct(AB,AC); // currently from bc to xy
-    COB.inverse(); // currently from xy to bc
+
+    COB.generate(2);
+    COB.append(AB);
+    COB.append(AC); // COB currently from bc to xy
+    if (COB.detZero()){ //triangle is side-on
+        return false;
+    }
+
+    COB.inverse(); // COB currently from xy to bc
 
     // Q is currently with respect to basis xy
     Q = rays.pointsCOB.getCol(i);
@@ -121,7 +136,7 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     // therefor for Q interior we require:
     // b>0, c>0, a+b<1
     // I call these truth values t1, t2, t3
-
+    
     bool t1 = Qbc.get(0) >= 0;
     bool t2 = Qbc.get(1) >= 0;
     bool t3 = Qbc.get(0) + Qbc.get(1) <= 0;

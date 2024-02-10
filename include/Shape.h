@@ -23,17 +23,14 @@ class Shape {
         Matrix A; // triangle point used in triangle interior function and triangle normal
         Matrix B; // triangle point used in triangle interior function and triangle normal
         Matrix C; // triangle point used in triangle interior function and triangle normal
-        Matrix AB; // vector from A to B used in triangle interior
-        Matrix AC; // vector from A to C used in triangle interior
+        Matrix AB; // vector from A to B used in triangle interior and triangle normal
+        Matrix AC; // vector from A to C used in triangle interior and triangle normal
         Matrix COB; // change of basis matrix from basis between bc and xy used in triangle interior
         Matrix Qbc; // point Q with respect to basis bc used in triangle interior
-        Matrix ABQ; // as above
         Matrix l; // vector in the direction of Line, magnitude 1. used in distanceLinePlane
         Matrix n; // normal vector of Plane, magnitude 1. Used in distanceLinePlane
         Matrix l0; // current location of ray. Used in distanceLinePlane
         Matrix p0; // any point on the plane. Used in distanceLinePlane
-        Matrix AB; // vector used in triangle normal function
-        Matrix AC; // vector used in triangle normal function
         Matrix normal; // temporary column vector used in triangle normal function
         Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j

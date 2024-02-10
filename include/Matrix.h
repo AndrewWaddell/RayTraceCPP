@@ -30,8 +30,6 @@ class Matrix {
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
         void append(); // append a column of zeros to matrix
-        void construct(Matrix A, Matrix B); // append into matrix AB
-        void construct(Matrix A, Matrix B, Matrix C); // append into matrix ABC
         void insert(int row,int col,double val); // insert value at specified index
         void insert(int col,double val); // insert when matrix is a row vector
         Matrix getRow(int i); // outputs row at index i
@@ -43,6 +41,7 @@ class Matrix {
         void cross(Matrix mat1,Matrix mat2); // cross product mat1 (n cols) cross mat2 (n cols), output this. 3 rows.
         void inverse(); // calculates the inverse of any size matrix
         void inverse2x2(); // calculates the inverse of a 2x2 matrix
+        bool detZero(); // returns if determinant is zero for 2x2 matrix
         void inverse3x3(); // calculate the inverse of 3x3 matrix using gaussian elimination
         Matrix identity(); // generates a 3x3 identity matrix
         void replaceRow(Matrix row, int i); // replace row i with row
@@ -62,13 +61,12 @@ class Matrix {
         double maxRow(int i); // gives the maximum value along row i
         int minRowIndex(int i); // gives the index of the minimum value along row i
         int maxRowIndex(int i); // gives the index of the maximum value along row i
-        double signedArea(); // calculates the signed area of 2D triangle A->B->C
-        double determinant2D(); // calculates the determinant of a 2D matrix inMat. rows x,y. cols a,b.
         double cosTheta(); // theta is angle DEF (about E) within triangle DEF as this matrix. find Cos(theta)
         double magnitude(); // find magnitude of column vector
         void print(); // print matrix to the screen for testing
         int numRows;
         int numCols;
+        void slice(); // convert 3D column vector to 2D
 };
 
 #endif
