@@ -452,6 +452,8 @@ double Matrix::determinant2D(){
     double ay = get(1,0);
     double by = get(1,1);
     double cy = get(1,2);
+    double test = (bx - ax)*(cy - ay) - (cx - ax)*(by - ay);
+    std::cout << test << std::endl;
     return (bx - ax)*(cy - ay) - (cx - ax)*(by - ay);
 };
 

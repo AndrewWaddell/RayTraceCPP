@@ -156,6 +156,7 @@ bool Shape::interiorLowRes(Matrix ABC,Matrix Q){
 };
 
 bool Shape::checkPolarity(){
+    ACB.print();
     // returns true if they point in the opposite direction. ray misses. not interior.
     if (trianglePointsUpwards(ACB)){
         if (trianglePointsDownwards(AQB)||trianglePointsFlat(AQB)){

@@ -30,6 +30,7 @@ void Scene::traceStep(){
     if (distances.constructed){
         for (int i=0;i<rays.numRays;i++){
                 int j = distances.minRowIndex(i); // closest shape index
+                distances.print();
                 rays.update(i,j,distances,normals,refractiveIndex,shapes);
         }
     }
