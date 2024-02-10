@@ -98,7 +98,7 @@ Matrix Shape::shortestDistances(Rays& rays){
 bool Shape::triangleInterior(Rays& rays,int i,int j){
     // 2D problem
     // test whether query point Q lies within triangle constructed by points A,B,C
-    // if Q lies on edge of triangle, it is considered inside triangle but raises flag
+    // if Q lies on edge of triangle, it is considered inside triangle
 
     A = indexPointCOB(i,j,0);
     B = indexPointCOB(i,j,1);
@@ -122,25 +122,14 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     // b>0, c>0, a+b<1
     // I call these truth values t1, t2, t3
 
-    bool t1 = Qbc.get(0) > 0;
-    bool t2 = Qbc.get(1) > 0;
-    bool t3 = Qbc.get(0) + Qbc.get(1) < 0;
+    bool t1 = Qbc.get(0) >= 0;
+    bool t2 = Qbc.get(1) >= 0;
+    bool t3 = Qbc.get(0) + Qbc.get(1) <= 0;
 
     if (t1 && t2 & t3){
         return true;
     }
 
-    // now test if Q is on edge of triangle
-    // any numbered truth values have to be true
-
-    bool t1 = Qbc.get(0) == 0;
-    bool t2 = Qbc.get(1) == 0;
-    bool t3 = Qbc.get(0) + Qbc.get(1) == 1;
-
-    if (t1 || t2 || t3){
-        std::cout << "please handle triangle edge case" << std::endl;
-        return true;
-    }
     return false;
 };
 
