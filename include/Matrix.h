@@ -53,7 +53,7 @@ class Matrix {
         void subtract(Matrix A, Matrix B); // subtract (A-B) each matrix element and store in this.
         double sum(); // adds all matrix elements into a single number
         void transpose(); // works for matrix and vectors
-        double dot(Matrix A, Matrix B); // dot product on two column vectors. must have the same numRows each
+        double dot(Matrix A, Matrix B); // dot product on two vectors (col or row). must have the same numRows each
         double get(int i,int j); // get a value from within matrix
         double get(int i); // if matrix is a vector (row or col), then only index the ith element from the top or from the left
         void reshape(int newRows,int newCols); // row vector into a matrix with specified rows & Cols. assume numElems=cols*rows

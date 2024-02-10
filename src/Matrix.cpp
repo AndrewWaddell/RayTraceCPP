@@ -246,9 +246,6 @@ void Matrix::inverse2x2(){
     double d = get(1,1);
 
     double det = (a*d - b*c);
-    if (det==0){
-        throw std::runtime_error("no inverse exists");
-    }
 
     insert(0,0,d);
     insert(0,1,-b);
@@ -415,8 +412,14 @@ double Matrix::sum(){
 
 double Matrix::dot(Matrix A, Matrix B){
     double output = 0;
-    for (int i=0;i<A.numCols;i++){
-        output += A.get(0,i) * B.get(i,0);
+    int iteratorLimit;
+    if (A.numCols==1){
+        iteratorLimit = A.numRows;
+    } else {
+        iteratorLimit = A.numCols;
+    }
+    for (int i=0;i<iteratorLimit;i++){
+        output += A.get(i) * B.get(i);
     }
     return output;
 };

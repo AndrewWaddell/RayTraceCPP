@@ -58,6 +58,9 @@ int Rays::size(){
 void Rays::update(int i,int j,Matrix distances,MatrixList normals,double nSceneIn,Shapes& shapes){
     //setup variables
     d = distances.get(i,j);
+    if (std::isinf(d)){
+        return;
+    }
     normal = normals.getCol(j,i);
     Shape shapeObj = shapes.get(j);
     shape = &shapeObj;

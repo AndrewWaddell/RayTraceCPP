@@ -164,7 +164,12 @@ double Shape::distanceLinePlane(Rays& rays, int i, int j){
     l = rays.unit.getCol(i);
     p0 = indexPoint(i,j);
     n = triangleNormal(j);
-    
+
+    l0.print();
+    l.print();
+    p0.print();
+    n.print();
+
     Matrix difference;
     difference.subtract(p0,l0);
     double numerator = p0.dot(difference,n);
@@ -181,7 +186,7 @@ Matrix Shape::triangleNormal(int j){
     // plane is spanned by these vectors: AB,AC
     // cross product AB and AC to get normal of plane
     A = indexPoint(0,j);
-    B = indexPoint(0,j);
+    B = indexPoint(1,j);
     C = indexPoint(2,j);
 
     AB.subtract(B,A);
