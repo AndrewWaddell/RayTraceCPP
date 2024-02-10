@@ -486,27 +486,10 @@ int Matrix::maxRowIndex(int i){
     return std::distance(vec.begin(),iterator);
 };
 
-double Matrix::cosTheta(){
-    // consider vectors A, B. We know:
-    // dot(A,B) = |A|*|B|*cos(theta)
-    // cos(theta) = dot(A,B) / (|A|*|B|)
-    // 2D problem
-    Matrix A; // A is from E to D
-    Matrix B; // B is from E to F
-    Matrix D = getCol(0);
-    Matrix E = getCol(1);
-    Matrix F = getCol(2);
-    A.subtract(D,E);
-    B.subtract(F,E);
-    A.insert(2,0,0); // ignore 3rd dimension
-    B.insert(2,0,0); // ignore 3rd dimension
-    return dot(A,B) / (A.magnitude()*B.magnitude());
-};
-
 double Matrix::magnitude(){
     double radicand = 0;
     for (int i=0;i<numRows;i++){
-        radicand += get(i);
+        radicand += get(i)*get(i);
     }
     return sqrt(radicand);
 };

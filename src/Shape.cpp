@@ -165,11 +165,6 @@ double Shape::distanceLinePlane(Rays& rays, int i, int j){
     p0 = indexPoint(i,j);
     n = triangleNormal(j);
 
-    l0.print();
-    l.print();
-    p0.print();
-    n.print();
-
     Matrix difference;
     difference.subtract(p0,l0);
     double numerator = p0.dot(difference,n);

@@ -61,7 +61,6 @@ class Matrix {
         double maxRow(int i); // gives the maximum value along row i
         int minRowIndex(int i); // gives the index of the minimum value along row i
         int maxRowIndex(int i); // gives the index of the maximum value along row i
-        double cosTheta(); // theta is angle DEF (about E) within triangle DEF as this matrix. find Cos(theta)
         double magnitude(); // find magnitude of column vector
         void print(); // print matrix to the screen for testing
         int numRows;
