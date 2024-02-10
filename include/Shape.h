@@ -16,12 +16,6 @@ class Shape {
         Matrix distancesCol; // temporary array used in shortestDistances() to contain these values
         int numTriangles; // number of triangles for shape
         bool triangleInterior(Rays& rays,int i,int j); // determine if ray i goes inside triangle j
-        bool interiorLowRes(Matrix ABC,Matrix Q); // reject rays that fall outside box hugging triangle. optimise.
-        bool checkPolarity(); // do triangles point in the opposite direction?
-        bool trianglePointsUpwards(Matrix ABC); // does middle point B in triangle ABC point upwards?
-        bool trianglePointsDownwards(Matrix ABC); // does middle point B in triangle ABC point downwards?
-        bool trianglePointsFlat(Matrix ABC); // does middle point B in triangle ABC point neither upwards nor downwards?
-        bool compareAngles(Matrix angle1, Matrix angle2); // return a1>a2 for angles constructed with 3 points (cols)
         double distanceLinePlane(Rays& rays, int i, int j); // distance from line i at location i to intersection with plane j
         bool rightDirection(double d); // determine if distance d to intersection is in right direction
         Matrix triangleNormal(int j); // determine normal vector of plane for triangle j.
@@ -29,11 +23,10 @@ class Shape {
         Matrix A; // triangle point used in triangle interior function and triangle normal
         Matrix B; // triangle point used in triangle interior function and triangle normal
         Matrix C; // triangle point used in triangle interior function and triangle normal
-        Matrix ABC; // concatenation of A,B,C as above used in triangle interior
-        Matrix ACB; // as above
-        Matrix AQB; // as above
-        Matrix QAB; // as above
-        Matrix CAB; // as above
+        Matrix AB; // vector from A to B used in triangle interior
+        Matrix AC; // vector from A to C used in triangle interior
+        Matrix COB; // change of basis matrix from basis between bc and xy used in triangle interior
+        Matrix Qbc; // point Q with respect to basis bc used in triangle interior
         Matrix ABQ; // as above
         Matrix l; // vector in the direction of Line, magnitude 1. used in distanceLinePlane
         Matrix n; // normal vector of Plane, magnitude 1. Used in distanceLinePlane

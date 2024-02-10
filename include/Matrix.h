@@ -30,6 +30,7 @@ class Matrix {
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
         void append(); // append a column of zeros to matrix
+        void construct(Matrix A, Matrix B); // append into matrix AB
         void construct(Matrix A, Matrix B, Matrix C); // append into matrix ABC
         void insert(int row,int col,double val); // insert value at specified index
         void insert(int col,double val); // insert when matrix is a row vector
@@ -40,7 +41,9 @@ class Matrix {
         void range(int n); // assuming empty row vector, punches in values from 0 to n
         void rotate90(Matrix inMat); // rotate all vectors by 90deg in unimportant direction
         void cross(Matrix mat1,Matrix mat2); // cross product mat1 (n cols) cross mat2 (n cols), output this. 3 rows.
-        void inverse(); // calculate the inverse of 3x3 matrix using gaussian elimination
+        void inverse(); // calculates the inverse of any size matrix
+        void inverse2x2(); // calculates the inverse of a 2x2 matrix
+        void inverse3x3(); // calculate the inverse of 3x3 matrix using gaussian elimination
         Matrix identity(); // generates a 3x3 identity matrix
         void replaceRow(Matrix row, int i); // replace row i with row
         void replaceCol(Matrix col,int j); // replace col j with col

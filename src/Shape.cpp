@@ -98,99 +98,52 @@ Matrix Shape::shortestDistances(Rays& rays){
 bool Shape::triangleInterior(Rays& rays,int i,int j){
     // 2D problem
     // test whether query point Q lies within triangle constructed by points A,B,C
-    // if Q lies on edge of triangle, it is considered outside triangle
+    // if Q lies on edge of triangle, it is considered inside triangle but raises flag
 
-    // initial setup
-    for (int k=0;k<3;k++){ // k is each point A,B,C respectively
-        ABC.append(indexPointCOB(i,j,k));
-    }
+    A = indexPointCOB(i,j,0);
+    B = indexPointCOB(i,j,1);
+    C = indexPointCOB(i,j,2);
+
+    AB.subtract(B,A);
+    AC.subtract(C,A);
+    // consider the basis made by AB and AC. We call it basis bc
+    // note the current basis we shall call xy
+    COB.construct(AB,AC); // currently from bc to xy
+    COB.inverse(); // currently from xy to bc
+
+    // Q is currently with respect to basis xy
     Q = rays.pointsCOB.getCol(i);
+    // find Q wrt basis bc
+    Qbc.multiply(COB,Q);
+    // we denote the components of this vector [b c]
+    // b,c are the scalars of Q in terms of triangle sides AB and AC
+    // such that Q = b*AB + c*AC
+    // therefor for Q interior we require:
+    // b>0, c>0, a+b<1
+    // I call these truth values t1, t2, t3
 
-    // optimisation step
-    if (!interiorLowRes(ABC,Q)){
-        return false;
+    bool t1 = Qbc.get(0) > 0;
+    bool t2 = Qbc.get(1) > 0;
+    bool t3 = Qbc.get(0) + Qbc.get(1) < 0;
+
+    if (t1 && t2 & t3){
+        return true;
     }
 
-    // Define A as triangle point with minimum x, B as maximum x, C as other index
-    int indexA = ABC.minRowIndex(0);
-    int indexB = ABC.maxRowIndex(0);
-    int indexC = (indexA+indexB-3)*-1;
-    A = ABC.getCol(indexA);
-    B = ABC.getCol(indexB);
-    C = ABC.getCol(indexC);
+    // now test if Q is on edge of triangle
+    // any numbered truth values have to be true
 
-    // perform algorithm
-    ACB.construct(A,C,B);
-    AQB.construct(A,Q,B);
-    if (checkPolarity()){
-        return false;
-    }
-    
-    // The remaining triangle region is bounded by two angles
-    // first angle about A
-    QAB.construct(Q,A,B);
-    CAB.construct(C,A,B);
-    if (compareAngles(QAB,CAB)){
-        return false;
-    }
-    // second angle about B
-    ABQ.construct(A,B,Q);
-    ABC.construct(A,B,C);
-    if (compareAngles(ABQ,ABC)){
-        return false;
-    }
-    // query is bounded by both angles
-    return true;
-};
+    bool t1 = Qbc.get(0) == 0;
+    bool t2 = Qbc.get(1) == 0;
+    bool t3 = Qbc.get(0) + Qbc.get(1) == 1;
 
-bool Shape::interiorLowRes(Matrix ABC,Matrix Q){
-    for (int row;row<2;row++){ // only x, y because 2D problem
-        if (Q.get(row) > ABC.maxRow(row)){
-            return false;
-        }
-        if (Q.get(row) < ABC.minRow(row)){
-            return false;
-        }
-    }
-    return true;
-};
-
-bool Shape::checkPolarity(){
-    ACB.print();
-    // returns true if they point in the opposite direction. ray misses. not interior.
-    if (trianglePointsUpwards(ACB)){
-        if (trianglePointsDownwards(AQB)||trianglePointsFlat(AQB)){
-            return true;
-        }
-    } else if (trianglePointsDownwards(ACB)){
-        if (trianglePointsUpwards(AQB)||trianglePointsFlat(AQB)){
-            return true;
-        }
-    } else if (trianglePointsFlat(ACB)){
-        return true; // triangle is side on, ray skims past
+    if (t1 || t2 || t3){
+        std::cout << "please handle triangle edge case" << std::endl;
+        return true;
     }
     return false;
 };
 
-bool Shape::trianglePointsUpwards(Matrix ABC){
-    return ABC.signedArea()>0;
-};
-
-bool Shape::trianglePointsDownwards(Matrix ABC){
-    return ABC.signedArea()<0;
-};
-
-bool Shape::trianglePointsFlat(Matrix ABC){
-    return ABC.signedArea() == 0;
-};
-
-bool Shape::compareAngles(Matrix angle1, Matrix angle2){
-    // works for angles between 0 and 90deg
-    // comparing the cos of both angles will allow us to compare both angles
-    // cos is decreasing, therefore to determine angle1 > angle2,
-    // we flip the sign: cos(angle1) < cos(angle2)
-    return angle1.cosTheta() < angle2.cosTheta();
-};
 
 double Shape::distanceLinePlane(Rays& rays, int i, int j){
     // find distance d from l0 to point of intersection of Line with Plane

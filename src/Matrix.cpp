@@ -83,6 +83,11 @@ void Matrix::append(){
     append(z);
 };
 
+void Matrix::construct(Matrix A, Matrix B){
+    append(A);
+    append(B);
+};
+
 void Matrix::construct(Matrix A, Matrix B, Matrix C){
     append(A);
     append(B);
@@ -225,7 +230,42 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
     }
 };
 
-void Matrix::inverse() {
+void Matrix::inverse(){
+    if (numRows == 2 && numCols==2){
+        inverse2x2();
+    } else if (numRows==3 && numCols==3){
+        inverse3x3();
+    }
+    else {
+        throw std::runtime_error(
+            "build invidual inverse functions for each size");
+    }
+};
+
+void Matrix::inverse2x2(){
+    // for matrix in the form
+    // [a b]
+    // [c d]
+
+    // result is
+    //       [ d -b]
+    // det * [-c  a]
+
+    double a = get(0,0);
+    double b = get(0,1);
+    double c = get(1,0);
+    double d = get(1,1);
+
+    double det = 1/(a*d - b*c);
+
+    insert(0,0,d);
+    insert(0,1,-b);
+    insert(1,0,-c);
+    insert(1,1,a);
+    multiply(det);
+};
+
+void Matrix::inverse3x3() {
     append(identity());
     // matrix is currently in the form
     // [ a b c | 1 0 0 ]
