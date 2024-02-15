@@ -128,6 +128,7 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
 
     // Q is currently with respect to basis xy
     Q = rays.pointsCOB.getCol(i);
+    Q.slice();
     // find Q wrt basis bc
     Qbc.multiply(COB,Q);
     // we denote the components of this vector [b c]
@@ -136,10 +137,19 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     // therefor for Q interior we require:
     // b>0, c>0, a+b<1
     // I call these truth values t1, t2, t3
+
+    A.print();
+    B.print();
+    C.print();
+    AB.print();
+    AC.print();
+    COB.print();
+    Q.print();
+    Qbc.print();
     
     bool t1 = Qbc.get(0) >= 0;
     bool t2 = Qbc.get(1) >= 0;
-    bool t3 = Qbc.get(0) + Qbc.get(1) <= 0;
+    bool t3 = Qbc.get(0) + Qbc.get(1) <= 1;
 
     if (t1 && t2 & t3){
         return true;
