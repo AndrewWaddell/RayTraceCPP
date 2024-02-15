@@ -345,8 +345,7 @@ void Matrix::replaceCol(Matrix col,int j){
 void Matrix::normCol(){
     for (int j=0;j<numCols;j++){
         Matrix col = getCol(j);
-        double summ = col.sum();
-        col.multiply(1/summ);
+        col.multiply(1/col.magnitude());
         replaceCol(col,j);
     }
 };
@@ -487,11 +486,7 @@ int Matrix::maxRowIndex(int i){
 };
 
 double Matrix::magnitude(){
-    double radicand = 0;
-    for (int i=0;i<numRows;i++){
-        radicand += get(i)*get(i);
-    }
-    return sqrt(radicand);
+    return sqrt(dot(*this,*this));
 };
 
 void Matrix::print(){

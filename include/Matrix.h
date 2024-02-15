@@ -61,7 +61,7 @@ class Matrix {
         double maxRow(int i); // gives the maximum value along row i
         int minRowIndex(int i); // gives the index of the minimum value along row i
         int maxRowIndex(int i); // gives the index of the maximum value along row i
-        double magnitude(); // find magnitude of column vector
+        double magnitude(); // find magnitude of vector
         void print(); // print matrix to the screen for testing
         int numRows;
         int numCols;
