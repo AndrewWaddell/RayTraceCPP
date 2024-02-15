@@ -165,12 +165,13 @@ double Shape::distanceLinePlane(Rays& rays, int i, int j){
     p0 = indexPoint(i,j);
     n = triangleNormal(j);
 
-    Matrix difference;
-    difference.subtract(p0,l0);
-    double numerator = p0.dot(difference,n);
     if (p0.dot(l,n)<0){ // if normal points towards incoming ray
         n.multiply(-1); // make it point same direction as ray
     } // so that the resultant distance is positive for objects in front
+
+    Matrix difference;
+    difference.subtract(p0,l0);
+    double numerator = p0.dot(difference,n);
     double denominator = p0.dot(l,n);
     return numerator/denominator;
 };
