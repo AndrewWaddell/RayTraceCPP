@@ -139,15 +139,6 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     // therefor for Q interior we require:
     // b>0, c>0, a+b<1
     // I call these truth values t1, t2, t3
-
-    A.print();
-    B.print();
-    C.print();
-    AB.print();
-    AC.print();
-    COB.print();
-    AQ.print();
-    Qbc.print();
     
     bool t1 = Qbc.get(0) >= 0;
     bool t2 = Qbc.get(1) >= 0;
