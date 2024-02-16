@@ -25,6 +25,7 @@ class Shape {
         Matrix C; // triangle point used in triangle interior function and triangle normal
         Matrix AB; // vector from A to B used in triangle interior and triangle normal
         Matrix AC; // vector from A to C used in triangle interior and triangle normal
+        Matrix AQ; // vector from A to Q used in triangle interior and triangle normal
         Matrix COB; // change of basis matrix from basis between bc and xy used in triangle interior
         Matrix Qbc; // point Q with respect to basis bc used in triangle interior
         Matrix l; // vector in the direction of Line, magnitude 1. used in distanceLinePlane

@@ -106,13 +106,16 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     A = indexPointCOB(i,j,0);
     B = indexPointCOB(i,j,1);
     C = indexPointCOB(i,j,2);
+    Q = rays.pointsCOB.getCol(i);
 
     AB.subtract(B,A);
     AC.subtract(C,A);
+    AQ.subtract(Q,A);
 
     // keep as 2D problem
     AB.slice();
     AC.slice();
+    AQ.slice();
 
     // consider the basis made by AB and AC. We call it basis bc
     // note the current basis we shall call xy
@@ -127,10 +130,9 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     COB.inverse(); // COB currently from xy to bc
 
     // Q is currently with respect to basis xy
-    Q = rays.pointsCOB.getCol(i);
-    Q.slice();
+    
     // find Q wrt basis bc
-    Qbc.multiply(COB,Q);
+    Qbc.multiply(COB,AQ);
     // we denote the components of this vector [b c]
     // b,c are the scalars of Q in terms of triangle sides AB and AC
     // such that Q = b*AB + c*AC
@@ -144,7 +146,7 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     AB.print();
     AC.print();
     COB.print();
-    Q.print();
+    AQ.print();
     Qbc.print();
     
     bool t1 = Qbc.get(0) >= 0;
