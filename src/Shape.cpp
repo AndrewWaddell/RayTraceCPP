@@ -22,13 +22,11 @@ void Shape::generateDefault(){
     // connectivity = [0,1,2]
     //                [0,1,3]
     connectivity.generate(2,3);
-    connectivity.insert(0,0,2);
     connectivity.insert(0,1,1);
     connectivity.insert(0,2,2);
-    connectivity.insert(1,0,0);
     connectivity.insert(1,1,1);
     connectivity.insert(1,2,3);
-    numPoints = 3;
+    numPoints = 4;
     numTriangles = 2;
 };
 
@@ -123,6 +121,7 @@ bool Shape::triangleInterior(Rays& rays,int i,int j){
     COB.generate(2);
     COB.append(AB);
     COB.append(AC); // COB currently from bc to xy
+
     if (COB.detZero()){ //triangle is side-on
         return false;
     }
@@ -205,6 +204,8 @@ Matrix Shape::indexPoint(int i, int j){
 };
 
 Matrix Shape::indexPointCOB(int i, int j, int k){
+    connectivity.print();
+    std::cout << "---" << std::endl;
     double indexDouble = connectivity.get(j,k);
     int indexInt = int(indexDouble);
     return pointsCOB.get(i).getCol(indexInt);
