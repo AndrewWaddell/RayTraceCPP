@@ -78,7 +78,7 @@ void Matrix::append(int row,double inVal) {
 
 void Matrix::append(){
     Matrix z;
-    z.zeros(numCols);
+    z.zeros(numRows);
     z.transpose();
     append(z);
 };
@@ -124,12 +124,7 @@ void Matrix::sliceBack(int cols){
 };
 
 void Matrix::zeros(int n) {
-    if (matrix.empty()) {
-        matrix.resize(1); // Initialize with one row
-    }
-    matrix[0].resize(n, 0.0);
-    numRows = 1;
-    numCols = n;
+    generate(1,n);
 };
 
 void Matrix::range(int n) {

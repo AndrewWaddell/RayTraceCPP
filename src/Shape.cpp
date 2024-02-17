@@ -204,8 +204,6 @@ Matrix Shape::indexPoint(int i, int j){
 };
 
 Matrix Shape::indexPointCOB(int i, int j, int k){
-    connectivity.print();
-    std::cout << "---" << std::endl;
     double indexDouble = connectivity.get(j,k);
     int indexInt = int(indexDouble);
     return pointsCOB.get(i).getCol(indexInt);
