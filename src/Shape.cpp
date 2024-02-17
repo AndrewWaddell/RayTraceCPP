@@ -84,12 +84,12 @@ Matrix Shape::shortestDistances(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
         int j = distance.minRowIndex(i); // closest triangle index
         double d = distance.get(i,j);
-        if (std::isinf(d)){
-            distancesCol.append(i,d);
-            normals.append(triangleNormal(j));
-        } else { // if ray doesn't intersect
+        if (std::isinf(d)){ // if ray doesn't intersect
             distancesCol.append(i,0);
             normals.append();
+        } else {
+            distancesCol.append(i,d);
+            normals.append(triangleNormal(j));
         }
     }
     return distancesCol;
