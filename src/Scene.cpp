@@ -32,6 +32,7 @@ void Scene::traceStep(){
                 int j = distances.minRowIndex(i); // closest shape index
                 rays.update(i,j,distances,normals,refractiveIndex,shapes);
         }
+        rays.distancesAcc.pop(rays.numRays); // no more intersections. remove what was reserved.
     }
 };
 

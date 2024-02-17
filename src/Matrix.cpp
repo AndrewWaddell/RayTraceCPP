@@ -83,6 +83,10 @@ void Matrix::append(){
     append(z);
 };
 
+void Matrix::pop(int n){
+    numCols-=n;
+};
+
 void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
 };

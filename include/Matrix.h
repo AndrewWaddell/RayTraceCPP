@@ -30,6 +30,7 @@ class Matrix {
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
         void append(); // append a column of zeros to matrix
+        void pop(int n); // remove n columns from back of matrix
         void insert(int row,int col,double val); // insert value at specified index
         void insert(int col,double val); // insert when matrix is a row vector
         Matrix getRow(int i); // outputs row at index i
