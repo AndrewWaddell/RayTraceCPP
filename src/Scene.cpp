@@ -57,3 +57,41 @@ void Scene::printShape(){
     std::cout << "Connectivity" << std::endl;
     shapes.get(0).connectivity.print();
 };
+
+void Scene::saveRays(){
+    std::ofstream pointsfile("points.txt");
+    for (int i=0;i<rays.points.numRows;i++){
+        for (int j=0;j<rays.points.numCols;j++){
+            pointsfile << rays.points.get(i,j) << " ";
+        }
+        pointsfile << std::endl;
+    }
+    std::ofstream unitfile("unit.txt");
+    for (int i=0;i<rays.unit.numRows;i++){
+        for (int j=0;j<rays.unit.numCols;j++){
+            unitfile << rays.unit.get(i,j) << " ";
+        }
+        unitfile << std::endl;
+    }
+    std::ofstream pointsaccfile("pointsacc.txt");
+    for (int i=0;i<rays.pointsAcc.numRows;i++){
+        for (int j=0;j<rays.pointsAcc.numCols;j++){
+            pointsaccfile << rays.pointsAcc.get(i,j) << " ";
+        }
+        pointsaccfile << std::endl;
+    }
+    std::ofstream unitaccfile("unitacc.txt");
+    for (int i=0;i<rays.unitAcc.numRows;i++){
+        for (int j=0;j<rays.unitAcc.numCols;j++){
+            unitaccfile << rays.unitAcc.get(i,j) << " ";
+        }
+        unitaccfile << std::endl;
+    }
+    std::ofstream distancesAccfile("distancesAcc.txt");
+    for (int i=0;i<rays.distancesAcc.numRows;i++){
+        for (int j=0;j<rays.distancesAcc.numCols;j++){
+            distancesAccfile << rays.distancesAcc.get(i,j) << " ";
+        }
+        distancesAccfile << std::endl;
+    }
+};

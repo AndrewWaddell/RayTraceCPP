@@ -7,5 +7,6 @@ int main() {
     opticalBench.trace();
     opticalBench.printRays();
     opticalBench.printShape();
+    opticalBench.saveRays();
     return 0;
 };

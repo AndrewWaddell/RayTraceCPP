@@ -6,6 +6,7 @@
 #include "Shapes.h"
 #include "Matrix.h"
 #include "MatrixList.h"
+#include <fstream>
 
 
 class Scene {
@@ -23,6 +24,7 @@ class Scene {
         void trace();
         void printRays();
         void printShape();
+        void saveRays();
 };
 
 #endif
