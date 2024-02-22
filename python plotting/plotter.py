@@ -31,7 +31,7 @@ z = importData('../src/z.txt')
 dx = importData('../src/dx.txt')
 dy = importData('../src/dy.txt')
 dz = importData('../src/dz.txt')
-    
+
 
 ax = plt.figure().add_subplot(projection='3d')
 ax.quiver(x,y,z,dx,dy,dz)

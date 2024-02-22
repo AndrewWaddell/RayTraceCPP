@@ -383,6 +383,16 @@ void Matrix::multiply(double val){
     }
 };
 
+void Matrix::multiplyPointwise(Matrix A,Matrix B){
+    generate(A.numRows,A.numCols);
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            double val = A.get(i,j)*B.get(i,j);
+            insert(i,j,val);
+        }
+    }
+};
+
 void Matrix::add(Matrix inMat){
     // assume both matrices have the same dimensions
     for (int i=0;i<numRows;i++){
@@ -500,4 +510,25 @@ void Matrix::print(){
 void Matrix::slice(){
     numRows -= 1;
     matrix[numRows].pop_back();
+};
+
+void Matrix::broadcast(int len){
+    if (numRows==1){ // if row vector
+        transpose();
+        broadcastCol(len);
+        transpose();
+    } else if (numCols==1){ // if col vector
+        broadcastCol(len);
+    }
+};
+
+void Matrix::broadcastCol(int len){
+    Matrix col = *this;
+    for (int i=1;i<len;i++){
+        append(col);
+    }
+};
+
+void Matrix::broadcast(){
+    broadcast(3);
 };

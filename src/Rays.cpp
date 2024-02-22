@@ -149,11 +149,22 @@ void Rays::absorbRay(int i){
 };
 
 void Rays::scaleUnit(){
-    distancesAcc.transpose();
-    unitAcc.print();
-    std::cout << "---" << std::endl;
+    std::cout << "d before" << std::endl;
     distancesAcc.print();
-    std::cout << "`````" << std::endl;
-    unitScaled.multiply(unitAcc,distancesAcc);
+    distancesAcc.broadcast();
+    std::cout << "unit" << std::endl;
+    unitAcc.print();
+    std::cout << "d broadcast" << std::endl;
+    distancesAcc.print();
+    unitScaled.multiplyPointwise(unitAcc,distancesAcc);
+    std::cout << "scaled" << std::endl;
     unitScaled.print();
+};
+
+void Rays::extend(double len){
+    int end = unitAcc.numCols;
+    int start = end - unit.numCols -1;
+    for (int i=start;i<end;i++){
+        distancesAcc.insert(i,len);
+    }
 };

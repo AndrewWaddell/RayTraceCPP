@@ -14,6 +14,7 @@ void Scene::trace(){
             traceStep();
         }
     }
+    rays.extend(1);
     rays.scaleUnit();
 };
 

@@ -51,6 +51,7 @@ class Rays {
         BoolArray blocked; // has each ray hit a blocker?
         void update(int i,int j,Matrix distances,MatrixList normals,double nScene,Shapes& shapes);// update ray i at int with shape j
         void scaleUnit(); // scales each unit vector to corresponding distance
+        void extend(double len); // give distance len to all vectors after final intersections
 };
 
 #endif

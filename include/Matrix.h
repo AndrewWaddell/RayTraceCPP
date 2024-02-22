@@ -50,6 +50,7 @@ class Matrix {
         void normCol(); // normalise columns in matrix
         void multiply(Matrix A,Matrix B); // performs matrix multiplication
         void multiply(double val); // multiplies scalar with each element
+        void multiplyPointwise(Matrix A,Matrix B); // same size A,B. each entry multiply, no sum.
         void add(Matrix inMat); // add each value in inMat to this matrix, store result in this matrix
         void subtract(Matrix A, Matrix B); // subtract (A-B) each matrix element and store in this.
         double sum(); // adds all matrix elements into a single number
@@ -67,6 +68,9 @@ class Matrix {
         int numRows;
         int numCols;
         void slice(); // convert 3D column vector to 2D
+        void broadcast(int len); // duplicate vector into matrix of length len
+        void broadcastCol(int len); // broadcast a col vector
+        void broadcast(); // standard overload for 3 dimensions
 };
 
 #endif
