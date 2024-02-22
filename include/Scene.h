@@ -24,7 +24,7 @@ class Scene {
         void trace();
         void printRays();
         void printShape();
-        void saveRays();
+        void save();
 };
 
 #endif

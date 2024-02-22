@@ -5,8 +5,6 @@ int main() {
     Scene opticalBench;
     opticalBench.generateDefault(); // initialise default test case
     opticalBench.trace();
-    opticalBench.printRays();
-    opticalBench.printShape();
-    opticalBench.saveRays();
+    opticalBench.save();
     return 0;
 };

@@ -147,3 +147,13 @@ double Rays::cosTheta(int i){
 void Rays::absorbRay(int i){
     blocked.insert(i,shape->blocker);
 };
+
+void Rays::scaleUnit(){
+    distancesAcc.transpose();
+    unitAcc.print();
+    std::cout << "---" << std::endl;
+    distancesAcc.print();
+    std::cout << "`````" << std::endl;
+    unitScaled.multiply(unitAcc,distancesAcc);
+    unitScaled.print();
+};

@@ -41,6 +41,7 @@ class Rays {
         Matrix pointsAcc; // accumulated points between steps
         Matrix unitAcc; // accumulated unit vectors between steps
         Matrix distancesAcc; // accumulated lengths of each array
+        Matrix unitScaled; // scaled unit vectors for plotting
         void addSources(Sources& sources);
         bool areActive();
         void createNewBasis();
@@ -49,6 +50,7 @@ class Rays {
         Matrix pointsCOB; // points in terms of the change of basis
         BoolArray blocked; // has each ray hit a blocker?
         void update(int i,int j,Matrix distances,MatrixList normals,double nScene,Shapes& shapes);// update ray i at int with shape j
+        void scaleUnit(); // scales each unit vector to corresponding distance
 };
 
 #endif

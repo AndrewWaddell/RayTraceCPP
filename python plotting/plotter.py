@@ -9,38 +9,30 @@ import matplotlib.pyplot as plt
 import csv
 
 
+# for the original points unit. but change for separate rows
+
 def importData(filename):
     data = []
     with open(filename) as csvfile:
         document = csv.reader(csvfile)
-        i=-1
         for row in document:
-            i+=1
-            data.append([])
             row_reader = csv.reader(row, delimiter=' ')
             for row_list in row_reader:
                 for number_str in row_list:
                     if number_str != '':
                         number = float(number_str)
-                        data[i].append(number)
+                        data.append(number)
     return data
-    
+
             
-points = importData('../src/points.txt')
-unit = importData('../src/unit.txt')
-pointsAcc = importData('../src/pointsAcc.txt')
-unitAcc = importData('../src/unitAcc.txt')
-distancesAcc = importData('../src/distancesAcc.txt')
-
-
-x = pointsAcc[0]
-y = pointsAcc[1]
-z = pointsAcc[2]
-ux = unitAcc[0]
-uy = unitAcc[1]
-uz = unitAcc[2]
+x = importData('../src/x.txt')
+y = importData('../src/y.txt')
+z = importData('../src/z.txt')
+dx = importData('../src/dx.txt')
+dy = importData('../src/dy.txt')
+dz = importData('../src/dz.txt')
     
 
 ax = plt.figure().add_subplot(projection='3d')
-ax.quiver(x,y,z,ux,uy,uz)
+ax.quiver(x,y,z,dx,dy,dz)
 plt.show()
