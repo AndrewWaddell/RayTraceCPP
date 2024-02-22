@@ -18,6 +18,7 @@ class Matrix {
         void swapRows(int ROW1, int ROW2); // row operation in guassian elimination
         void shiftLeft(int n); // move columns left by n values to compress matrix. overwrites earlier cols. leaves outer cols.
         void sliceBack(int cols); // deletes cols columns from the end of the matrix
+        void broadcastCol(int len); // broadcast a col vector
     public:
         bool constructed; // tells us whether we have called the constructor yet
         void generate(int rows); // default constructor with rows and 0 columns. every matrix starts here.
@@ -32,7 +33,7 @@ class Matrix {
         void append(); // append a column of zeros to matrix
         void pop(int n); // remove n columns from back of matrix
         void insert(int row,int col,double val); // insert value at specified index
-        void insert(int col,double val); // insert when matrix is a row vector
+        void insert(int i,double val); // insert when matrix is a vector
         Matrix getRow(int i); // outputs row at index i
         Matrix getCol(int j); // outputs the chosen column as a new matrix
         void insertCol(Matrix col,int j); // replace column at index j with column vector input col
@@ -69,7 +70,6 @@ class Matrix {
         int numCols;
         void slice(); // convert 3D column vector to 2D
         void broadcast(int len); // duplicate vector into matrix of length len
-        void broadcastCol(int len); // broadcast a col vector
         void broadcast(); // standard overload for 3 dimensions
 };
 

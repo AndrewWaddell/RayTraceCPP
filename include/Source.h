@@ -10,6 +10,7 @@ class Source {
         int numRays;
     public:
         void generateDefault();
+        void generateSquare(Matrix loc, Matrix dir,double width, double density);
         int getNumRays();
         Matrix getPoints();
         Matrix getUnit();

@@ -7,6 +7,13 @@ void Scene::generateDefault(){
     shapes.addShape();
 };
 
+void Scene::generateExperiment1(){
+    refractiveIndex = 1;
+    loopLimit = 1;
+    sources.experiment1();
+    shapes.addShape();
+};
+
 void Scene::trace(){
     rays.addSources(sources);
     for (int i = 0; i < loopLimit; ++i) {

@@ -21,6 +21,7 @@ class Scene {
         MatrixList normals;
     public:
         void generateDefault(); // manual constructor for default scene for testing
+        void generateExperiment1();
         void trace();
         void printRays();
         void printShape();

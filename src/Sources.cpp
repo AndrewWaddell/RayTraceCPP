@@ -2,13 +2,32 @@
 
 void Sources::addSource(Source source) {
     sources.push_back(source);
-}
+};
 
 void Sources::addSource() {
     Source newSource;
     newSource.generateDefault();
     addSource(newSource);
-}
+};
+
+void Sources::experiment1(){
+    Source newSource;
+    Matrix location;
+    // [ 1.5 ]
+    // [ 0.5 ]
+    // [ -1  ]
+    location.generate();
+    location.insert(0,1.5);
+    location.insert(1,0.5);
+    location.insert(2,-1);
+    Matrix direction;
+    // [ 0 ]
+    // [ 0 ]
+    // [ 1 ]
+    direction.insert(2,1);
+    newSource.generateSquare(location,direction,2,10);
+    addSource(newSource);
+};
 
 Matrix Sources::points() {
     Matrix matrix;

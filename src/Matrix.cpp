@@ -91,8 +91,12 @@ void Matrix::insert(int row,int col,double val){
     matrix[row][col] = val;
 };
 
-void Matrix::insert(int col,double val){
-    insert(0,col,val);
+void Matrix::insert(int i,double val){
+    if (numRows==1){
+        insert(0,i,val);
+    } else if (numCols==1){
+        insert(i,0,val);
+    }
 };
 
 Matrix Matrix::getRow(int i) {
