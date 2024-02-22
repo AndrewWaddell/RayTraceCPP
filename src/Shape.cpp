@@ -186,15 +186,20 @@ Matrix Shape::triangleNormal(int j){
     // we connect triangle points A,B,C into two vectors
     // plane is spanned by these vectors: AB,AC
     // cross product AB and AC to get normal of plane
+    indexPoints(j);
+    normal.cross(AB,AC);
+    normal.normCol();
+    return normal;
+};
+
+void Shape::indexPoints(int j){
     A = indexPoint(0,j);
     B = indexPoint(1,j);
     C = indexPoint(2,j);
 
     AB.subtract(B,A);
     AC.subtract(C,A);
-    normal.cross(AB,AC);
-    normal.normCol();
-    return normal;
+    BC.subtract(C,B);
 };
 
 Matrix Shape::indexPoint(int i, int j){
@@ -207,4 +212,33 @@ Matrix Shape::indexPointCOB(int i, int j, int k){
     double indexDouble = connectivity.get(j,k);
     int indexInt = int(indexDouble);
     return pointsCOB.get(i).getCol(indexInt);
+};
+
+Matrix Shape::convertToVectors(){
+    vecOut.generate(6);
+    for (int j=0;j<numTriangles;j++){
+        indexPoints(j);
+
+        Matrix vecLocation;
+        vecLocation.generate();
+        vecLocation.append(A);
+        vecLocation.append(A);
+        vecLocation.append(B);
+
+        Matrix vecDirection;
+        vecDirection.generate();
+        vecDirection.append(AB);
+        vecDirection.append(AC);
+        vecDirection.append(BC);
+
+        // append vertically into specified structure
+        vecLocation.transpose();
+        vecDirection.transpose();
+        vecLocation.append(vecDirection);
+        vecLocation.transpose();
+
+        // add triangle vectors to accumulation
+        vecOut.append(vecLocation);
+    }
+    return vecOut;
 };

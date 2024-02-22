@@ -89,4 +89,18 @@ void Scene::save(){
         dzfile << rays.unitScaled.get(2,j) << " ";
     }
 
+    // shapes
+
+    for (Shape shape : shapes){
+        Matrix shapeVecs;
+        shapeVecs = shape.convertToVectors();
+        for (int j=0;j<shapeVecs.numCols;j++){
+            xfile << shapeVecs.get(0,j) << " ";
+            yfile << shapeVecs.get(1,j) << " ";
+            zfile << shapeVecs.get(2,j) << " ";
+            dxfile << shapeVecs.get(3,j) << " ";
+            dyfile << shapeVecs.get(4,j) << " ";
+            dzfile << shapeVecs.get(5,j) << " ";
+        }
+    }
 };
