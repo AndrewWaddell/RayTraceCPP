@@ -37,7 +37,7 @@ void Source::generateSquare(Matrix loc, Matrix dir,double width, double density)
     Matrix col;
     for (double i=-width/2;i<width/2;i=i+gapBetweenRays){
         for (double j=-width/2;j<width/2;j=j+gapBetweenRays){
-            col.generate(2);
+            col.generate(2,1);
             col.insert(0,i);
             col.insert(1,j);
             coordinates.append(col);
@@ -47,6 +47,7 @@ void Source::generateSquare(Matrix loc, Matrix dir,double width, double density)
 
     points.generate();
     points.multiply(basis,coordinates);
+    loc.broadcast(numRays);
     points.add(loc);
 
     unit = dir;

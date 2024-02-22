@@ -46,8 +46,8 @@ void Shape::changeOfBasis(Rays& rays){
 
 bool Shape::traceLowRes(Rays& rays){
     for (int i=0;i<rays.numRays;i++){
-        double x = rays.pointsCOB.get(i,0);
-        double y = rays.pointsCOB.get(i,1);
+        double x = rays.pointsCOB.get(0,i);
+        double y = rays.pointsCOB.get(1,i);
         pointsCOBSingleRay = pointsCOB.get(i);
         double minX = pointsCOBSingleRay.minRow(0);
         double minY = pointsCOBSingleRay.minRow(1);
@@ -164,7 +164,7 @@ double Shape::distanceLinePlane(Rays& rays, int i, int j){
 
     l0 = rays.points.getCol(i);
     l = rays.unit.getCol(i);
-    p0 = indexPoint(i,j);
+    p0 = indexPoint(0,j);
     n = triangleNormal(j);
 
     if (p0.dot(l,n)<0){ // if normal points towards incoming ray

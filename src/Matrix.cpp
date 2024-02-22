@@ -508,6 +508,7 @@ void Matrix::print(){
             std::cout << matrix[i][j] << " ";
         }
         std::cout << std::endl;
+        std::cout << std::endl;
     }
 };
 

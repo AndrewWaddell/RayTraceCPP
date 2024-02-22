@@ -16,7 +16,7 @@ void Sources::experiment1(){
     // [ 1.5 ]
     // [ 0.5 ]
     // [ -1  ]
-    location.generate();
+    location.generate(3,1);
     location.insert(0,1.5);
     location.insert(1,0.5);
     location.insert(2,-1);
@@ -24,6 +24,7 @@ void Sources::experiment1(){
     // [ 0 ]
     // [ 0 ]
     // [ 1 ]
+    direction.generate(3,1);
     direction.insert(2,1);
     newSource.generateSquare(location,direction,2,10);
     addSource(newSource);
