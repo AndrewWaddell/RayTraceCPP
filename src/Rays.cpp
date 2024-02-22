@@ -155,7 +155,7 @@ void Rays::scaleUnit(){
 
 void Rays::extend(double len){
     int end = unitAcc.numCols;
-    int start = end - unit.numCols -1;
+    int start = end - unit.numCols;
     for (int i=start;i<end;i++){
         distancesAcc.insert(i,len);
     }

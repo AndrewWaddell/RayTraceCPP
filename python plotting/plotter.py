@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 import csv
 
 
-# for the original points unit. but change for separate rows
-
 def importData(filename):
     data = []
     with open(filename) as csvfile:
