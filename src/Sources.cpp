@@ -13,18 +13,20 @@ void Sources::addSource() {
 void Sources::experiment1(){
     Source newSource;
     Matrix location;
-    // [ 1.5 ]
+    // [ 3.5 ]
     // [ 0.5 ]
     // [ -1  ]
     location.generate(3,1);
-    location.insert(0,1.5);
+    location.insert(0,3.5);
     location.insert(1,0.5);
     location.insert(2,-1);
     Matrix direction;
-    // [ 0 ]
-    // [ 0 ]
+    // [ -0.6 ]
+    // [ 0.3 ]
     // [ 1 ]
     direction.generate(3,1);
+    direction.insert(0,-0.6);
+    direction.insert(1,0.3);
     direction.insert(2,1);
     newSource.generateSquare(location,direction,2,10);
     addSource(newSource);

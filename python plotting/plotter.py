@@ -33,4 +33,7 @@ dz = importData('../src/dz.txt')
 
 ax = plt.figure().add_subplot(projection='3d')
 ax.quiver(x,y,z,dx,dy,dz)
+ax.set_xlim(0,6)
+ax.set_ylim(-3,3)
+ax.set_zlim(0,6)
 plt.show()
