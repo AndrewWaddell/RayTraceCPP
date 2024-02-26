@@ -8,6 +8,8 @@
                 "-fdiagnostics-color=always",
                 "-I",
                 "${workspaceFolder}/include",
+                "-I",
+                "${workspaceFolder}/libraries/vcpkg/packages/assimp_x64-windows/include/assimp",
                 "-g",
                 "${workspaceFolder}/src/*.cpp",
                 "-o",
