@@ -4,6 +4,9 @@
 
 #include "Matrix.h"
 #include "MatrixList.h"
+#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/Importer.hpp"
+#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/scene.h"
+#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/postprocess.h"
 
 class Rays;
 
@@ -43,6 +46,7 @@ class Shape {
         Matrix points; // rows are x,y,z, cols are each point
         Matrix connectivity; // rows are triangle point indices, cols are each triangle
         void generateDefault();
+        void import();
         void changeOfBasis(Rays& rays); // outputs points in terms of new basis from change of basis matrix COB
         bool traceLowRes(Rays& rays); // optimisation step. quick check to determine rays are even nearby
         void traceDistance(Rays& rays); // find the distance to each triangle, for each ray
