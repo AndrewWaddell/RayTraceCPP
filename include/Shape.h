@@ -4,9 +4,9 @@
 
 #include "Matrix.h"
 #include "MatrixList.h"
-#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/Importer.hpp"
-#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/scene.h"
-#include "../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/postprocess.h"
+#include <../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/Importer.hpp>
+#include <../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/scene.h>
+#include <../libraries/vcpkg/packages/assimp_x64-windows/include/assimp/postprocess.h>
 
 class Rays;
 
