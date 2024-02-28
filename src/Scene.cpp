@@ -111,3 +111,13 @@ void Scene::save(){
         }
     }
 };
+
+void Scene::convertToSTL(){
+    Shape raysSTL = rays.convertToSTL(4);
+    // extract cm and points
+    // add all shapes
+    // combine into megamatrix cm and p
+    // index into triangle matrix
+    // write to txt file
+    // convert txt to stl (can i do this here?)
+};

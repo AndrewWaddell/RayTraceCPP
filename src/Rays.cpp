@@ -160,3 +160,9 @@ void Rays::extend(double len){
         distancesAcc.insert(i,len);
     }
 };
+
+Shape Rays::convertToSTL(int res){
+    for (int i=0;i<numRays;i++){
+        // draw cm and p for a shape
+    }
+};

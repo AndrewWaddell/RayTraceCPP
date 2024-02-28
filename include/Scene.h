@@ -25,6 +25,7 @@ class Scene {
         void trace();
         void printRays();
         void printShape();
+        void convertToSTL(); // converts scene into stl model for visualisation
         void save();
 };
 
