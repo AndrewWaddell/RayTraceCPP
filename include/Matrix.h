@@ -71,6 +71,7 @@ class Matrix {
         void slice(); // convert 3D column vector to 2D
         void broadcast(int len); // duplicate vector into matrix of length len
         void broadcast(); // standard overload for 3 dimensions
+        void ring(int n,double r,Matrix dir); // generates ring of n points at radius r from the origin orthogonal to dir
 };
 
 #endif

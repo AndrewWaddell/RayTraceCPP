@@ -161,8 +161,19 @@ void Rays::extend(double len){
     }
 };
 
-Shape Rays::convertToSTL(int res){
+Shape Rays::convertToSTL(int res,double radius){
+    //  res determines number sides on end polygon
+    // cylinder end face centres are p0 and p1
     for (int i=0;i<numRays;i++){
-        // draw cm and p for a shape
+        Matrix p0 = pointsAcc.getCol(i);
+        Matrix dir = unitAcc.getCol(i);
+        Matrix p1 = unitScaled.getCol(i);
+        p1.add(p0);
+        Matrix endFace1,endFace2;
+        endFace1.ring(res,radius,dir);
+        endFace2 = endFace1;
+        endFace1.add(p0); // ensure broadcast is automatic with add overload
+        endFace2.add(p1);
+
     }
 };
