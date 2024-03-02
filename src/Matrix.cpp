@@ -537,3 +537,22 @@ void Matrix::broadcastCol(int len){
 void Matrix::broadcast(){
     broadcast(3);
 };
+
+void Matrix::ring(int n,double r,Matrix dir){
+    generate();
+    Matrix orth1,orth2; // basis vectors for space (temporary)
+    orth1.rotate90(dir);
+    orth2.cross(dir,orth1);
+    orth1.normCol();
+    orth2.normCol();
+
+    double pi = 4*atan(1); // (4 * pi/4)
+    for (double theta=0;theta<2*pi;theta+=2*pi/n){
+        Matrix temp1 = orth1;
+        Matrix temp2 = orth2;
+        temp1.multiply(r*cos(theta));
+        temp2.multiply(r*sin(theta));
+        temp1.add(temp2);
+        append(temp1);
+    }
+};

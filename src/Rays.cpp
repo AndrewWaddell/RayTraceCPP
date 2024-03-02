@@ -174,6 +174,5 @@ Shape Rays::convertToSTL(int res,double radius){
         endFace2 = endFace1;
         endFace1.add(p0); // ensure broadcast is automatic with add overload
         endFace2.add(p1);
-
     }
 };
