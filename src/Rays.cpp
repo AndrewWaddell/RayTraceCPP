@@ -162,8 +162,11 @@ void Rays::extend(double len){
 };
 
 Shape Rays::convertToSTL(int res,double radius){
-    //  res determines number sides on end polygon
+    // res determines number sides on end polygon
     // cylinder end face centres are p0 and p1
+    Shape shape;
+    shape.points.generate();
+    shape.connectivity.generate();
     for (int i=0;i<numRays;i++){
         Matrix p0 = pointsAcc.getCol(i);
         Matrix dir = unitAcc.getCol(i);
@@ -172,7 +175,29 @@ Shape Rays::convertToSTL(int res,double radius){
         Matrix endFace1,endFace2;
         endFace1.ring(res,radius,dir);
         endFace2 = endFace1;
-        endFace1.add(p0); // ensure broadcast is automatic with add overload
+        endFace1.add(p0);
         endFace2.add(p1);
+        shape.points.append(endFace1);
+        shape.points.append(endFace2);
+
+        // build cm
+        Matrix end1,end2,edge1,edge2; // names of triangle sections
+        for (int i=0;i<res;i++){
+            end1.generate(3,1);
+            end2.generate(3,1);
+            edge1.generate(3,1);
+            edge2.generate(3,1);
+            end1.insert(1,i+2);
+            end1.insert(2,i+3);
+            end2.insert(0,1);
+            end2.insert(1,res+i+2);
+            end2.insert(2,res+i+3);
+
+            shape.connectivity.append();
+        }
+        // set final endface to 2, n+2
+        // then add edges as multiples of end columns
     }
+    shape.numPoints = shape.points.numCols;
+
 };
