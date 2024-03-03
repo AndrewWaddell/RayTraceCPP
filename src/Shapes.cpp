@@ -7,6 +7,10 @@ void Shapes::addShape(){
     shapes.push_back(newShape);
 };
 
+void Shapes::addShape(Shape shape){
+    shapes.push_back(shape);
+};
+
 int Shapes::size(){
     return shapes.size();
 };

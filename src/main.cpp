@@ -7,5 +7,6 @@ int main() {
     opticalBench.trace();
     // opticalBench.save();
     opticalBench.convertToSTL();
+    opticalBench.save();
     return 0;
 };

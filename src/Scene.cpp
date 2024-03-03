@@ -114,6 +114,7 @@ void Scene::save(){
 
 void Scene::convertToSTL(){
     Shape raysSTL = rays.convertToSTL(4,0.1);
+    shapes.addShape(raysSTL);
     // extract cm and points
     // add all shapes
     // combine into megamatrix cm and p

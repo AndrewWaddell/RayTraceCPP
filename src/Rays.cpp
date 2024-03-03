@@ -217,4 +217,5 @@ Shape Rays::convertToSTL(int res,double radius){
     }
     shape.numPoints = shape.points.numCols;
     shape.numTriangles = shape.connectivity.numCols;
+    return shape;
 };
