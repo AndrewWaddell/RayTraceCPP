@@ -53,6 +53,7 @@ class Matrix {
         void multiply(double val); // multiplies scalar with each element
         void multiplyPointwise(Matrix A,Matrix B); // same size A,B. each entry multiply, no sum.
         void add(Matrix inMat); // add each value in inMat to this matrix, store result in this matrix
+        void add(double val); // add val to every element of matrix
         void subtract(Matrix A, Matrix B); // subtract (A-B) each matrix element and store in this.
         double sum(); // adds all matrix elements into a single number
         void transpose(); // works for matrix and vectors

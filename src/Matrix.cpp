@@ -413,6 +413,14 @@ void Matrix::add(Matrix inMat){
     
 };
 
+void Matrix::add(double val){
+    for (int i=0;i<numRows;i++){
+        for (int j=0;j<numCols;j++){
+            matrix[i][j] += val;
+        }
+    }
+};
+
 void Matrix::subtract(Matrix A,Matrix B){
     generate(B);
     multiply(-1);

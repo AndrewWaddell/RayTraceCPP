@@ -177,7 +177,8 @@ Shape Rays::convertToSTL(int res,double radius){
         endFace2 = endFace1;
         endFace1.add(p0);
         endFace2.add(p1);
-        endFace2.print();
+        shape.points.append(p0);
+        shape.points.append(p1);
         shape.points.append(endFace1);
         shape.points.append(endFace2);
 
@@ -210,6 +211,14 @@ Shape Rays::convertToSTL(int res,double radius){
                 edge2.insert(0,2);
                 edge2.insert(2,res+2);
             }
+
+            // shift index for each ray
+            double shift = shape.connectivity.numCols;
+            end1.add(shift);
+            end2.add(shift);
+            edge1.add(shift);
+            edge2.add(shift);
+
             shape.connectivity.append(end1);
             shape.connectivity.append(end2);
             shape.connectivity.append(edge1);
