@@ -14,7 +14,6 @@ class Shape {
         Matrix pointCOB; // temporary array to handle columns of pointsCOBRay
         Matrix distance; // each ray-triangle distance. dims: (rays, triangles). inf if no intersection.
         Matrix distancesCol; // temporary array used in shortestDistances() to contain these values
-        int numTriangles; // number of triangles for shape
         bool triangleInterior(Rays& rays,int i,int j); // determine if ray i goes inside triangle j
         double distanceLinePlane(Rays& rays, int i, int j); // distance from line i at location i to intersection with plane j
         bool rightDirection(double d); // determine if distance d to intersection is in right direction
@@ -50,6 +49,7 @@ class Shape {
         Matrix shortestDistances(Rays& rays); // column of distances for each ray to closest triangles
         Matrix normals; // for each ray upon each closest triangle. dims: 3 * rays
         int numPoints; // number of points of shape
+        int numTriangles; // number of triangles for shape
         bool blocker; // shape property. true if type fully absorbs ray. stop tracing after this shape.
         bool mirror; // shape property. true if rays reflect off shape. false if rays refract through shape.
         Matrix convertToVectors(); // draw triangle edges as vectors. rows: x,y,z,ux,uy,uz

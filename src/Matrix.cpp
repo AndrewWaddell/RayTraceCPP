@@ -398,7 +398,6 @@ void Matrix::multiplyPointwise(Matrix A,Matrix B){
 };
 
 void Matrix::add(Matrix inMat){
-    // assume both matrices have the same dimensions
     if (inMat.numCols == numCols){
         if (inMat.numRows == numRows){
             for (int i=0;i<numRows;i++){

@@ -184,20 +184,37 @@ Shape Rays::convertToSTL(int res,double radius){
         Matrix end1,end2,edge1,edge2; // names of triangle sections
         for (int i=0;i<res;i++){
             end1.generate(3,1);
-            end2.generate(3,1);
-            edge1.generate(3,1);
-            edge2.generate(3,1);
             end1.insert(1,i+2);
             end1.insert(2,i+3);
+            
+            end2.generate(3,1);
             end2.insert(0,1);
             end2.insert(1,res+i+2);
             end2.insert(2,res+i+3);
 
-            shape.connectivity.append();
+            edge1.generate();
+            edge1.append(0,i+2);
+            edge1.append(1,i+3);
+            edge1.append(2,res+i+2);
+            
+            edge2.generate();
+            edge2.append(0,i+3);
+            edge2.append(1,res+i+2);
+            edge2.append(2,res+i+3);
+
+            if (i==res-1){ // final triangle connects to 1st point
+                end1.insert(2,2);
+                end2.insert(2,res+2);
+                edge1.insert(1,2);
+                edge2.insert(0,2);
+                edge2.insert(2,res+2);
+            }
+            shape.connectivity.append(end1);
+            shape.connectivity.append(end2);
+            shape.connectivity.append(edge1);
+            shape.connectivity.append(edge2);
         }
-        // set final endface to 2, n+2
-        // then add edges as multiples of end columns
     }
     shape.numPoints = shape.points.numCols;
-
+    shape.numTriangles = shape.connectivity.numCols;
 };
