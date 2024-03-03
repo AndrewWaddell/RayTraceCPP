@@ -24,7 +24,7 @@ class Scene {
         void generateExperiment1();
         void trace();
         void printRays();
-        void printShape();
+        void printShapes();
         void convertToSTL(); // converts scene into stl model for visualisation
         void save();
 };

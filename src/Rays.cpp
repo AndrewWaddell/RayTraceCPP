@@ -177,6 +177,7 @@ Shape Rays::convertToSTL(int res,double radius){
         endFace2 = endFace1;
         endFace1.add(p0);
         endFace2.add(p1);
+        endFace2.print();
         shape.points.append(endFace1);
         shape.points.append(endFace2);
 

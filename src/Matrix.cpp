@@ -548,10 +548,15 @@ void Matrix::broadcast(){
 void Matrix::ring(int n,double r,Matrix dir){
     generate();
     Matrix orth1,orth2; // basis vectors for space (temporary)
+    dir.print();
     orth1.rotate90(dir);
-    orth2.cross(dir,orth1);
+    orth1.print();
+    orth2.cross(dir,orth1); // producing 000
+    orth2.print();
     orth1.normCol();
     orth2.normCol();
+    orth1.print();
+    orth2.print();
 
     double pi = 4*atan(1); // (4 * pi/4)
     for (double theta=0;theta<2*pi;theta+=2*pi/n){

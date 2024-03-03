@@ -59,12 +59,15 @@ void Scene::printRays(){
     rays.distancesAcc.print();
 };
 
-void Scene::printShape(){
-    std::cout << "Print Shape 0:" << std::endl;
-    std::cout << "Points" << std::endl;
-    shapes.get(0).points.print();
-    std::cout << "Connectivity" << std::endl;
-    shapes.get(0).connectivity.print();
+void Scene::printShapes(){
+    for (int i=0;i<shapes.numShapes();i++){
+        std::cout << "Print Shape ";
+        std::cout << i << ":" << std::endl;
+        std::cout << "Points" << std::endl;
+        shapes.get(i).points.print();
+        std::cout << "Connectivity" << std::endl;
+        shapes.get(i).connectivity.print();
+    }
 };
 
 void Scene::save(){
@@ -113,7 +116,7 @@ void Scene::save(){
 };
 
 void Scene::convertToSTL(){
-    Shape raysSTL = rays.convertToSTL(4,0.1);
+    Shape raysSTL = rays.convertToSTL(4,1);
     shapes.addShape(raysSTL);
     // extract cm and points
     // add all shapes

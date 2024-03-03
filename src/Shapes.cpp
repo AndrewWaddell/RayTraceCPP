@@ -11,7 +11,7 @@ void Shapes::addShape(Shape shape){
     shapes.push_back(shape);
 };
 
-int Shapes::size(){
+int Shapes::numShapes(){
     return shapes.size();
 };
 
