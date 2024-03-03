@@ -208,7 +208,7 @@ void Matrix::cross(Matrix mat1,Matrix mat2){
         double bz = mat2.get(2,j);
 
         // perform operation
-        cx = ay*bz - az-by;
+        cx = ay*bz - az*by;
         cy = az*bx - ax*bz;
         cz = ax*by - ay*bx;
 
