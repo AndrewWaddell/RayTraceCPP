@@ -183,6 +183,7 @@ Shape Rays::convertToSTL(int res,double radius){
         shape.points.append(endFace2);
 
         // build cm
+        double pointsPerRay = (2*res+2)*numRays;
         Matrix end1,end2,edge1,edge2; // names of triangle sections
         for (int i=0;i<res;i++){
             end1.generate(3,1);
@@ -213,7 +214,8 @@ Shape Rays::convertToSTL(int res,double radius){
             }
 
             // shift index for each ray
-            double shift = shape.connectivity.numCols;
+            
+            double shift = i * pointsPerRay;
             end1.add(shift);
             end2.add(shift);
             edge1.add(shift);
