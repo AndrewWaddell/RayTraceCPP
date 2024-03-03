@@ -19,13 +19,14 @@ void Shape::generateDefault(){
     points.insert(2,1,1);
     points.insert(2,2,0.5);
     points.insert(2,3,6);
-    // connectivity = [0,1,2]
-    //                [0,1,3]
-    connectivity.generate(2,3);
-    connectivity.insert(0,1,1);
-    connectivity.insert(0,2,2);
+    // connectivity = [0 0]
+    //                [1 1]
+    //                [2 3]
+    connectivity.generate(3,2);
+    connectivity.insert(1,0,1);
     connectivity.insert(1,1,1);
-    connectivity.insert(1,2,3);
+    connectivity.insert(2,0,2);
+    connectivity.insert(2,1,3);
     numPoints = 4;
     numTriangles = 2;
 };
@@ -230,13 +231,13 @@ void Shape::indexPoints(int j){
 };
 
 Matrix Shape::indexPoint(int i, int j){
-    double indexDouble = connectivity.get(j,i);
+    double indexDouble = connectivity.get(i,j);
     int indexInt = int(indexDouble);
     return points.getCol(indexInt);
 };
 
 Matrix Shape::indexPointCOB(int i, int j, int k){
-    double indexDouble = connectivity.get(j,k);
+    double indexDouble = connectivity.get(k,j);
     int indexInt = int(indexDouble);
     return pointsCOB.get(i).getCol(indexInt);
 };
