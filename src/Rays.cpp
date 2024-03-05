@@ -167,7 +167,7 @@ Shape Rays::convertToSTL(int res,double radius){
     Shape shape;
     shape.points.generate();
     shape.connectivity.generate();
-    for (int i=0;i<numRays;i++){
+    for (int i=0;i<pointsAcc.numCols;i++){
         Matrix p0 = pointsAcc.getCol(i);
         Matrix dir = unitAcc.getCol(i);
         Matrix p1 = unitScaled.getCol(i);
