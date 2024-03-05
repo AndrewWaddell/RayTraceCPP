@@ -6,7 +6,8 @@ void Sources::addSource(Source source) {
 
 void Sources::addSource() {
     Source newSource;
-    newSource.generateDefault();
+    // newSource.generateDefault();
+    newSource.generateSingleRay();
     addSource(newSource);
 };
 

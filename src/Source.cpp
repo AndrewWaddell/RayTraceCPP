@@ -18,6 +18,14 @@ void Source::generateDefault(){
     numRays = 3;
 };
 
+void Source::generateSingleRay(){
+    points.generate(3,1);
+    points.insert(0,0,1);
+    unit.generate(3,1);
+    unit.insert(2,0,1);
+    numRays = 1;
+};
+
 void Source::generateSquare(Matrix loc, Matrix dir,double width, double density){
     Matrix orth1; // orth1&2 span plane orthogonal to dir (direction)
     Matrix orth2;

@@ -183,29 +183,29 @@ Shape Rays::convertToSTL(int res,double radius){
         shape.points.append(endFace2);
 
         // build cm
-        double pointsPerRay = (2*res+2)*numRays;
+        double pointsPerRay = (2*res+2);
         Matrix end1,end2,edge1,edge2; // names of triangle sections
-        for (int i=0;i<res;i++){
+        for (int j=0;j<res;j++){
             end1.generate(3,1);
-            end1.insert(1,i+2);
-            end1.insert(2,i+3);
+            end1.insert(1,j+2);
+            end1.insert(2,j+3);
             
             end2.generate(3,1);
             end2.insert(0,1);
-            end2.insert(1,res+i+2);
-            end2.insert(2,res+i+3);
+            end2.insert(1,res+j+2);
+            end2.insert(2,res+j+3);
 
             edge1.generate();
-            edge1.append(0,i+2);
-            edge1.append(1,i+3);
-            edge1.append(2,res+i+2);
+            edge1.append(0,j+2);
+            edge1.append(1,j+3);
+            edge1.append(2,res+j+2);
             
             edge2.generate();
-            edge2.append(0,i+3);
-            edge2.append(1,res+i+2);
-            edge2.append(2,res+i+3);
+            edge2.append(0,j+3);
+            edge2.append(1,res+j+2);
+            edge2.append(2,res+j+3);
 
-            if (i==res-1){ // final triangle connects to 1st point
+            if (j==res-1){ // final triangle connects to 1st point
                 end1.insert(2,2);
                 end2.insert(2,res+2);
                 edge1.insert(1,2);

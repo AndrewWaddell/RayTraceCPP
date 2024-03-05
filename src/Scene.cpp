@@ -116,7 +116,7 @@ void Scene::save(){
 };
 
 void Scene::convertToSTL(){
-    Shape raysSTL = rays.convertToSTL(3,0.3);
+    Shape raysSTL = rays.convertToSTL(4,3);
     shapes.addShape(raysSTL);
     // extract cm and points
     // add all shapes
