@@ -34,7 +34,6 @@ class Shape {
         Matrix l0; // current location of ray. Used in distanceLinePlane
         Matrix p0; // any point on the plane. Used in distanceLinePlane
         Matrix normal; // temporary column vector used in triangle normal function
-        Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j
         Matrix vecOut; // output for convertToVectors. rows: x,y,z,ux,uy,uz
     public:
@@ -53,6 +52,7 @@ class Shape {
         bool blocker; // shape property. true if type fully absorbs ray. stop tracing after this shape.
         bool mirror; // shape property. true if rays reflect off shape. false if rays refract through shape.
         Matrix convertToVectors(); // draw triangle edges as vectors. rows: x,y,z,ux,uy,uz
+        Matrix indexPoint(int i, int j); // grab point i from triangle j using connectivity matrix
 };
 
 #endif

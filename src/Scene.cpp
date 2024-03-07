@@ -124,4 +124,28 @@ void Scene::convertToSTL(){
     // index into triangle matrix
     // write to txt file
     // convert txt to stl (can i do this here?)
+    const std::string plotSTL = "plot.stl";
+    std::ofstream stlFile(plotSTL);
+    if (!stlFile.is_open()) {
+        std::cout << "Error opening file: " << plotSTL << std::endl;
+    }
+    stlFile << "solid triangle\n";
+    for (Shape shape:shapes){
+        for (int i=0;i<shape.numTriangles;i++){ // for each triangle
+            stlFile << "    facet normal 0 0 1\n";
+            stlFile << "        outer loop\n";
+            for (int j=0;j<3;j++){ // for each dimension
+                Matrix point = shape.indexPoint(j,i);
+                stlFile << "            vertex";
+                for (int k=0;k<3;k++){
+                    stlFile << " " << point.get(k);
+                }
+                stlFile << std::endl;
+            }
+            stlFile << "        endloop\n";
+            stlFile << "    endfacet\n";
+        }
+    }
+    stlFile << "endsolid triangle\n";
+    stlFile.close();
 };
