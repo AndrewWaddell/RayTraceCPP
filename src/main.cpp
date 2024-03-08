@@ -8,6 +8,6 @@ int main() {
     // opticalBench.save();
     opticalBench.convertToSTL();
     opticalBench.save();
-    opticalBench.printShapes();
+    // opticalBench.printShapes();
     return 0;
 };
