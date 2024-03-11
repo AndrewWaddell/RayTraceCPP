@@ -61,12 +61,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "defs.h"
 
 // Some types moved to separate header due to size of operators
-#include <vector2.h>
-#include <vector3.h>
-#include <color4.h>
-#include <matrix3x3.h>
-#include <matrix4x4.h>
-#include <quaternion.h>
+#include "vector2.h"
+#include "vector3.h"
+#include "color4.h"
+#include "matrix3x3.h"
+#include "matrix4x4.h"
+#include "quaternion.h"
 
 typedef int32_t ai_int32;
 typedef uint32_t ai_uint32;
