@@ -32,31 +32,31 @@ void Shape::generateDefault(){
 };
 
 void Shape::import(){
-    // Assimp::Importer importer;
-    // const aiScene* scene = importer.ReadFile("path",aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
-    // const aiMesh* mesh = scene->mMeshes[0];
-    // Matrix vertices;
-    // Matrix temp;
-    // vertices.generate();
-    // for (int i=0;i<mesh->mNumVertices;i++){
-    //     const aiVector3D& vertex = mesh->mVertices[i];
-    //     temp.generate(3,1);
-    //     temp.insert(0,vertex.x);
-    //     temp.insert(1,vertex.y);
-    //     temp.insert(2,vertex.z);
-    //     vertices.append(temp);
-    // }
-    // Matrix connmatrix;
-    // connmatrix.generate();
-    // for (int i=0;i<mesh->mNumFaces;i++){
-    //     const aiFace& face = mesh->mFaces[i];
-    //     temp.generate(3,1);
-    //     for (int j=0;j<3;j++){
-    //         int d = face.mIndices[j];
-    //         temp.insert(j,d);
-    //     }
-    //     connmatrix.append(temp);
-    // }
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile("path",aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
+    const aiMesh* mesh = scene->mMeshes[0];
+    Matrix vertices;
+    Matrix temp;
+    vertices.generate();
+    for (int i=0;i<mesh->mNumVertices;i++){
+        const aiVector3D& vertex = mesh->mVertices[i];
+        temp.generate(3,1);
+        temp.insert(0,vertex.x);
+        temp.insert(1,vertex.y);
+        temp.insert(2,vertex.z);
+        vertices.append(temp);
+    }
+    Matrix connmatrix;
+    connmatrix.generate();
+    for (int i=0;i<mesh->mNumFaces;i++){
+        const aiFace& face = mesh->mFaces[i];
+        temp.generate(3,1);
+        for (int j=0;j<3;j++){
+            int d = face.mIndices[j];
+            temp.insert(j,d);
+        }
+        connmatrix.append(temp);
+    }
 };
 
 void Shape::changeOfBasis(Rays& rays){
