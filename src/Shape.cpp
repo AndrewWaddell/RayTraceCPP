@@ -32,7 +32,7 @@ void Shape::generateDefault(){
 };
 
 void Shape::import(){
-    // Assimp::Importer importer;
+    Assimp::Importer importer;
     // const aiScene* scene = importer.ReadFile("path",aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
     // const aiMesh* mesh = scene->mMeshes[0];
     // Matrix vertices;
