@@ -4,9 +4,6 @@
 
 #include "Matrix.h"
 #include "MatrixList.h"
-#include "../include/assimp/Importer.hpp"
-#include "../include/assimp/scene.h"
-#include "../include/assimp/postprocess.h"
 
 class Rays;
 

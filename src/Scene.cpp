@@ -124,7 +124,7 @@ void Scene::convertToSTL(){
     // index into triangle matrix
     // write to txt file
     // convert txt to stl (can i do this here?)
-    const std::string plotSTL = "plot.stl";
+    const std::string plotSTL = "../assets/scene.stl";
     std::ofstream stlFile(plotSTL);
     if (!stlFile.is_open()) {
         std::cout << "Error opening file: " << plotSTL << std::endl;
