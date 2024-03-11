@@ -1,0 +1,16 @@
+solid triangle
+    facet normal 0 0 1
+        outer loop
+            vertex 1.5 1 1
+            vertex 1.5 -1 1
+            vertex 0 1 0.5
+        endloop
+    endfacet
+    facet normal 0 0 1
+        outer loop
+            vertex 1.5 1 1
+            vertex 1.5 -1 1
+            vertex 5 1 6
+        endloop
+    endfacet
+endsolid triangle

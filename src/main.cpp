@@ -3,8 +3,8 @@
 int main() {
     
     Scene opticalBench;
-    // opticalBench.generateDefault(); // initialise default test case
-    opticalBench.generateExperiment1();
+    opticalBench.generateDefault(); // initialise default test case
+    // opticalBench.generateExperiment1();
     opticalBench.trace();
     opticalBench.convertToSTL();
     // opticalBench.save();
