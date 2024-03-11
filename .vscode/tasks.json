@@ -12,9 +12,7 @@
                 "${workspaceFolder}/src/*.cpp",
                 "-o",
                 "${workspaceFolder}/bin/RayTrace",
-                "-I${workspaceFolder}/libraries/assimp/include",
-                "-L${workspaceFolder}/libraries/assimp",
-                "-lassimp"
+                "-I${workspaceFolder}/libraries/assimp/include"
             ],
             "options": {
                 "cwd": "${fileDirname}"

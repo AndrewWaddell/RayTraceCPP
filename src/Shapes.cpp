@@ -2,8 +2,8 @@
 
 void Shapes::addShape(){
     Shape newShape;
-    // newShape.generateDefault();
-    newShape.import();
+    newShape.generateDefault();
+    // newShape.import();
     shapes.push_back(newShape);
 };
 
