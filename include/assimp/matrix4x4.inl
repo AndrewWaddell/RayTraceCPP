@@ -48,10 +48,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef __cplusplus
 
-#include <matrix4x4.h>
-#include <matrix3x3.h>
-#include <quaternion.h>
-#include <MathFunctions.h>
+#include "matrix4x4.h"
+#include "matrix3x3.h"
+#include "quaternion.h"
+#include "MathFunctions.h"
 
 #include <algorithm>
 #include <limits>

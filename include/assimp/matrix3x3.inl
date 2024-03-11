@@ -51,8 +51,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef __cplusplus
-#include <matrix3x3.h>
-#include <matrix4x4.h>
+#include "matrix3x3.h"
+#include "matrix4x4.h"
 
 #include <algorithm>
 #include <cmath>

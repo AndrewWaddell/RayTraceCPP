@@ -50,14 +50,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   pragma GCC system_header
 #endif
 
-#include <types.h>
-#include <texture.h>
-#include <mesh.h>
-#include <light.h>
-#include <camera.h>
-#include <material.h>
-#include <anim.h>
-#include <metadata.h>
+#include "types.h"
+#include "texture.h"
+#include "mesh.h"
+#include "light.h"
+#include "camera.h"
+#include "material.h"
+#include "anim.h"
+#include "metadata.h"
 
 #ifdef __cplusplus
 #  include <cstdlib>
