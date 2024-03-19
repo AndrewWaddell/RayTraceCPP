@@ -6,6 +6,8 @@ Created on Tue Mar 19 18:06:37 2024
 """
 
 import tkinter as tk
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,NavigationToolbar2Tk)
 
 class GUI():
     def __init__(self):
@@ -28,22 +30,30 @@ class GUI():
         self.rectangleButton = tk.Button(master=self.sourceFrame,text="Rectangle",command=self.makeRectangle)
         self.pointButton = tk.Button(master=self.sourceFrame,text="Point",command=self.makePoint)
         self.beamButton = tk.Button(master=self.sourceFrame,text="Beam",command=self.makeBeam)
+        self.plotButton = tk.Button(master=self.plotFrame,text="Plot",command=self.plot)
     def createSource(self):
         print(self.xVal.get())
     def makeCircle(self):
         self.circleCanvas.itemconfig(self.circleLamp,state=tk.NORMAL)
         self.rectangleCanvas.itemconfig(self.rectangleLamp,state=tk.HIDDEN)
-        self.circleState = 1
     def makeRectangle(self):
         self.circleCanvas.itemconfig(self.circleLamp,state=tk.HIDDEN)
         self.rectangleCanvas.itemconfig(self.rectangleLamp,state=tk.NORMAL)
-        self.circleState = 0
     def makePoint(self):
         self.pointCanvas.itemconfig(self.pointLamp,state=tk.NORMAL)
         self.beamCanvas.itemconfig(self.beamLamp,state=tk.HIDDEN)
     def makeBeam(self):
         self.pointCanvas.itemconfig(self.pointLamp,state=tk.HIDDEN)
         self.beamCanvas.itemconfig(self.beamLamp,state=tk.NORMAL)
+    def plot(self):
+        y = [i**2 for i in range(int(self.xVal.get()))]
+        self.plot1.plot(y)
+        self.plotCanvas.draw()
+    def setup(self):
+        self.fig = Figure(figsize=(5,5),dpi=100)
+        self.plot1 = self.fig.add_subplot(111)
+        self.plotCanvas = FigureCanvasTkAgg(self.fig,master=self.plotFrame)
+        self.plot()
     def labels(self):
         self.densityLabel = tk.Label(master=self.sourceFrame,text="Density")
         self.xLabel = tk.Label(master=self.sourceFrame,text="X (diameter)")
@@ -85,6 +95,7 @@ class GUI():
         pass
     def pack(self):
         self.packSourceFrame()
+        self.packPlotFrame()
     def packSourceFrame(self):
         self.sourceButton.grid(row=0,column=0)
         self.densityLabel.grid(row=1,column=0)
@@ -103,5 +114,14 @@ class GUI():
         self.beamCanvas.grid(row=7,column=1)
         self.divergenceLabel.grid(row=8,column=0)
         self.divergenceEntry.grid(row=8,column=1)
-        self.sourceFrame.pack()
+        self.sourceFrame.grid(row=0,column=0)
+    def packPlotFrame(self):
+        self.setup()
+        self.plotButton.pack()
+        self.plotCanvas.get_tk_widget().pack()
+        toolbar = NavigationToolbar2Tk(self.plotCanvas,self.plotFrame)
+        toolbar.update()
+        self.plotCanvas.get_tk_widget().pack()
+        self.plotFrame.grid(row=0,column=1)
+        
 app = GUI()
