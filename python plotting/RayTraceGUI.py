@@ -32,7 +32,8 @@ class GUI():
         self.beamButton = tk.Button(master=self.sourceFrame,text="Beam",command=self.makeBeam)
         self.plotButton = tk.Button(master=self.plotFrame,text="Plot",command=self.plot)
     def createSource(self):
-        print(self.xVal.get())
+        self.createSourceWindow = tk.Toplevel()
+        self.createSourceWindow.title("Create Source")
     def makeCircle(self):
         self.circleCanvas.itemconfig(self.circleLamp,state=tk.NORMAL)
         self.rectangleCanvas.itemconfig(self.rectangleLamp,state=tk.HIDDEN)
