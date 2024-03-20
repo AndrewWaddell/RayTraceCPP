@@ -10,7 +10,9 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,NavigationToolbar2Tk)
 
 class GUI():
-    def __init__(self):
+    def __init__(self,higherPower=False):
+        self.data = 0
+        self.higherPower = higherPower
         self.windowType()
         self.setTitle()
         self.frames()
@@ -60,10 +62,13 @@ class mainGUI(GUI):
     def buttons(self):
         self.sourceButton = tk.Button(master=self.window,text="Create Source",command=self.createSource)
         self.plotButton = tk.Button(master=self.window,text="Plot",command=self.plot)
+        self.monitorButtom = tk.Button(master=self.window,text="Monitor",command=self.monitorOutput)
     def plot(self):
         y = [i**2 for i in range(int("15"))]
         self.plot1.plot(y)
         self.plotCanvas.draw()
+    def monitorOutput(self):
+        print(self.data)
     def initialisePlot(self):
         self.fig = Figure(figsize=(5,5),dpi=100)
         self.plot1 = self.fig.add_subplot(111)
@@ -71,14 +76,15 @@ class mainGUI(GUI):
         self.plot()
     def pack(self):
         self.sourceButton.pack()
+        self.monitorButtom.pack()
         self.plotButton.pack()
         self.plotCanvas.get_tk_widget().pack()
         toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
         toolbar.update()
         self.plotCanvas.get_tk_widget().pack()
     def createSource(self):
-        self.sourceWindow = sourceGUI()
-        
+        self.sourceWindow = sourceGUI(self)
+            
 
 class sourceGUI(GUI):
     def windowType(self):
@@ -90,6 +96,7 @@ class sourceGUI(GUI):
         self.rectangleButton = tk.Button(master=self.window,text="Rectangle",command=self.makeRectangle)
         self.pointButton = tk.Button(master=self.window,text="Point",command=self.makePoint)
         self.beamButton = tk.Button(master=self.window,text="Beam",command=self.makeBeam)
+        self.createSourceButton = tk.Button(master=self.window,text="Create Source", command=self.createSource)
     def makeCircle(self):
         self.circleCanvas.itemconfig(self.circleLamp,state=tk.NORMAL)
         self.rectangleCanvas.itemconfig(self.rectangleLamp,state=tk.HIDDEN)
@@ -102,6 +109,10 @@ class sourceGUI(GUI):
     def makeBeam(self):
         self.pointCanvas.itemconfig(self.pointLamp,state=tk.HIDDEN)
         self.beamCanvas.itemconfig(self.beamLamp,state=tk.NORMAL)
+    def createSource(self):
+        self.killed = True
+        self.higherPower.data = 1
+        self.window.destroy()
     def labels(self):
         self.densityLabel = tk.Label(master=self.window,text="Density")
         self.xLabel = tk.Label(master=self.window,text="X (diameter)")
@@ -157,6 +168,7 @@ class sourceGUI(GUI):
         self.beamCanvas.grid(row=7,column=1)
         self.divergenceLabel.grid(row=8,column=0)
         self.divergenceEntry.grid(row=8,column=1)
+        self.createSourceButton.grid(row=9,column=0)
         
         
 app = mainGUI()
