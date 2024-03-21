@@ -20,6 +20,7 @@ class GUI():
         self.buttons()
         self.labels()
         self.entries()
+        self.optionMenus()
         self.lamps()
         self.defaults()
         self.initialisePlot()
@@ -42,6 +43,8 @@ class GUI():
     def labels(self):
         pass
     def entries(self):
+        pass
+    def optionMenus(self):
         pass
     def entryVals(self):
         pass
@@ -201,6 +204,12 @@ class sourceGUI(GUI):
         self.directionXVal = tk.StringVar()
         self.directionYVal = tk.StringVar()
         self.directionZVal = tk.StringVar()
+        self.circleVal = tk.StringVar()
+        self.options = ["Circle","Rectangle"]
+    def optionMenus(self):
+        self.circleOptionMenu = tk.OptionMenu(self.window,
+                                              self.circleVal,
+                                              *self.options)
     def lamps(self):
         '''Circle lamp'''
         self.circleCanvas = tk.Canvas(self.window,
@@ -244,6 +253,7 @@ class sourceGUI(GUI):
         self.directionXEntry.insert(0,"0")
         self.directionYEntry.insert(0,"0")
         self.directionZEntry.insert(0,"1")
+        self.circleVal.set("Circle")
     def pack(self):
         self.densityLabel.grid(row=0,column=0)
         self.densityEntry.grid(row=0,column=1)
@@ -266,6 +276,7 @@ class sourceGUI(GUI):
         self.packXFrame()
         self.packYFrame()
         self.packZFrame()
+        self.circleOptionMenu.grid(row=9,column=0)
     def packXFrame(self):
         self.directionXLabel.grid(row=0,column=0)
         self.directionXEntry.grid(row=0,column=1)
