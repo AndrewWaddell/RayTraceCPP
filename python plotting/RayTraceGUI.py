@@ -21,7 +21,6 @@ class GUI():
         self.labels()
         self.entries()
         self.optionMenus()
-        self.lamps()
         self.defaults()
         self.initialisePlot()
         self.pack()
@@ -47,8 +46,6 @@ class GUI():
     def optionMenus(self):
         pass
     def entryVals(self):
-        pass
-    def lamps(self):
         pass
     def defaults(self):
         pass
