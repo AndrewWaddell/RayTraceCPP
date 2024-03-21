@@ -102,99 +102,66 @@ class sourceGUI(GUI):
     def setTitle(self):
         self.window.title("Create Source")
     def buttons(self):
-        self.circleButton = tk.Button(master=self.window,
-                                      text="Circle",
-                                      command=self.makeCircle,
-                                      width=12)
-        self.rectangleButton = tk.Button(master=self.window,
-                                         text="Rectangle",
-                                         command=self.makeRectangle,
-                                         width=12)
-        self.pointButton = tk.Button(master=self.window,
-                                     text="Point",
-                                     command=self.makePoint,
-                                     width=12)
-        self.beamButton = tk.Button(master=self.window,
-                                    text="Beam",
-                                    command=self.makeBeam,
-                                    width=12)
         self.createSourceButton = tk.Button(master=self.window,
                                             text="Create Source",
                                             command=self.createSource,
                                             width=12)
-    def makeCircle(self):
-        self.circleCanvas.itemconfig(self.circleLamp,
-                                     state=tk.NORMAL)
-        self.rectangleCanvas.itemconfig(self.rectangleLamp,
-                                        state=tk.HIDDEN)
-    def makeRectangle(self):
-        self.circleCanvas.itemconfig(self.circleLamp,
-                                     state=tk.HIDDEN)
-        self.rectangleCanvas.itemconfig(self.rectangleLamp,
-                                        state=tk.NORMAL)
-    def makePoint(self):
-        self.pointCanvas.itemconfig(self.pointLamp,
-                                    state=tk.NORMAL)
-        self.beamCanvas.itemconfig(self.beamLamp,
-                                   state=tk.HIDDEN)
-        self.pointSet = True
-    def makeBeam(self):
-        self.pointCanvas.itemconfig(self.pointLamp,
-                                    state=tk.HIDDEN)
-        self.beamCanvas.itemconfig(self.beamLamp,
-                                   state=tk.NORMAL)
-        self.pointSet = False
-    def initialiseData(self):
-        self.pointSet = True
     def createSource(self):
         source = {}
         source['density'] = self.densityVal.get()
         source['x'] = self.xVal.get()
         source['y'] = self.yVal.get()
         source['divergence'] = self.divergenceVal.get()
-        source['circle'] = True
-        source['point'] = self.pointSet
+        source['circle'] = self.circleVal.get()
+        source['point'] = self.pointVal.get()
         self.masterClass.sources.append(source)
         self.window.destroy()
     def labels(self):
-        self.densityLabel = tk.Label(master=self.window,
+        self.densityLabel = tk.Label(master=self.densityFrame,
                                      text="Density")
-        self.xLabel = tk.Label(master=self.window,
-                               text="X (diameter)")
-        self.yLabel = tk.Label(master=self.window,
+        self.xLabel = tk.Label(master=self.xFrame,
+                               text="X")
+        self.yLabel = tk.Label(master=self.yFrame,
                                text="Y")
-        self.divergenceLabel = tk.Label(master=self.window,
-                                        text="Divergence(deg)")
-        self.directionLabel = tk.Label(master=self.window,
+        self.divergenceLabel = tk.Label(master=self.divergenceFrame,
+                                        text="Divergence")
+        self.directionLabel = tk.Label(master=self.rightFrame,
                                        text="Direction")
-        self.directionXLabel = tk.Label(master=self.xFrame,
+        self.directionXLabel = tk.Label(master=self.directionXFrame,
                                         text="X")
-        self.directionYLabel = tk.Label(master=self.yFrame,
+        self.directionYLabel = tk.Label(master=self.directionYFrame,
                                         text="Y")
-        self.directionZLabel = tk.Label(master=self.zFrame,
+        self.directionZLabel = tk.Label(master=self.directionZFrame,
                                         text="Z")
     def frames(self):
-        self.xFrame = tk.Frame(master=self.window)
-        self.yFrame = tk.Frame(master=self.window)
-        self.zFrame = tk.Frame(master=self.window)
+        self.leftFrame = tk.Frame(master=self.window)
+        self.middleFrame = tk.Frame(master=self.window)
+        self.rightFrame = tk.Frame(master=self.window)
+        self.densityFrame = tk.Frame(master=self.leftFrame)
+        self.xFrame = tk.Frame(master=self.leftFrame)
+        self.yFrame = tk.Frame(master=self.leftFrame)
+        self.divergenceFrame = tk.Frame(master=self.leftFrame)
+        self.directionXFrame = tk.Frame(master=self.rightFrame)
+        self.directionYFrame = tk.Frame(master=self.rightFrame)
+        self.directionZFrame = tk.Frame(master=self.rightFrame)
     def entries(self):
         self.entryVals()
-        self.densityEntry = tk.Entry(master=self.window,
+        self.densityEntry = tk.Entry(master=self.densityFrame,
                                      textvariable=self.densityVal,
                                      width=5)
-        self.xEntry = tk.Entry(master=self.window,
+        self.xEntry = tk.Entry(master=self.xFrame,
                                textvariable=self.xVal,
                                width=5)
-        self.yEntry = tk.Entry(master=self.window,
+        self.yEntry = tk.Entry(master=self.yFrame,
                                textvariable=self.yVal,
                                width=5)
-        self.divergenceEntry = tk.Entry(master=self.window,
+        self.divergenceEntry = tk.Entry(master=self.divergenceFrame,
                                         width=5)
-        self.directionXEntry = tk.Entry(master=self.xFrame,
+        self.directionXEntry = tk.Entry(master=self.directionXFrame,
                                         width=5)
-        self.directionYEntry = tk.Entry(master=self.yFrame,
+        self.directionYEntry = tk.Entry(master=self.directionYFrame,
                                         width=5)
-        self.directionZEntry = tk.Entry(master=self.zFrame,
+        self.directionZEntry = tk.Entry(master=self.directionZFrame,
                                         width=5)
     def entryVals(self):
         self.densityVal = tk.StringVar()
@@ -204,47 +171,19 @@ class sourceGUI(GUI):
         self.directionXVal = tk.StringVar()
         self.directionYVal = tk.StringVar()
         self.directionZVal = tk.StringVar()
+    def optionVals(self):
         self.circleVal = tk.StringVar()
-        self.options = ["Circle","Rectangle"]
+        self.pointVal = tk.StringVar()
+        self.circleOptions = ["Circle","Rectangle"]
+        self.pointOptions = ["Point","Beam"]
     def optionMenus(self):
-        self.circleOptionMenu = tk.OptionMenu(self.window,
+        self.optionVals()
+        self.circleOptionMenu = tk.OptionMenu(self.leftFrame,
                                               self.circleVal,
-                                              *self.options)
-    def lamps(self):
-        '''Circle lamp'''
-        self.circleCanvas = tk.Canvas(self.window,
-                                      width=10,
-                                      height=10)
-        self.circleLamp = self.circleCanvas.create_oval(2,2,10,10)
-        self.circleCanvas.itemconfig(self.circleLamp,
-                                     fill="red",
-                                     outline="black",
-                                     state=tk.NORMAL)
-        '''Rectangle lamp'''
-        self.rectangleCanvas = tk.Canvas(self.window,
-                                         width=10,
-                                         height=10)
-        self.rectangleLamp = self.rectangleCanvas.create_rectangle(2,2,10,10)
-        self.rectangleCanvas.itemconfig(self.rectangleLamp,
-                                        fill="red",
-                                        outline="black",
-                                        state=tk.HIDDEN)
-        '''Point lamp'''
-        self.pointCanvas = tk.Canvas(self.window, width=10, height=10)
-        self.pointLamp = self.pointCanvas.create_oval(2,2,10,10)
-        self.pointCanvas.itemconfig(self.pointLamp,
-                                    fill="red",
-                                    outline="black",
-                                    state=tk.NORMAL)
-        '''Beam lamp'''
-        self.beamCanvas = tk.Canvas(self.window,
-                                    width=10,
-                                    height=10)
-        self.beamLamp = self.beamCanvas.create_oval(2,2,10,10)
-        self.beamCanvas.itemconfig(self.beamLamp,
-                                   fill="red",
-                                   outline="black",
-                                   state=tk.HIDDEN)
+                                              *self.circleOptions)
+        self.pointOptionMenu = tk.OptionMenu(self.leftFrame,
+                                              self.pointVal,
+                                              *self.pointOptions)
     def defaults(self):
         self.densityEntry.insert(0,"5")
         self.xEntry.insert(0,"15")
@@ -254,40 +193,57 @@ class sourceGUI(GUI):
         self.directionYEntry.insert(0,"0")
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Circle")
+        self.pointVal.set("Point")
     def pack(self):
-        self.densityLabel.grid(row=0,column=0)
-        self.densityEntry.grid(row=0,column=1)
-        self.circleButton.grid(row=1,column=0)
-        self.circleCanvas.grid(row=1,column=1)
-        self.rectangleButton.grid(row=2,column=0)
-        self.rectangleCanvas.grid(row=2,column=1)
-        self.xLabel.grid(row=3,column=0)
-        self.xEntry.grid(row=3,column=1)
-        self.yLabel.grid(row=4,column=0)
-        self.yEntry.grid(row=4,column=1)
-        self.pointButton.grid(row=5,column=0)
-        self.pointCanvas.grid(row=5,column=1)
-        self.beamButton.grid(row=6,column=0)
-        self.beamCanvas.grid(row=6,column=1)
-        self.divergenceLabel.grid(row=7,column=0)
-        self.divergenceEntry.grid(row=7,column=1)
-        self.createSourceButton.grid(row=8,column=0)
-        self.directionLabel.grid(row=0,column=2)
+        self.packLeftFrame()
+        self.packMiddleFrame()
+        self.packRightFrame()
+    def packLeftFrame(self):
+        self.packDensityFrame()
+        self.circleOptionMenu.pack()
         self.packXFrame()
         self.packYFrame()
-        self.packZFrame()
-        self.circleOptionMenu.grid(row=9,column=0)
+        self.pointOptionMenu.pack()
+        self.packDivergenceFrame()
+        self.leftFrame.grid(row=0,column=0)
+    def packMiddleFrame(self):
+        # pack scatter plot no toolbar
+        # pack divergence plot no toolbar
+        self.middleFrame.grid(row=0,column=1)
+    def packRightFrame(self):
+        self.directionLabel.pack()
+        self.packDirectionXFrame()
+        self.packDirectionYFrame()
+        self.packDirectionZFrame()
+        # pack vector diagram no toolbar
+        self.rightFrame.grid(row=0,column=2)
+    def packDensityFrame(self):
+        self.densityLabel.grid(row=0,column=0)
+        self.densityEntry.grid(row=0,column=1)
+        self.densityFrame.pack()
     def packXFrame(self):
+        self.xLabel.grid(row=0,column=0)
+        self.xEntry.grid(row=0,column=1)
+        self.xFrame.pack()
+    def packYFrame(self):
+        self.yLabel.grid(row=0,column=0)
+        self.yEntry.grid(row=0,column=1)
+        self.yFrame.pack()
+    def packDivergenceFrame(self):
+        self.divergenceLabel.grid(row=0,column=0)
+        self.divergenceEntry.grid(row=0,column=1)
+        self.divergenceFrame.pack()
+    def packDirectionXFrame(self):
         self.directionXLabel.grid(row=0,column=0)
         self.directionXEntry.grid(row=0,column=1)
-        self.xFrame.grid(row=1,column=2)
-    def packYFrame(self):
+        self.directionXFrame.pack()
+    def packDirectionYFrame(self):
         self.directionYLabel.grid(row=0,column=0)
         self.directionYEntry.grid(row=0,column=1)
-        self.yFrame.grid(row=2,column=2)
-    def packZFrame(self):
+        self.directionYFrame.pack()
+    def packDirectionZFrame(self):
         self.directionZLabel.grid(row=0,column=0)
         self.directionZEntry.grid(row=0,column=1)
-        self.zFrame.grid(row=3,column=2)
+        self.directionZFrame.pack()
         
 app = mainGUI()
