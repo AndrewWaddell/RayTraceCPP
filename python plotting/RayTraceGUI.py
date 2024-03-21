@@ -6,6 +6,7 @@ Created on Tue Mar 19 18:06:37 2024
 """
 
 import tkinter as tk
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
@@ -53,9 +54,6 @@ class GUI():
         pass
     def pack(self):
         pass
-        
-        
-        
 
 class mainGUI(GUI):
     def mainloop(self):
@@ -71,24 +69,13 @@ class mainGUI(GUI):
                                     command=self.plot)
     def initialiseData(self):
         self.sources = []
-    def plot(self):
-        print(self.sources)
-        y = [i**2 for i in range(int("15"))]
-        self.plot1.plot(y)
-        self.plotCanvas.draw()
-    def initialisePlot(self):
-        self.fig = Figure(figsize=(5,5),dpi=100)
-        self.plot1 = self.fig.add_subplot(111)
-        self.plotCanvas = FigureCanvasTkAgg(self.fig,
-                                            master=self.window)
-        self.plot()
     def pack(self):
         self.sourceButton.pack()
         self.plotButton.pack()
-        self.plotCanvas.get_tk_widget().pack()
-        toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
-        toolbar.update()
-        self.plotCanvas.get_tk_widget().pack()
+        # self.plotCanvas.get_tk_widget().pack()
+        # toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
+        # toolbar.update()
+        # self.plotCanvas.get_tk_widget().pack()
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
             
@@ -115,13 +102,17 @@ class sourceGUI(GUI):
         self.window.destroy()
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
-                                     text="Density")
+                                     text="Density",
+                                     width=10)
         self.xLabel = tk.Label(master=self.xFrame,
-                               text="X")
+                               text="X",
+                               width=10)
         self.yLabel = tk.Label(master=self.yFrame,
-                               text="Y")
+                               text="Y",
+                               width=10)
         self.divergenceLabel = tk.Label(master=self.divergenceFrame,
-                                        text="Divergence")
+                                        text="Divergence",
+                                        width=10)
         self.directionLabel = tk.Label(master=self.rightFrame,
                                        text="Direction")
         self.directionXLabel = tk.Label(master=self.directionXFrame,
@@ -145,15 +136,15 @@ class sourceGUI(GUI):
         self.entryVals()
         self.densityEntry = tk.Entry(master=self.densityFrame,
                                      textvariable=self.densityVal,
-                                     width=5)
+                                     width=3)
         self.xEntry = tk.Entry(master=self.xFrame,
                                textvariable=self.xVal,
-                               width=5)
+                               width=3)
         self.yEntry = tk.Entry(master=self.yFrame,
                                textvariable=self.yVal,
-                               width=5)
+                               width=3)
         self.divergenceEntry = tk.Entry(master=self.divergenceFrame,
-                                        width=5)
+                                        width=3)
         self.directionXEntry = tk.Entry(master=self.directionXFrame,
                                         width=5)
         self.directionYEntry = tk.Entry(master=self.directionYFrame,
@@ -191,6 +182,15 @@ class sourceGUI(GUI):
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Circle")
         self.pointVal.set("Point")
+    def plot(self):
+        self.subplot.scatter([0,1,2],[0,1,2])
+        self.plotCanvas.draw()
+    def initialisePlot(self):
+        self.fig = Figure()
+        self.subplot = self.fig.add_subplot(111)
+        self.plotCanvas = FigureCanvasTkAgg(self.fig,
+                                            master=self.middleFrame)
+        self.plot()
     def pack(self):
         self.packLeftFrame()
         self.packMiddleFrame()
@@ -204,7 +204,7 @@ class sourceGUI(GUI):
         self.packDivergenceFrame()
         self.leftFrame.grid(row=0,column=0)
     def packMiddleFrame(self):
-        # pack scatter plot no toolbar
+        self.plotCanvas.get_tk_widget().pack()
         # pack divergence plot no toolbar
         self.middleFrame.grid(row=0,column=1)
     def packRightFrame(self):
