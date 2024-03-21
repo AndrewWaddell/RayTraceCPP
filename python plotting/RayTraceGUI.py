@@ -6,7 +6,6 @@ Created on Tue Mar 19 18:06:37 2024
 """
 
 import tkinter as tk
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
@@ -23,7 +22,7 @@ class GUI():
         self.entries()
         self.optionMenus()
         self.defaults()
-        self.initialisePlot()
+        self.initialisePlots()
         self.pack()
         self.mainloop()
     def windowType(self):
@@ -50,7 +49,7 @@ class GUI():
         pass
     def defaults(self):
         pass
-    def initialisePlot(self):
+    def initialisePlots(self):
         pass
     def pack(self):
         pass
@@ -182,15 +181,38 @@ class sourceGUI(GUI):
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Circle")
         self.pointVal.set("Point")
-    def plot(self):
-        self.subplot.scatter([0,1,2],[0,1,2])
-        self.plotCanvas.draw()
-    def initialisePlot(self):
-        self.fig = Figure()
-        self.subplot = self.fig.add_subplot(111)
-        self.plotCanvas = FigureCanvasTkAgg(self.fig,
+    def plotScatter(self):
+        self.scatterPlot.scatter([0,1,2],[0,1,2])
+        self.scatterCanvas.draw()
+    def plotVector(self):
+        self.vectorPlot.quiver([0,0,0], # axes arms
+                               [0,0,0],
+                               [0,0,0],
+                               [0.5,0,0],
+                               [0,0.5,0],
+                               [0,0,0.5])
+        self.vectorPlot.quiver([0],[0],[0],[0],[0],[1],
+                               normalize=True) # vector to show
+        self.vectorPlot.scatter([0],[0],[0])
+        self.vectorCanvas.draw()
+    def initialisePlots(self):
+        self.initialiseScatterPlot()
+        self.initialiseVectorPlot()
+    def initialiseScatterPlot(self):
+        self.scatterFig = Figure()
+        self.scatterPlot = self.scatterFig.add_subplot(111)
+        self.scatterCanvas = FigureCanvasTkAgg(self.scatterFig,
                                             master=self.middleFrame)
-        self.plot()
+        self.plotScatter()
+    def initialiseVectorPlot(self):
+        self.vectorFig = Figure(figsize=(3,3))
+        self.vectorPlot = self.vectorFig.add_subplot(projection='3d')
+        self.vectorPlot.set_xlim(-1,1)
+        self.vectorPlot.set_ylim(-1,1)
+        self.vectorPlot.set_zlim(-1,1)
+        self.vectorCanvas = FigureCanvasTkAgg(self.vectorFig,
+                                                master=self.rightFrame)
+        self.plotVector()
     def pack(self):
         self.packLeftFrame()
         self.packMiddleFrame()
@@ -204,15 +226,14 @@ class sourceGUI(GUI):
         self.packDivergenceFrame()
         self.leftFrame.grid(row=0,column=0)
     def packMiddleFrame(self):
-        self.plotCanvas.get_tk_widget().pack()
-        # pack divergence plot no toolbar
+        self.scatterCanvas.get_tk_widget().pack()
         self.middleFrame.grid(row=0,column=1)
     def packRightFrame(self):
         self.directionLabel.pack()
         self.packDirectionXFrame()
         self.packDirectionYFrame()
         self.packDirectionZFrame()
-        # pack vector diagram no toolbar
+        self.vectorCanvas.get_tk_widget().pack()
         self.rightFrame.grid(row=0,column=2)
     def packDensityFrame(self):
         self.densityLabel.grid(row=0,column=0)
