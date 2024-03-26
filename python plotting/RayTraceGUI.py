@@ -206,8 +206,10 @@ class sourceGUI(GUI):
     def plotScatter(self,var=None,index=None,mode=None):
         widthStr = self.xVal.get()
         heightStr = self.yVal.get()
-        w = 0 if widthStr == '' else int(widthStr)
-        h = 0 if heightStr == '' else int(heightStr)
+        if widthStr=='' or heightStr=='':
+            return
+        w = int(widthStr)
+        h = int(heightStr)
         densityStr = self.densityVal.get()
         density = 0 if densityStr == '' else int(densityStr)
         raysPerX = int(np.sqrt(density))*w
@@ -221,6 +223,8 @@ class sourceGUI(GUI):
         except:
             pass
         self.scatterHandle = self.scatterPlot.scatter(X,Y)
+        self.scatterPlot.set_xlim(x.min()-1,x.max()+1)
+        self.scatterPlot.set_ylim(y.min()-1,y.max()+1)
         self.scatterCanvas.draw()
     def plotVector(self,var=None,index=None,mode=None):
         xStr = self.directionXVal.get()
@@ -250,6 +254,7 @@ class sourceGUI(GUI):
     def initialiseScatterPlot(self):
         self.scatterFig = Figure(figsize=(5,5))
         self.scatterPlot = self.scatterFig.add_subplot(111)
+        self.scatterPlot.set_aspect('equal')
         self.scatterCanvas = FigureCanvasTkAgg(self.scatterFig,
                                             master=self.middleFrame)
         self.plotScatter()
