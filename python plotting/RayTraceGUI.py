@@ -24,6 +24,7 @@ class GUI():
         self.entries()
         self.optionMenus()
         self.defaults()
+        self.callbacks()
         self.initialisePlots()
         self.pack()
         self.mainloop()
@@ -46,6 +47,8 @@ class GUI():
     def entries(self):
         pass
     def optionMenus(self):
+        pass
+    def callbacks(self):
         pass
     def entryVals(self):
         pass
@@ -145,12 +148,16 @@ class sourceGUI(GUI):
                                textvariable=self.yVal,
                                width=3)
         self.divergenceEntry = tk.Entry(master=self.divergenceFrame,
+                                        textvariable=self.divergenceVal,
                                         width=3)
         self.directionXEntry = tk.Entry(master=self.directionXFrame,
+                                        textvariable=self.directionXVal,
                                         width=5)
         self.directionYEntry = tk.Entry(master=self.directionYFrame,
+                                        textvariable=self.directionYVal,
                                         width=5)
         self.directionZEntry = tk.Entry(master=self.directionZFrame,
+                                        textvariable=self.directionZVal,
                                         width=5)
     def entryVals(self):
         self.densityVal = tk.StringVar()
@@ -174,6 +181,12 @@ class sourceGUI(GUI):
         self.pointOptionMenu = tk.OptionMenu(self.leftFrame,
                                               self.pointVal,
                                               *self.pointOptions)
+    def callbacks(self):
+        self.directionXVal.trace("w",self.plotVector)
+        self.directionYVal.trace("w",self.plotVector)
+        self.directionZVal.trace("w",self.plotVector)
+    def testCall(self,var,index,mode):
+        print('called')
     def initialiseData(self):
         self.circleState = True # monitor if circle is selected
     def fixY(self,chosenOption):
@@ -198,7 +211,7 @@ class sourceGUI(GUI):
         self.circleVal.set("Circle")
         self.pointVal.set("Point")
     def plotScatter(self):
-        w = 1000
+        w = 50
         l = np.linspace(-1,1,w)
         x = np.repeat(l,w)
         y = np.tile(l,w)
@@ -209,15 +222,35 @@ class sourceGUI(GUI):
         
         self.scatterPlot.scatter(x,y,c=r,cmap='jet')
         self.scatterCanvas.draw()
-    def plotVector(self):
-        self.vectorPlot.quiver([0,0,0], # axes arms
+    def plotVector(self,var=None,index=None,mode=None):
+        xStr = self.directionXVal.get()
+        yStr = self.directionYVal.get()
+        zStr = self.directionZVal.get()
+        if xStr == '':
+            x = 0
+        else:
+            x = float(xStr)
+        if yStr == '':
+            y = 0
+        else:
+            y = float(yStr)
+        if zStr == '':
+            z = 0
+        else:
+            z = float(zStr)
+        try:
+            self.quiverAxes.remove()
+            self.quiverVector.remove()
+        except:
+            pass
+        self.quiverAxes = self.vectorPlot.quiver([0,0,0],
                                [0,0,0],
                                [0,0,0],
                                [0.5,0,0],
                                [0,0.5,0],
                                [0,0,0.5])
-        self.vectorPlot.quiver([0],[0],[0],[0],[0],[1],
-                               normalize=True) # vector to show
+        self.quiverVector = self.vectorPlot.quiver([0],[0],[0],[x],[y],[z],
+                               normalize=True)
         self.vectorPlot.scatter([0],[0],[0])
         self.vectorCanvas.draw()
     def initialisePlots(self):
