@@ -188,25 +188,15 @@ class sourceGUI(GUI):
         self.directionXVal.trace("w",self.plotVector)
         self.directionYVal.trace("w",self.plotVector)
         self.directionZVal.trace("w",self.plotVector)
-    def testCall(self,var,index,mode):
-        print('called')
-    def initialiseData(self):
-        self.circleState = True # monitor if circle is selected
     def fixY(self,chosenOption):
-        if chosenOption=="Circle" and self.circleState:
-            pass # Don't replace y val if it is already a copy
-        elif chosenOption=="Circle":
-            self.yValStorage = self.yVal.get()
-            self.yVal.set(self.xVal.get())
-            self.circleState = True
-        elif chosenOption=="Rectangle":
-            self.yVal.set(self.yValStorage)
-            self.circleState = False
+        if chosenOption=="Circle":
+            self.yEntry.config(state="disabled")
+        else:
+            self.yEntry.config(state="normal")
     def defaults(self):
-        self.densityEntry.insert(0,"5")
-        self.xEntry.insert(0,"15")
-        self.yEntry.insert(0,"15") # default state is circle
-        self.yValStorage = 10
+        self.densityEntry.insert(0,"1")
+        self.xEntry.insert(0,"10")
+        self.yEntry.insert(0,"5") # default state is circle
         self.divergenceEntry.insert(0,"0")
         self.directionXEntry.insert(0,"0")
         self.directionYEntry.insert(0,"0")
