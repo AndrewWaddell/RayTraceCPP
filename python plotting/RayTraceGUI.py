@@ -182,6 +182,7 @@ class sourceGUI(GUI):
                                               self.pointVal,
                                               *self.pointOptions)
     def callbacks(self):
+        self.densityVal.trace("w",self.plotScatter)
         self.directionXVal.trace("w",self.plotVector)
         self.directionYVal.trace("w",self.plotVector)
         self.directionZVal.trace("w",self.plotVector)
@@ -210,17 +211,22 @@ class sourceGUI(GUI):
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Circle")
         self.pointVal.set("Point")
-    def plotScatter(self):
-        w = 50
-        l = np.linspace(-1,1,w)
-        x = np.repeat(l,w)
-        y = np.tile(l,w)
-        r = np.sqrt(x**2+y**2)
-        x = x[r<1]
-        y = y[r<1]
-        r = r[r<1]
-        
-        self.scatterPlot.scatter(x,y,c=r,cmap='jet')
+    def plotScatter(self,var=None,index=None,mode=None):
+        width = 5
+        densityStr = self.densityVal.get()
+        if densityStr == '':
+            density = 0
+        else:
+            density = int(densityStr)
+        raysPerLine = int(np.sqrt(density))
+        l = np.linspace(-width/2,width/2,raysPerLine)
+        x = np.repeat(l,raysPerLine)
+        y = np.tile(l,raysPerLine)
+        try:
+            self.scatterHandle.remove()
+        except:
+            pass
+        self.scatterHandle = self.scatterPlot.scatter(x,y)
         self.scatterCanvas.draw()
     def plotVector(self,var=None,index=None,mode=None):
         xStr = self.directionXVal.get()
