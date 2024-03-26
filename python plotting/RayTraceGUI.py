@@ -6,6 +6,8 @@ Created on Tue Mar 19 18:06:37 2024
 """
 
 import tkinter as tk
+import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
@@ -196,7 +198,16 @@ class sourceGUI(GUI):
         self.circleVal.set("Circle")
         self.pointVal.set("Point")
     def plotScatter(self):
-        self.scatterPlot.scatter([0,1,2],[0,1,2])
+        w = 1000
+        l = np.linspace(-1,1,w)
+        x = np.repeat(l,w)
+        y = np.tile(l,w)
+        r = np.sqrt(x**2+y**2)
+        x = x[r<1]
+        y = y[r<1]
+        r = r[r<1]
+        
+        self.scatterPlot.scatter(x,y,c=r,cmap='jet')
         self.scatterCanvas.draw()
     def plotVector(self):
         self.vectorPlot.quiver([0,0,0], # axes arms
@@ -213,7 +224,7 @@ class sourceGUI(GUI):
         self.initialiseScatterPlot()
         self.initialiseVectorPlot()
     def initialiseScatterPlot(self):
-        self.scatterFig = Figure()
+        self.scatterFig = Figure(figsize=(5,5))
         self.scatterPlot = self.scatterFig.add_subplot(111)
         self.scatterCanvas = FigureCanvasTkAgg(self.scatterFig,
                                             master=self.middleFrame)
