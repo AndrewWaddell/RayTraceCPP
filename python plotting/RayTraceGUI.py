@@ -183,6 +183,8 @@ class sourceGUI(GUI):
                                               *self.pointOptions)
     def callbacks(self):
         self.densityVal.trace("w",self.plotScatter)
+        self.xVal.trace("w", self.plotScatter)
+        self.yVal.trace("w", self.plotScatter)
         self.directionXVal.trace("w",self.plotVector)
         self.directionYVal.trace("w",self.plotVector)
         self.directionZVal.trace("w",self.plotVector)
@@ -209,41 +211,34 @@ class sourceGUI(GUI):
         self.directionXEntry.insert(0,"0")
         self.directionYEntry.insert(0,"0")
         self.directionZEntry.insert(0,"1")
-        self.circleVal.set("Circle")
+        self.circleVal.set("Rectangle")
         self.pointVal.set("Point")
     def plotScatter(self,var=None,index=None,mode=None):
-        width = 5
+        widthStr = self.xVal.get()
+        heightStr = self.yVal.get()
+        w = 0 if widthStr == '' else int(widthStr)
+        h = 0 if heightStr == '' else int(heightStr)
         densityStr = self.densityVal.get()
-        if densityStr == '':
-            density = 0
-        else:
-            density = int(densityStr)
-        raysPerLine = int(np.sqrt(density))
-        l = np.linspace(-width/2,width/2,raysPerLine)
-        x = np.repeat(l,raysPerLine)
-        y = np.tile(l,raysPerLine)
+        density = 0 if densityStr == '' else int(densityStr)
+        raysPerX = int(np.sqrt(density))*w
+        raysPerY = int(np.sqrt(density))*h
+        x = np.linspace(-w/2,w/2,raysPerX)
+        y = np.linspace(-h/2,h/2,raysPerY)
+        X = np.repeat(x,raysPerY)
+        Y = np.tile(y,raysPerX)
         try:
             self.scatterHandle.remove()
         except:
             pass
-        self.scatterHandle = self.scatterPlot.scatter(x,y)
+        self.scatterHandle = self.scatterPlot.scatter(X,Y)
         self.scatterCanvas.draw()
     def plotVector(self,var=None,index=None,mode=None):
         xStr = self.directionXVal.get()
         yStr = self.directionYVal.get()
         zStr = self.directionZVal.get()
-        if xStr == '':
-            x = 0
-        else:
-            x = float(xStr)
-        if yStr == '':
-            y = 0
-        else:
-            y = float(yStr)
-        if zStr == '':
-            z = 0
-        else:
-            z = float(zStr)
+        x = 0 if xStr == '' else float(xStr)
+        y = 0 if yStr == '' else float(yStr)
+        z = 0 if zStr == '' else float(zStr)
         try:
             self.quiverAxes.remove()
             self.quiverVector.remove()
