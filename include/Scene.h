@@ -27,6 +27,7 @@ class Scene {
         void printShapes();
         void convertToSTL(); // converts scene into stl model for visualisation
         void save();
+        void saveSources(); // used for 2D plots of each source
 };
 
 #endif

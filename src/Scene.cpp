@@ -115,6 +115,16 @@ void Scene::save(){
     }
 };
 
+void Scene::saveSources(){
+    for (Shape shape:shapes){
+        // take coordinates before they are converted to points
+    }
+    std::ofstream sourcesfile("x.txt");
+    for (int j=0;j<rays.pointsAcc.numCols;j++){
+        sourcesfile << rays.pointsAcc.get(0,j) << " ";
+    }
+}
+
 void Scene::convertToSTL(){
     Shape raysSTL = rays.convertToSTL(9,0.01);
     shapes.addShape(raysSTL);
