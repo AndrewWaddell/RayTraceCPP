@@ -185,6 +185,7 @@ class sourceGUI(GUI):
         self.densityVal.trace("w",self.plotScatter)
         self.xVal.trace("w", self.plotScatter)
         self.yVal.trace("w", self.plotScatter)
+        self.divergenceVal.trace("w", self.plotDivergence)
         self.directionXVal.trace("w",self.plotVector)
         self.directionYVal.trace("w",self.plotVector)
         self.directionZVal.trace("w",self.plotVector)
@@ -197,7 +198,7 @@ class sourceGUI(GUI):
         self.densityEntry.insert(0,"1")
         self.xEntry.insert(0,"10")
         self.yEntry.insert(0,"5") # default state is circle
-        self.divergenceEntry.insert(0,"0")
+        self.divergenceEntry.insert(0,"20")
         self.directionXEntry.insert(0,"0")
         self.directionYEntry.insert(0,"0")
         self.directionZEntry.insert(0,"1")
@@ -248,11 +249,33 @@ class sourceGUI(GUI):
                                normalize=True)
         self.vectorPlot.scatter([0],[0],[0])
         self.vectorCanvas.draw()
+    def plotDivergence(self,var=None,index=None,mode=None):
+        angleStr = self.divergenceVal.get()
+        if angleStr == '':
+            return
+        else:
+            angle = float(angleStr)
+        angle *= np.pi/180 # convert degrees to radians
+        h = np.tan(angle/2) #height
+        try:
+            self.divergenceQuiver.remove()
+        except:
+            pass
+        # normalize manually
+        l = np.sqrt(1+h**2)
+        self.divergenceQuiver = self.divergencePlot.quiver(
+            [0,0],[0,0],[-1/l,-1/l],[h/l,-h/l],scale=4)
+        self.divergencePlot.get_xaxis().set_visible(False)
+        self.divergencePlot.get_yaxis().set_visible(False)
+        self.divergencePlot.set_xlim(-1,0.1)
+        self.divergencePlot.set_ylim(-1.1,1.1)
+        self.divergenceCanvas.draw()
     def initialisePlots(self):
         self.initialiseScatterPlot()
         self.initialiseVectorPlot()
+        self.initialiseDivergencePlot()
     def initialiseScatterPlot(self):
-        self.scatterFig = Figure(figsize=(5,5))
+        self.scatterFig = Figure(figsize=(3,3))
         self.scatterPlot = self.scatterFig.add_subplot(111)
         self.scatterPlot.set_aspect('equal')
         self.scatterCanvas = FigureCanvasTkAgg(self.scatterFig,
@@ -267,6 +290,12 @@ class sourceGUI(GUI):
         self.vectorCanvas = FigureCanvasTkAgg(self.vectorFig,
                                                 master=self.rightFrame)
         self.plotVector()
+    def initialiseDivergencePlot(self):
+        self.divergenceFig = Figure(figsize=(3,2))
+        self.divergencePlot = self.divergenceFig.add_subplot()
+        self.divergenceCanvas = FigureCanvasTkAgg(self.divergenceFig,
+                                                  master=self.middleFrame)
+        self.plotDivergence()
     def pack(self):
         self.packLeftFrame()
         self.packMiddleFrame()
@@ -281,6 +310,7 @@ class sourceGUI(GUI):
         self.leftFrame.grid(row=0,column=0)
     def packMiddleFrame(self):
         self.scatterCanvas.get_tk_widget().pack()
+        self.divergenceCanvas.get_tk_widget().pack()
         self.createSourceButton.pack()
         self.middleFrame.grid(row=0,column=1)
     def packRightFrame(self):
