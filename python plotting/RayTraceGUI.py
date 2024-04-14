@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
+import subprocess
 
 class GUI():
     def __init__(self,masterClass=False):
@@ -82,6 +83,13 @@ class mainGUI(GUI):
         # self.plotCanvas.get_tk_widget().pack()
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
+    def plot(self):
+        # Path to the compiled C++ program
+        cpp_program = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
+        
+        # Run the compiled C++ program
+        subprocess.run([cpp_program])
+
             
 
 class sourceGUI(GUI):

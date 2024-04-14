@@ -7,7 +7,7 @@ int main() {
     // opticalBench.generateExperiment1();
     opticalBench.trace();
     opticalBench.convertToSTL();
-    // opticalBench.save();
+    opticalBench.save();
     // opticalBench.printShapes();
     return 0;
 };
