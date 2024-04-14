@@ -14,6 +14,22 @@ void Scene::generateExperiment1(){
     shapes.addShape();
 };
 
+void Scene::importScene(){
+    refractiveIndex = getSceneData(0);
+    loopLimit = getSceneData(1);
+    // place add sources here as a single function
+    // place add shapes here as a single function
+};
+
+double Scene::getSceneData(int item){
+    std::ifstream sceneData("sceneData.txt");
+    std::string line;
+    for (int i=0;i<item-1;i++){
+        std::getline(sceneData, line);
+    }
+    return std::stod(line);
+};
+
 void Scene::trace(){
     rays.addSources(sources);
     for (int i = 0; i < loopLimit; ++i) {
