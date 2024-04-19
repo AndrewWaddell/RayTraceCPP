@@ -1,14 +1,38 @@
 #include "../include/Sources.h"
 
-void Sources::addSource(Source source) {
-    sources.push_back(source);
-};
+void Sources::addSources() {
+    std::ifstream sourcesFile("sources.txt");
+    // sources structure:
+    // number of sources (e.g. 2)
+    // source 1 name
+    // source 2 name
+    // source 1 - numrays
+    // etc
+    std::string line;
+    std::getline(sourcesFile, line);
+    numSources = std::stoi(line);
 
-void Sources::addSource() {
-    Source newSource;
-    newSource.generateDefault();
-    // newSource.generateSingleRay();
-    addSource(newSource);
+    for (int i=0;i<numSources;i++){
+        std::getline(sourcesFile, line);
+        sourceNames.push_back(line);
+    }
+
+    for (int i=0;i<numSources;i++){
+        Source newSource;
+        std::getline(sourcesFile, line);
+        int numRays = std::stoi(line);
+        for (int i=0;i<numRays;i++){
+            
+        }
+        newSource.generateDefault();
+        sources.push_back(newSource);
+        std::getline(sourcesFile, line);
+        
+    }
+    
+    
+
+    
 };
 
 void Sources::experiment1(){

@@ -3,8 +3,8 @@
 void Scene::generateDefault(){
     refractiveIndex = 1;
     loopLimit = 1;
-    sources.addSource();
-    shapes.addShape();
+    sources.addSources();
+    shapes.addShapes();
 };
 
 void Scene::generateExperiment1(){
@@ -17,8 +17,8 @@ void Scene::generateExperiment1(){
 void Scene::importScene(){
     refractiveIndex = getSceneData(0);
     loopLimit = getSceneData(1);
-    // place add sources here as a single function
-    // place add shapes here as a single function
+    sources.addSource();
+    shapes.addShape();
 };
 
 double Scene::getSceneData(int item){
