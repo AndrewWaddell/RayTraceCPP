@@ -26,20 +26,20 @@ void Sources::importSources() {
         std::getline(sourcesFile, line);
         newSource.numRays = std::stoi(line);
         for (int j=0;j<newSource.numRays;j++){
-            importData.generate();
-            for (int k=0;k<3;k++){
-                std::getline(sourcesFile,line);
-                double dataDouble = std::stod(line);
-                importData.append(dataDouble);
-            }
-            newSource.points.append(importData);
-            importData.generate();
-            for (int k=0;k<3;k++){
-                std::getline(sourcesFile,line);
-                double dataDouble = std::stod(line);
-                importData.append(dataDouble);
-            }
-            newSource.unit.append(importData);
+            std::getline(sourcesFile,line);
+            double px = std::stod(line);
+            std::getline(sourcesFile,line);
+            double py = std::stod(line);
+            std::getline(sourcesFile,line);
+            double pz = std::stod(line);
+            std::getline(sourcesFile,line);
+            double ux = std::stod(line);
+            std::getline(sourcesFile,line);
+            double uy = std::stod(line);
+            std::getline(sourcesFile,line);
+            double uz = std::stod(line);
+            newSource.points.append(px,py,pz);
+            newSource.unit.append(ux,uy,uz);
         }
         sources.push_back(newSource);
     }
