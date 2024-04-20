@@ -18,6 +18,7 @@ void Sources::importSources() {
     std::ifstream sourcesFile("sources.txt");
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
+    Matrix importData;
     for (int i=0;i<numSources;i++){
         Source newSource;
         std::getline(sourcesFile, line);
@@ -25,20 +26,20 @@ void Sources::importSources() {
         std::getline(sourcesFile, line);
         newSource.numRays = std::stoi(line);
         for (int j=0;j<newSource.numRays;j++){
-            Matrix importPoints;
+            importData.generate();
             for (int k=0;k<3;k++){
                 std::getline(sourcesFile,line);
                 double dataDouble = std::stod(line);
-                importPoints.append(dataDouble);
+                importData.append(dataDouble);
             }
-            newSource.points.append(importPoints);
-            Matrix importUnit;
+            newSource.points.append(importData);
+            importData.generate();
             for (int k=0;k<3;k++){
                 std::getline(sourcesFile,line);
                 double dataDouble = std::stod(line);
-                importUnit.append(dataDouble);
+                importData.append(dataDouble);
             }
-            newSource.unit.append(importUnit);
+            newSource.unit.append(importData);
         }
         sources.push_back(newSource);
     }
