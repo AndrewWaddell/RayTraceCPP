@@ -1,22 +1,10 @@
 #include "../include/Scene.h"
 
-void Scene::generateDefault(){
-    refractiveIndex = 1;
-    loopLimit = 1;
-    // sources.addSources();
-    shapes.addShape();
-};
-
-void Scene::generateExperiment1(){
-    refractiveIndex = 1;
-    loopLimit = 1;
-    sources.experiment1();
-    shapes.addShape();
-};
-
 void Scene::importScene(){
     // refractiveIndex = getSceneData(0);
     // loopLimit = getSceneData(1);
+    refractiveIndex = 1;
+    loopLimit = 1;
     sources.importSources();
     shapes.addShape();
 };

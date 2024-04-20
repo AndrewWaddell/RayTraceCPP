@@ -11,8 +11,6 @@ class Source {
         Matrix points;
         Matrix unit;
         int numRays;
-        void generateDefault();
-        void generateSquare(Matrix loc, Matrix dir,double width, double density);
 };
 
 #endif

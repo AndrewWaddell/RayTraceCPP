@@ -15,7 +15,6 @@ private:
     std::string line; // general use string for import
 public:
     void importSources(); // from file sources.txt
-    void experiment1(); // generate source for experiment 1
     Matrix points(); // returns points from all sources concatenated
     Matrix unit(); // returns all units from all sources concatenated
     int numRays(); // returns number of columns between sources

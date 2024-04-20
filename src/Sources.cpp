@@ -12,9 +12,9 @@ void Sources::importSources() {
     // source 1 ray 1 unit y
     // source 1 ray 1 unit z
     // source 1 ray 2 location x
-    // etc
+    // ...
     // source 2 name
-    // etc
+    // ...
     std::ifstream sourcesFile("sources.txt");
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
@@ -43,35 +43,6 @@ void Sources::importSources() {
         }
         sources.push_back(newSource);
     }
-    std::cout << "Points" << std::endl;
-    Matrix p1 = points();
-    p1.print();
-    std::cout << "Units" << std::endl;
-    Matrix p2 = unit();
-    p2.print();
-    int h=0;
-};
-
-void Sources::experiment1(){
-    Source newSource;
-    Matrix location;
-    // [ 3.5 ]
-    // [ 0.5 ]
-    // [ -1  ]
-    location.generate(3,1);
-    location.insert(0,3.5);
-    location.insert(1,0.5);
-    location.insert(2,-1);
-    Matrix direction;
-    // [ -0.6 ]
-    // [ 0.3 ]
-    // [ 1 ]
-    direction.generate(3,1);
-    direction.insert(0,-0.6);
-    direction.insert(1,0.3);
-    direction.insert(2,1);
-    newSource.generateSquare(location,direction,2,10);
-    // addSource(newSource);
 };
 
 Matrix Sources::points() {
