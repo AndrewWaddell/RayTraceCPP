@@ -1,6 +1,6 @@
 #include "../include/Sources.h"
 
-void Sources::addSources() {
+void Sources::importSources() {
     std::ifstream sourcesFile("sources.txt");
     // sources structure:
     // number of sources
@@ -14,10 +14,6 @@ void Sources::addSources() {
     // source 1 ray 1 unit z
     // source 2 name
     // etc
-    std::string line;
-    std::string x;
-    std::string y;
-    std::string z;
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
 
@@ -28,29 +24,17 @@ void Sources::addSources() {
         std::getline(sourcesFile, line);
         newSource.numRays = std::stoi(line);
         for (int i=0;i<newSource.numRays;i++){
-            std::getline(sourcesFile,x);
-            std::getline(sourcesFile,y);
-            std::getline(sourcesFile,z);
-            newSource.points.append(std::stod(x),std::stod(y),std::stod(z));
-            std::getline(sourcesFile,x);
-            std::getline(sourcesFile,y);
-            std::getline(sourcesFile,z);
-            newSource.unit.append(std::stod(x),std::stod(y),std::stod(z));
-            
-            std::getline(sourcesFile, line);
+            std::getline(sourcesFile,line);
+            int x = std::stod(line);
+            std::getline(sourcesFile,line);
+            int y = std::stod(line);
+            std::getline(sourcesFile,line);
+            int z = std::stod(line);
+            newSource.points.append(x,y,z);
+            newSource.unit.append(x,y,z);
         }
-        
-
-    }
-
-    for (int i=0;i<numSources;i++){
-        // sources.push_back(newSource);
-        std::getline(sourcesFile, line);
-    }
-    
-    
-
-    
+        sources.push_back(newSource);
+    }    
 };
 
 void Sources::experiment1(){
