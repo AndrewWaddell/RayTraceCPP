@@ -11,6 +11,8 @@ void Sources::importSources() {
     // source 1 ray 1 unit x
     // source 1 ray 1 unit y
     // source 1 ray 1 unit z
+    // source 1 ray 2 location x
+    // etc
     // source 2 name
     // etc
     std::ifstream sourcesFile("sources.txt");
@@ -22,24 +24,31 @@ void Sources::importSources() {
         newSource.name = line;
         std::getline(sourcesFile, line);
         newSource.numRays = std::stoi(line);
-        for (int i=0;i<newSource.numRays;i++){
-            Matrix importData;
-            for (int j=0;j<3;j++){
+        for (int j=0;j<newSource.numRays;j++){
+            Matrix importPoints;
+            for (int k=0;k<3;k++){
                 std::getline(sourcesFile,line);
                 double dataDouble = std::stod(line);
-                importData.append(dataDouble);
+                importPoints.append(dataDouble);
             }
-            newSource.points.append(importData);
-            importData.generate();
-            for (int j=0;j<3;j++){
+            newSource.points.append(importPoints);
+            Matrix importUnit;
+            for (int k=0;k<3;k++){
                 std::getline(sourcesFile,line);
                 double dataDouble = std::stod(line);
-                importData.append(dataDouble);
+                importUnit.append(dataDouble);
             }
-            newSource.unit.append(importData);
+            newSource.unit.append(importUnit);
         }
         sources.push_back(newSource);
-    }  
+    }
+    std::cout << "Points" << std::endl;
+    Matrix p1 = points();
+    p1.print();
+    std::cout << "Units" << std::endl;
+    Matrix p2 = unit();
+    p2.print();
+    int h=0;
 };
 
 void Sources::experiment1(){
@@ -67,7 +76,7 @@ void Sources::experiment1(){
 Matrix Sources::points() {
     Matrix matrix;
     for (Source source : sources) {
-        matrix.append(source.getPoints());
+        matrix.append(source.points);
     }
     return matrix;
 };
@@ -75,8 +84,8 @@ Matrix Sources::points() {
 Matrix Sources::unit() {
     Matrix matrix;
     for (Source source : sources) {
-        Matrix test = source.getUnit();
-        matrix.append(source.getUnit());
+        Matrix test = source.unit;
+        matrix.append(source.unit);
     }
     return matrix;
 };
@@ -84,7 +93,7 @@ Matrix Sources::unit() {
 int Sources::numRays() {
     int count = 0;
     for (Source source : sources) {
-        count += source.getNumRays();
+        count += source.numRays;
     }
     return count;
 }

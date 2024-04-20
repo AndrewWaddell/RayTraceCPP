@@ -54,14 +54,15 @@ void Matrix::append(Matrix inMat) {
     if (inMat.numRows==1){ // input is a row
         inMat.transpose();
         append(inMat);
-    }
-    if (!constructed){
-        generate(inMat);
     } else {
-        for (int j=0;j<inMat.numCols;j++){
-            numCols += 1;
-            for (int i=0;i<inMat.numRows;i++){
-                append(i,inMat.get(i,j));
+        if (!constructed){
+            generate(inMat);
+        } else {
+            for (int j=0;j<inMat.numCols;j++){
+                numCols += 1;
+                for (int i=0;i<inMat.numRows;i++){
+                    append(i,inMat.get(i,j));
+                }
             }
         }
     }
