@@ -4,7 +4,7 @@ void Scene::generateDefault(){
     refractiveIndex = 1;
     loopLimit = 1;
     sources.addSources();
-    shapes.addShapes();
+    shapes.addShape();
 };
 
 void Scene::generateExperiment1(){
@@ -15,9 +15,9 @@ void Scene::generateExperiment1(){
 };
 
 void Scene::importScene(){
-    refractiveIndex = getSceneData(0);
-    loopLimit = getSceneData(1);
-    sources.addSource();
+    // refractiveIndex = getSceneData(0);
+    // loopLimit = getSceneData(1);
+    sources.addSources();
     shapes.addShape();
 };
 

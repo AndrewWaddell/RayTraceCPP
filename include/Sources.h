@@ -12,7 +12,6 @@ class Sources {
 private:
     std::vector<Source> sources;
     int numSources;
-    std::vector<std::string> sourceNames;
 public:
     void addSources(); // generates default source
     void experiment1(); // generate source for experiment 1

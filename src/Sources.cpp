@@ -5,6 +5,10 @@ void Sources::addSources() {
     // sources structure:
     // number of sources (e.g. 2)
     // source 1 name
+    // source 1 numrays
+    // source 1 ray 1 location x
+    // source 1 ray 1 location y
+    // source 1 ray 1 direction
     // source 2 name
     // source 1 - numrays
     // etc
@@ -13,21 +17,24 @@ void Sources::addSources() {
     numSources = std::stoi(line);
 
     for (int i=0;i<numSources;i++){
+        Source newSource;
         std::getline(sourcesFile, line);
-        sourceNames.push_back(line);
+        newSource.setName(line);
+        std::getline(sourcesFile, line);
+        newSource.setNumRays(std::stoi(line));
+        for (int i=0;i<newSource.getNumRays();i++){
+            std::getline(sourcesFile, line);
+            
+            std::stod(line)
+            std::getline(sourcesFile, line);
+        }
+        
+
     }
 
     for (int i=0;i<numSources;i++){
-        Source newSource;
+        // sources.push_back(newSource);
         std::getline(sourcesFile, line);
-        int numRays = std::stoi(line);
-        for (int i=0;i<numRays;i++){
-            
-        }
-        newSource.generateDefault();
-        sources.push_back(newSource);
-        std::getline(sourcesFile, line);
-        
     }
     
     
@@ -54,7 +61,7 @@ void Sources::experiment1(){
     direction.insert(1,0.3);
     direction.insert(2,1);
     newSource.generateSquare(location,direction,2,10);
-    addSource(newSource);
+    // addSource(newSource);
 };
 
 Matrix Sources::points() {
