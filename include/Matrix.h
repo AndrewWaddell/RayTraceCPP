@@ -25,12 +25,14 @@ class Matrix {
         void generate(); // shortcut constructor for 3 rows 0 cols
         void generate(int rows,int cols); // constructs empty matrix with specified dimensions.
         void generate(Matrix inMat); // constructs this matrix identical to inMat.
+        void generate(double x,double y,double z); // build first column from scratch
         void fill(double val); // fill entire matrix with items
         void fillInf(); // fill with infinity
         void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
         void append(); // append a column of zeros to matrix
+        void append(double x,double y,double z); // append a column to the matrix consisting of these vals
         void pop(int n); // remove n columns from back of matrix
         void insert(int row,int col,double val); // insert value at specified index
         void insert(int i,double val); // insert when matrix is a vector

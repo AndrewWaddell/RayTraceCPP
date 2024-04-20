@@ -3,29 +3,40 @@
 void Sources::addSources() {
     std::ifstream sourcesFile("sources.txt");
     // sources structure:
-    // number of sources (e.g. 2)
+    // number of sources
     // source 1 name
     // source 1 numrays
     // source 1 ray 1 location x
     // source 1 ray 1 location y
-    // source 1 ray 1 direction
+    // source 1 ray 1 location z
+    // source 1 ray 1 unit x
+    // source 1 ray 1 unit y
+    // source 1 ray 1 unit z
     // source 2 name
-    // source 1 - numrays
     // etc
     std::string line;
+    std::string x;
+    std::string y;
+    std::string z;
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
 
     for (int i=0;i<numSources;i++){
         Source newSource;
         std::getline(sourcesFile, line);
-        newSource.setName(line);
+        newSource.name = line;
         std::getline(sourcesFile, line);
-        newSource.setNumRays(std::stoi(line));
-        for (int i=0;i<newSource.getNumRays();i++){
-            std::getline(sourcesFile, line);
+        newSource.numRays = std::stoi(line);
+        for (int i=0;i<newSource.numRays;i++){
+            std::getline(sourcesFile,x);
+            std::getline(sourcesFile,y);
+            std::getline(sourcesFile,z);
+            newSource.points.append(std::stod(x),std::stod(y),std::stod(z));
+            std::getline(sourcesFile,x);
+            std::getline(sourcesFile,y);
+            std::getline(sourcesFile,z);
+            newSource.unit.append(std::stod(x),std::stod(y),std::stod(z));
             
-            std::stod(line)
             std::getline(sourcesFile, line);
         }
         

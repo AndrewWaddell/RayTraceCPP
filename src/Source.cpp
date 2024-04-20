@@ -1,33 +1,5 @@
 #include "../include/Source.h"
 
-void Source::setName(std::string nameIn){
-    name = nameIn;
-};
-
-void Source::setNumRays(int num){
-    numRays = num;
-};
-
-void Source::appendPoints(int dim,double val){
-    if (!firstColumn()){
-        points.append(dim,val);
-    } else{
-        if (!points.constructed){
-            points.generate(3,1);
-            points.insert(0,0,val);
-            pointsCount = 1;
-        } else{
-            points.insert(dim,0,val);
-        }
-        pointsCount += 1;
-    }
-};
-
-bool Source::firstColumn(){
-    return pointsCount < 3;
-};
-
-
 void Source::generateDefault(){
     // points = [0,1,2]
     //          [0,0,0]
@@ -84,14 +56,3 @@ void Source::generateSquare(Matrix loc, Matrix dir,double width, double density)
     unit.normCol();
 };
 
-Matrix Source::getPoints() {
-    return points;
-};
-
-Matrix Source::getUnit() {
-    return unit;
-};
-
-int Source::getNumRays() {
-    return numRays;
-};

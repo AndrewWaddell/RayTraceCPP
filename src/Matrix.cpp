@@ -30,6 +30,13 @@ void Matrix::generate(Matrix inMat){
     }
 };
 
+void Matrix::generate(double x,double y,double z){
+    generate(3,1);
+    insert(0,0,x);
+    insert(1,0,y);
+    insert(2,0,z);
+};
+
 void Matrix::fill(double val){
     for (int i=0;i<numRows;i++){
         for (int j=0;j<numCols;j++){
@@ -81,6 +88,19 @@ void Matrix::append(){
     z.zeros(numRows);
     z.transpose();
     append(z);
+};
+
+void Matrix::append(double x,double y,double z){
+    if (constructed){
+        Matrix col;
+        col.generate(3,1);
+        col.insert(0,0,x);
+        col.insert(1,0,y);
+        col.insert(2,0,z);
+        append(col);
+    } else{
+        generate(x,y,z);
+    }
 };
 
 void Matrix::pop(int n){
