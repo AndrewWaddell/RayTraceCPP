@@ -28,7 +28,7 @@ class Matrix {
         void generate(double x,double y,double z); // build first column from scratch
         void fill(double val); // fill entire matrix with items
         void fillInf(); // fill with infinity
-        void append(Matrix inMat); // attach matrix to end as new cols assuming numRows same
+        void append(Matrix inMat); // attach matrix to end as new cols. if row vector given, it is converted to a col.
         void append(double inVal); // assume row vector. Append to end of vector will be a single value
         void append(int row,double inVal); // append to end of vector on specified row
         void append(); // append a column of zeros to matrix

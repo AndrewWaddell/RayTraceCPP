@@ -1,7 +1,6 @@
 #include "../include/Sources.h"
 
 void Sources::importSources() {
-    std::ifstream sourcesFile("sources.txt");
     // sources structure:
     // number of sources
     // source 1 name
@@ -14,9 +13,9 @@ void Sources::importSources() {
     // source 1 ray 1 unit z
     // source 2 name
     // etc
+    std::ifstream sourcesFile("sources.txt");
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
-
     for (int i=0;i<numSources;i++){
         Source newSource;
         std::getline(sourcesFile, line);
@@ -24,17 +23,23 @@ void Sources::importSources() {
         std::getline(sourcesFile, line);
         newSource.numRays = std::stoi(line);
         for (int i=0;i<newSource.numRays;i++){
-            std::getline(sourcesFile,line);
-            int x = std::stod(line);
-            std::getline(sourcesFile,line);
-            int y = std::stod(line);
-            std::getline(sourcesFile,line);
-            int z = std::stod(line);
-            newSource.points.append(x,y,z);
-            newSource.unit.append(x,y,z);
+            Matrix importData;
+            for (int j=0;j<3;j++){
+                std::getline(sourcesFile,line);
+                double dataDouble = std::stod(line);
+                importData.append(dataDouble);
+            }
+            newSource.points.append(importData);
+            importData.generate();
+            for (int j=0;j<3;j++){
+                std::getline(sourcesFile,line);
+                double dataDouble = std::stod(line);
+                importData.append(dataDouble);
+            }
+            newSource.unit.append(importData);
         }
         sources.push_back(newSource);
-    }    
+    }  
 };
 
 void Sources::experiment1(){
