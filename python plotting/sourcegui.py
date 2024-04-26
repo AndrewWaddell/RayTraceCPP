@@ -1,51 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar 19 18:06:37 2024
+Created on Fri Apr 26 14:02:21 2024
 
 @author: ihipt
 """
 
+import tkinter as tk
 from gui import GUI
 import numpy as np
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
-import subprocess
-
-
-
-class mainGUI(GUI):
-    def mainloop(self):
-        self.window.mainloop()
-    def setTitle(self):
-        self.window.title("Ray Trace")
-    def buttons(self):
-        self.sourceButton = tk.Button(master=self.window,
-                                      text="Create Source",
-                                      command=self.createSource)
-        self.plotButton = tk.Button(master=self.window,
-                                    text="Plot",
-                                    command=self.plot)
-    def initialiseData(self):
-        self.sources = []
-    def pack(self):
-        self.sourceButton.pack()
-        self.plotButton.pack()
-        # self.plotCanvas.get_tk_widget().pack()
-        # toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
-        # toolbar.update()
-        # self.plotCanvas.get_tk_widget().pack()
-    def createSource(self):
-        self.sourceWindow = sourceGUI(self)
-    def plot(self):
-        # Path to the compiled C++ program
-        cpp_program = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
-        
-        # Run the compiled C++ program
-        subprocess.run([cpp_program])
-
-            
 
 class sourceGUI(GUI):
     def windowType(self):
@@ -311,5 +276,3 @@ class sourceGUI(GUI):
         self.directionZLabel.grid(row=0,column=0)
         self.directionZEntry.grid(row=0,column=1)
         self.directionZFrame.pack()
-        
-app = mainGUI()
