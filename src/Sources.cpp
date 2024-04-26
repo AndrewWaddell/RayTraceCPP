@@ -18,7 +18,6 @@ void Sources::importSources() {
     std::ifstream sourcesFile("sources.txt");
     std::getline(sourcesFile, line);
     numSources = std::stoi(line);
-    Matrix importData;
     for (int i=0;i<numSources;i++){
         Source newSource;
         std::getline(sourcesFile, line);

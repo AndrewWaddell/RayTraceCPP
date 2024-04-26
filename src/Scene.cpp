@@ -1,21 +1,20 @@
 #include "../include/Scene.h"
 
 void Scene::importScene(){
-    // refractiveIndex = getSceneData(0);
-    // loopLimit = getSceneData(1);
-    refractiveIndex = 1;
-    loopLimit = 1;
+    importSceneMetaData();
     sources.importSources();
-    shapes.addShape();
+    shapes.importShapes();
 };
 
-double Scene::getSceneData(int item){
-    std::ifstream sceneData("sceneData.txt");
-    std::string line;
-    for (int i=0;i<item-1;i++){
-        std::getline(sceneData, line);
-    }
-    return std::stod(line);
+void Scene::importSceneMetaData(){
+    // scene data file structure:
+    // refractive index
+    // loopLimit
+    std::ifstream sceneData("sceneMetaData.txt");
+    std::getline(sceneData, line);
+    refractiveIndex = std::stod(line);
+    std::getline(sceneData, line);
+    loopLimit = std::stoi(line);
 };
 
 void Scene::trace(){

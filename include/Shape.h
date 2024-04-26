@@ -4,9 +4,7 @@
 
 #include "Matrix.h"
 #include "MatrixList.h"
-// #include <assimp/Importer.hpp>
-// #include <assimp/scene.h>
-// #include <assimp/postprocess.h>
+#include <string>
 
 class Rays;
 
@@ -40,11 +38,11 @@ class Shape {
         Matrix indexPointCOB(int i, int j, int k); // grab point k in basis of ray i from triangle j
         Matrix vecOut; // output for convertToVectors. rows: x,y,z,ux,uy,uz
     public:
+        std::string name;
         double refractiveIndex;
         Matrix points; // rows are x,y,z, cols are each point
         Matrix connectivity; // rows are triangle point indices, cols are each triangle
         void generateDefault();
-        void import();
         void changeOfBasis(Rays& rays); // outputs points in terms of new basis from change of basis matrix COB
         bool traceLowRes(Rays& rays); // optimisation step. quick check to determine rays are even nearby
         void traceDistance(Rays& rays); // find the distance to each triangle, for each ray

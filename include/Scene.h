@@ -20,11 +20,10 @@ class Scene {
         void traceStep();
         Matrix distances; // to each shape for each ray. dims: (rays * shapes)
         MatrixList normals;
+        std::string line; // general use string for import
     public:
-        void generateDefault(); // manual constructor for default scene for testing
-        void generateExperiment1();
         void importScene();
-        double getSceneData(int item); // grab data from text file, indexed as item starting from 0
+        void importSceneMetaData(); // grab data from text file, indexed as item starting from 0
         void trace();
         void printRays();
         void printShapes();
