@@ -13,6 +13,7 @@ class GUI():
         self.windowType()
         self.initialiseData()
         self.setTitle()
+        self.geometry()
         self.frames()
         self.buttons()
         self.labels()
@@ -27,6 +28,8 @@ class GUI():
         self.window = tk.Tk()
     def setTitle(self):
         self.window.title("New Window")
+    def geometry(self):
+        pass
     def mainloop(self):
         pass
     def initialiseData(self):
@@ -53,3 +56,5 @@ class GUI():
         pass
     def pack(self):
         pass
+    def destroy(self):
+        self.window.destroy()

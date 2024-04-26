@@ -7,6 +7,7 @@ Created on Fri Apr 26 14:01:18 2024
 
 import tkinter as tk
 from sourcegui import sourceGUI
+from loadingbox import loadingBox
 from gui import GUI
 import subprocess
 
@@ -37,5 +38,8 @@ class mainGUI(GUI):
         # Path to the compiled C++ program
         cpp_program = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
         
+        self.loading = loadingBox()
         # Run the compiled C++ program
         subprocess.run([cpp_program])
+        self.loading.destroy()
+        print("now display data")
