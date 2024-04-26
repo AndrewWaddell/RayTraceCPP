@@ -10,7 +10,7 @@ void Scene::importSceneMetaData(){
     // scene data file structure:
     // refractive index
     // loopLimit
-    std::ifstream sceneData("sceneMetaData.txt");
+    std::ifstream sceneData("../exchange/sceneMetaData.txt");
     std::getline(sceneData, line);
     refractiveIndex = std::stod(line);
     std::getline(sceneData, line);

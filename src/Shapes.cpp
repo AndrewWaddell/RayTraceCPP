@@ -21,7 +21,7 @@ void Shapes::importShapes(){
     // ...
     // shape 2 name
     // ...
-    std::ifstream shapesFile("shapes.txt");
+    std::ifstream shapesFile("../exchange/shapes.txt");
     std::getline(shapesFile, line);
     numShapes = std::stoi(line);
     for (int i=0;i<numShapes;i++){
