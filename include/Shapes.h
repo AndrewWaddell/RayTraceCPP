@@ -11,6 +11,7 @@ class Shapes {
         std::string line; // general use string for import
     public:
         void importShapes(); // import shape from txt file generated from python GUI
+        void addShape(Shape shape);
         Shape get(int i); // return shape i
         int numShapes;
         std::vector<Shape>::iterator begin(); // vector property

@@ -63,7 +63,7 @@ void Scene::printRays(){
 };
 
 void Scene::printShapes(){
-    for (int i=0;i<shapes.numShapes();i++){
+    for (int i=0;i<shapes.numShapes;i++){
         std::cout << "Print Shape ";
         std::cout << i << ":" << std::endl;
         std::cout << "Points" << std::endl;
