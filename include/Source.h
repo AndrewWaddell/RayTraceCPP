@@ -2,8 +2,6 @@
 #define SOURCE_H
 
 #include "Matrix.h"
-#include "fstream"
-#include "string"
 
 class Source {
     public:
