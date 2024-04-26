@@ -42,6 +42,13 @@ void Sources::importSources() {
         }
         sources.push_back(newSource);
     }
+    Matrix p = points();
+    Matrix u = unit();
+    std::cout << "Points" << std::endl;
+    p.print();
+    std::cout << "Unit" << std::endl;
+    u.print();
+    int h=0;
 };
 
 Matrix Sources::points() {

@@ -6,7 +6,7 @@ int main() {
     opticalBench.importScene();
     opticalBench.trace();
     opticalBench.convertToSTL();
-    opticalBench.save();
+    // opticalBench.save();
     // opticalBench.printShapes();
     return 0;
 };
