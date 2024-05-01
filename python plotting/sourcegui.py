@@ -8,6 +8,7 @@ Created on Fri Apr 26 14:02:21 2024
 import tkinter as tk
 from gui import GUI
 import numpy as np
+from numpy import linalg as nl
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
@@ -24,15 +25,25 @@ class sourceGUI(GUI):
                                             width=12)
     def createSource(self):
         source = {}
-        source['X'] = self.X
-        source['Y'] = self.Y
-        source['Z'] = self.Z
-        self.masterClass.sources.append(source)
+        source['name'] = self.nameVal
+        source['numrays'] = self.numrays
         self.createSource2d()
         self.collectVector()
-        # rotate point locations onto plane orthogonal to direction vector
-        # rotate ray directions proportional to distance from 0
+        self.rotateVectors()
+        source['location'] = self.Pnew
+        source['unit'] = self.v
+        self.masterClass.sources.append(source)
         self.window.destroy()
+    def rotateVectors(self):
+        self.v /= nl.norm(self.v)
+        costheta = [np.dot(col,self.v)/nl.norm(col) for col in self.P.T]
+        sintheta = np.sqrt(1 - np.square(costheta))
+        rotationMatrixT = np.vstack((costheta,-sintheta,self.Z,
+                                    sintheta,costheta,self.Z,
+                                    self.Z,self.Z,np.ones((1,self.numrays))))
+        rotationMatrixR = rotationMatrixT.T
+        rotationMatrix = rotationMatrixR.reshape(self.numrays,3,3)
+        self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
                                      text="Density",
@@ -88,6 +99,9 @@ class sourceGUI(GUI):
         self.directionZEntry = tk.Entry(master=self.directionZFrame,
                                         textvariable=self.directionZVal,
                                         width=5)
+        self.nameEntry = tk.Entry(master=self.leftFrame,
+                                        textvariable=self.nameVal,
+                                        width=15)
     def entryVals(self):
         self.densityVal = tk.StringVar()
         self.xVal = tk.StringVar()
@@ -96,6 +110,7 @@ class sourceGUI(GUI):
         self.directionXVal = tk.StringVar()
         self.directionYVal = tk.StringVar()
         self.directionZVal = tk.StringVar()
+        self.nameVal = tk.StringVar()
     def optionVals(self):
         self.circleVal = tk.StringVar()
         self.pointVal = tk.StringVar()
@@ -133,6 +148,7 @@ class sourceGUI(GUI):
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Rectangle")
         self.pointVal.set("Point")
+        self.nameVal.set("Source1")
     def createSource2d(self):
         widthStr = self.xVal.get()
         heightStr = self.yVal.get()
@@ -146,8 +162,11 @@ class sourceGUI(GUI):
         raysPerY = int(np.sqrt(density))*h
         x = np.linspace(-w/2,w/2,raysPerX)
         y = np.linspace(-h/2,h/2,raysPerY)
+        self.numrays = raysPerX*raysPerY
         self.X = np.repeat(x,raysPerY)
         self.Y = np.tile(y,raysPerX)
+        self.Z = np.zeros((1,self.numrays))
+        self.P = np.vstack((self.X,self.Y,self.Z))
     def plotScatter(self,var=None,index=None,mode=None):
         self.createSource2d()
         try:
@@ -165,6 +184,7 @@ class sourceGUI(GUI):
         self.x = 0 if xStr == '' else float(xStr)
         self.y = 0 if yStr == '' else float(yStr)
         self.z = 0 if zStr == '' else float(zStr)
+        self.v = np.array([self.x,self.y,self.z])
     def plotVector(self,var=None,index=None,mode=None):
         self.collectVector()
         try:
@@ -243,6 +263,7 @@ class sourceGUI(GUI):
         self.packYFrame()
         self.pointOptionMenu.pack()
         self.packDivergenceFrame()
+        self.nameEntry.pack()
         self.leftFrame.grid(row=0,column=0)
     def packMiddleFrame(self):
         self.scatterCanvas.get_tk_widget().pack()

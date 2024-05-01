@@ -35,6 +35,7 @@ class mainGUI(GUI):
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
     def plot(self):
+        print(self.sources)
         # Path to the compiled C++ program
         cpp_program = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
         
