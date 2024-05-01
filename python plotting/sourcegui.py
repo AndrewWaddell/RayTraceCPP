@@ -24,13 +24,14 @@ class sourceGUI(GUI):
                                             width=12)
     def createSource(self):
         source = {}
-        source['density'] = self.densityVal.get()
-        source['x'] = self.xVal.get()
-        source['y'] = self.yVal.get()
-        source['divergence'] = self.divergenceVal.get()
-        source['circle'] = self.circleVal.get()
-        source['point'] = self.pointVal.get()
+        source['X'] = self.X
+        source['Y'] = self.Y
+        source['Z'] = self.Z
         self.masterClass.sources.append(source)
+        self.createSource2d()
+        self.collectVector()
+        # rotate point locations onto plane orthogonal to direction vector
+        # rotate ray directions proportional to distance from 0
         self.window.destroy()
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
@@ -132,7 +133,7 @@ class sourceGUI(GUI):
         self.directionZEntry.insert(0,"1")
         self.circleVal.set("Rectangle")
         self.pointVal.set("Point")
-    def plotScatter(self,var=None,index=None,mode=None):
+    def createSource2d(self):
         widthStr = self.xVal.get()
         heightStr = self.yVal.get()
         if widthStr=='' or heightStr=='':
@@ -145,23 +146,27 @@ class sourceGUI(GUI):
         raysPerY = int(np.sqrt(density))*h
         x = np.linspace(-w/2,w/2,raysPerX)
         y = np.linspace(-h/2,h/2,raysPerY)
-        X = np.repeat(x,raysPerY)
-        Y = np.tile(y,raysPerX)
+        self.X = np.repeat(x,raysPerY)
+        self.Y = np.tile(y,raysPerX)
+    def plotScatter(self,var=None,index=None,mode=None):
+        self.createSource2d()
         try:
             self.scatterHandle.remove()
         except:
             pass
-        self.scatterHandle = self.scatterPlot.scatter(X,Y)
-        self.scatterPlot.set_xlim(x.min()-1,x.max()+1)
-        self.scatterPlot.set_ylim(y.min()-1,y.max()+1)
+        self.scatterHandle = self.scatterPlot.scatter(self.X,self.Y)
+        self.scatterPlot.set_xlim(self.X.min()-1,self.X.max()+1)
+        self.scatterPlot.set_ylim(self.Y.min()-1,self.Y.max()+1)
         self.scatterCanvas.draw()
-    def plotVector(self,var=None,index=None,mode=None):
+    def collectVector(self):
         xStr = self.directionXVal.get()
         yStr = self.directionYVal.get()
         zStr = self.directionZVal.get()
-        x = 0 if xStr == '' else float(xStr)
-        y = 0 if yStr == '' else float(yStr)
-        z = 0 if zStr == '' else float(zStr)
+        self.x = 0 if xStr == '' else float(xStr)
+        self.y = 0 if yStr == '' else float(yStr)
+        self.z = 0 if zStr == '' else float(zStr)
+    def plotVector(self,var=None,index=None,mode=None):
+        self.collectVector()
         try:
             self.quiverAxes.remove()
             self.quiverVector.remove()
@@ -173,7 +178,10 @@ class sourceGUI(GUI):
                                [0.5,0,0],
                                [0,0.5,0],
                                [0,0,0.5])
-        self.quiverVector = self.vectorPlot.quiver([0],[0],[0],[x],[y],[z],
+        self.quiverVector = self.vectorPlot.quiver([0],[0],[0],
+                                                   [self.x],
+                                                   [self.y],
+                                                   [self.z],
                                normalize=True)
         self.vectorPlot.scatter([0],[0],[0])
         self.vectorCanvas.draw()
