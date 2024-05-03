@@ -166,13 +166,7 @@ class sourceGUI(GUI):
     def collectwhd(self):
         try:
             self.density = float(self.densityVal.get())
-        except:
-            return False
-        try:
             self.width = int(self.xVal.get())
-        except:
-            return False 
-        try:
             self.height = int(self.yVal.get())
         except:
             return False
