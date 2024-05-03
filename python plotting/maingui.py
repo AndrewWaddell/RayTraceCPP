@@ -66,9 +66,6 @@ class mainGUI(GUI):
             self.quiverAxes.remove()
         except:
             pass
-        self.vectorPlot.set_xlim(np.min(x),np.max(x))
-        self.vectorPlot.set_ylim(np.min(y),np.max(y))
-        self.vectorPlot.set_zlim(np.min(z),np.max(z))
         xdiff = np.max(x)-np.min(x)
         ydiff = np.max(y)-np.min(y)
         zdiff = np.max(z)-np.min(z)
@@ -76,6 +73,9 @@ class mainGUI(GUI):
         np.multiply(dx,maxdiff)
         np.multiply(dy,maxdiff)
         np.multiply(dz,maxdiff)
+        self.vectorPlot.set_xlim(np.min(x),np.min(x)+maxdiff)
+        self.vectorPlot.set_ylim(np.min(y),np.min(y)+maxdiff)
+        self.vectorPlot.set_zlim(np.min(z),np.min(z)+maxdiff)
         self.quiverAxes = self.vectorPlot.quiver(x,y,z,dx,dy,dz)
         self.vectorCanvas.draw()
     def initialisePlots(self):
