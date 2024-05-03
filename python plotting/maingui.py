@@ -20,27 +20,29 @@ class mainGUI(GUI):
         self.sourceButton = tk.Button(master=self.window,
                                       text="Create Source",
                                       command=self.createSource)
-        self.plotButton = tk.Button(master=self.window,
-                                    text="Plot",
-                                    command=self.plot)
+        self.traceButton = tk.Button(master=self.window,
+                                    text="Trace",
+                                    command=self.trace)
     def initialiseData(self):
         self.sources = []
+        self.traceCpp = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
     def pack(self):
         self.sourceButton.pack()
-        self.plotButton.pack()
+        self.traceButton.pack()
         # self.plotCanvas.get_tk_widget().pack()
         # toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
         # toolbar.update()
         # self.plotCanvas.get_tk_widget().pack()
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
-    def plot(self):
-        print(self.sources)
-        # Path to the compiled C++ program
-        cpp_program = r"C:\Users\ihipt\Documents\1Ray_Optics_Application\Code\cpp\RayTraceCpp\bin\RayTrace.exe"
-        
+        print("source openend")
+    def trace(self):
         self.loading = loadingBox()
-        # Run the compiled C++ program
-        subprocess.run([cpp_program])
+        self.save()
+        subprocess.run([self.traceCpp])
         self.loading.destroy()
-        print("now display data")
+    def save(self): # save data in the files
+        pass
+    def plotSources(self):
+        for source in sources:
+            source['location'].

@@ -29,12 +29,13 @@ class sourceGUI(GUI):
         source['numrays'] = self.numrays
         self.createSource2d()
         self.collectVector()
-        self.rotateVectors()
+        self.generateBeam()
         source['location'] = self.Pnew
-        source['unit'] = self.v
+        source['unit'] = self.V
         self.masterClass.sources.append(source)
+        self.masterClass.plotSources()
         self.window.destroy()
-    def rotateVectors(self):
+    def generateBeam(self):
         self.v /= nl.norm(self.v)
         costheta = [np.dot(col,self.v)/nl.norm(col) for col in self.P.T]
         sintheta = np.sqrt(1 - np.square(costheta))
@@ -44,6 +45,7 @@ class sourceGUI(GUI):
         rotationMatrixR = rotationMatrixT.T
         rotationMatrix = rotationMatrixR.reshape(self.numrays,3,3)
         self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
+        self.V = np.repeat(self.v[:,np.newaxis],self.numrays,1)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
                                      text="Density",
