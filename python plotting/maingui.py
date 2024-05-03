@@ -11,6 +11,7 @@ from loadingbox import loadingBox
 from gui import GUI
 import subprocess
 from matplotlib.figure import Figure
+import numpy as np
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 
@@ -40,7 +41,6 @@ class mainGUI(GUI):
         self.vectorCanvas.get_tk_widget().pack()
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
-        print("source openend")
     def trace(self):
         self.loading = loadingBox()
         self.save()
@@ -66,7 +66,10 @@ class mainGUI(GUI):
             self.quiverAxes.remove()
         except:
             pass
-        self.quiverAxes = self.vectorPlot.quiver(x,y,z,dx,dy,dz)
+        self.vectorPlot.set_xlim(np.min(x),np.max(x))
+        self.vectorPlot.set_ylim(np.min(y),np.max(y))
+        self.vectorPlot.set_zlim(np.min(z),np.max(z))
+        self.quiverAxes = self.vectorPlot.quiver(x,y,z,dx,dy,dz,normalize=True)
         self.vectorCanvas.draw()
     def initialisePlots(self):
         self.initialiseVectorPlot()

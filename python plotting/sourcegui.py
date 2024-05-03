@@ -151,40 +151,58 @@ class sourceGUI(GUI):
         self.pointVal.set("Point")
         self.nameVal.set("Source1")
     def createSource2d(self):
-        widthStr = self.xVal.get()
-        heightStr = self.yVal.get()
-        if widthStr=='' or heightStr=='':
-            return
-        w = int(widthStr)
-        h = int(heightStr)
-        densityStr = self.densityVal.get()
-        density = 0 if densityStr == '' else int(densityStr)
-        raysPerX = int(np.sqrt(density))*w
-        raysPerY = int(np.sqrt(density))*h
-        x = np.linspace(-w/2,w/2,raysPerX)
-        y = np.linspace(-h/2,h/2,raysPerY)
+        if not self.collectwhd():
+            return False
+        raysPerX = int(np.sqrt(self.density))*self.width
+        raysPerY = int(np.sqrt(self.density))*self.height
+        x = np.linspace(-self.width/2,self.width/2,raysPerX)
+        y = np.linspace(-self.height/2,self.height/2,raysPerY)
         self.numrays = raysPerX*raysPerY
         self.X = np.repeat(x,raysPerY)
         self.Y = np.tile(y,raysPerX)
         self.Z = np.zeros((1,self.numrays))
         self.P = np.vstack((self.X,self.Y,self.Z))
+        return True
+    def collectwhd(self):
+        try:
+            self.density = float(self.densityVal.get())
+        except:
+            return False
+        try:
+            self.width = int(self.xVal.get())
+        except:
+            return False 
+        try:
+            self.height = int(self.yVal.get())
+        except:
+            return False
+        return True
     def plotScatter(self,var=None,index=None,mode=None):
-        self.createSource2d()
+        if not self.createSource2d():
+            print('we leave scatter ')
+            return
         try:
             self.scatterHandle.remove()
         except:
             pass
         self.scatterHandle = self.scatterPlot.scatter(self.X,self.Y)
+        print('but still in scatter')
         self.scatterPlot.set_xlim(self.X.min()-1,self.X.max()+1)
         self.scatterPlot.set_ylim(self.Y.min()-1,self.Y.max()+1)
         self.scatterCanvas.draw()
     def collectVector(self):
-        xStr = self.directionXVal.get()
-        yStr = self.directionYVal.get()
-        zStr = self.directionZVal.get()
-        self.x = 0 if xStr=='' or xStr=='-' else float(xStr)
-        self.y = 0 if yStr=='' or xStr=='-' else float(yStr)
-        self.z = 0 if zStr=='' or xStr=='-' else float(zStr)
+        try:
+            self.x = float(self.directionXVal.get())
+        except:
+            self.x = 0
+        try:
+            self.y = float(self.directionYVal.get())
+        except:
+            self.y = 0
+        try:
+            self.z = float(self.directionZVal.get())
+        except:
+            self.z = 0
         self.v = np.array([self.x,self.y,self.z])
     def plotVector(self,var=None,index=None,mode=None):
         self.collectVector()
