@@ -10,7 +10,6 @@ from sourcegui import sourceGUI
 from loadingbox import loadingBox
 from gui import GUI
 import subprocess
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
@@ -34,10 +33,11 @@ class mainGUI(GUI):
         self.sourceButton.pack()
         self.traceButton.pack()
         self.vectorCanvas.get_tk_widget().pack()
-        # self.plotCanvas.get_tk_widget().pack()
-        # toolbar = NavigationToolbar2Tk(self.plotCanvas,self.window)
-        # toolbar.update()
-        # self.plotCanvas.get_tk_widget().pack()
+        self.packToolbar()
+    def packToolbar(self):
+        toolbar = NavigationToolbar2Tk(self.vectorCanvas,self.window)
+        toolbar.update()
+        self.vectorCanvas.get_tk_widget().pack()
     def createSource(self):
         self.sourceWindow = sourceGUI(self)
         print("source openend")
@@ -68,17 +68,10 @@ class mainGUI(GUI):
             pass
         self.quiverAxes = self.vectorPlot.quiver(x,y,z,dx,dy,dz)
         self.vectorCanvas.draw()
-        
-        # ax = plt.figure().add_subplot(projection='3d')
-        # ax.quiver(x,y,z,dx,dy,dz)
-        # ax.set_xlim(0,6)
-        # ax.set_ylim(-3,3)
-        # ax.set_zlim(0,6)
-        # plt.show()
     def initialisePlots(self):
         self.initialiseVectorPlot()
     def initialiseVectorPlot(self):
-        self.vectorFig = Figure(figsize=(3,3))
+        self.vectorFig = Figure(figsize=(9,6))
         self.vectorPlot = self.vectorFig.add_subplot(projection='3d')
         self.vectorPlot.set_xlim(-1,1)
         self.vectorPlot.set_ylim(-1,1)
