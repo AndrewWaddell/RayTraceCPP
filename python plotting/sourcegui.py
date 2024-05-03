@@ -153,8 +153,8 @@ class sourceGUI(GUI):
     def createSource2d(self):
         if not self.collectwhd():
             return False
-        raysPerX = int(np.sqrt(self.density))*self.width
-        raysPerY = int(np.sqrt(self.density))*self.height
+        raysPerX = int(np.sqrt(self.density)*self.width)
+        raysPerY = int(np.sqrt(self.density)*self.height)
         x = np.linspace(-self.width/2,self.width/2,raysPerX)
         y = np.linspace(-self.height/2,self.height/2,raysPerY)
         self.numrays = raysPerX*raysPerY
