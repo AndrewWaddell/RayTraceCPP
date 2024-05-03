@@ -182,9 +182,9 @@ class sourceGUI(GUI):
         xStr = self.directionXVal.get()
         yStr = self.directionYVal.get()
         zStr = self.directionZVal.get()
-        self.x = 0 if xStr == '' else float(xStr)
-        self.y = 0 if yStr == '' else float(yStr)
-        self.z = 0 if zStr == '' else float(zStr)
+        self.x = 0 if xStr=='' or xStr=='-' else float(xStr)
+        self.y = 0 if yStr=='' or xStr=='-' else float(yStr)
+        self.z = 0 if zStr=='' or xStr=='-' else float(zStr)
         self.v = np.array([self.x,self.y,self.z])
     def plotVector(self,var=None,index=None,mode=None):
         self.collectVector()

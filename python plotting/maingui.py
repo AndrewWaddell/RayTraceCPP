@@ -73,9 +73,9 @@ class mainGUI(GUI):
     def initialiseVectorPlot(self):
         self.vectorFig = Figure(figsize=(9,6))
         self.vectorPlot = self.vectorFig.add_subplot(projection='3d')
-        self.vectorPlot.set_xlim(-1,1)
-        self.vectorPlot.set_ylim(-1,1)
-        self.vectorPlot.set_zlim(-1,1)
+        self.vectorPlot.set_xlim(-5,5)
+        self.vectorPlot.set_ylim(-5,5)
+        self.vectorPlot.set_zlim(-5,5)
         self.vectorCanvas = FigureCanvasTkAgg(self.vectorFig,
                                                 master=self.window)
         
