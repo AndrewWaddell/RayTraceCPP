@@ -10,8 +10,7 @@ from gui import GUI
 import numpy as np
 from numpy import linalg as nl
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
-                                               NavigationToolbar2Tk)
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 class sourceGUI(GUI):
     def windowType(self):
