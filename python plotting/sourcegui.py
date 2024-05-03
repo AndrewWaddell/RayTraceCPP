@@ -151,9 +151,7 @@ class sourceGUI(GUI):
         self.pointVal.set("Point")
         self.nameVal.set("Source1")
     def createSource2d(self):
-        print('create source 2d')
         if not self.collectwhd():
-            print('collect whd fails')
             return False
         raysPerX = int(np.sqrt(self.density))*self.width
         raysPerY = int(np.sqrt(self.density))*self.height
@@ -171,28 +169,22 @@ class sourceGUI(GUI):
         except:
             return False
         try:
-            print('width string:')
-            print(self.xVal.get())
             self.width = int(self.xVal.get())
         except:
-            print('width fails')
             return False 
         try:
             self.height = int(self.yVal.get())
         except:
             return False
-        return True
+        return self.density>0 and self.width>0 and self.height>0
     def plotScatter(self,var=None,index=None,mode=None):
-        print('plot scatter')
         if not self.createSource2d():
-            print('scatter fails ')
             return
         try:
             self.scatterHandle.remove()
         except:
             pass
         self.scatterHandle = self.scatterPlot.scatter(self.X,self.Y)
-        print('attempted plot')
         self.scatterPlot.set_xlim(self.X.min()-1,self.X.max()+1)
         self.scatterPlot.set_ylim(self.Y.min()-1,self.Y.max()+1)
         self.scatterCanvas.draw()
