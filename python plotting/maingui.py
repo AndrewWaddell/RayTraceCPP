@@ -49,19 +49,19 @@ class mainGUI(GUI):
     def save(self): # save data in the files
         pass
     def plotSources(self):
-        x = []
-        y = []
-        z = []
-        dx = []
-        dy = []
-        dz = []
+        x = np.array([])
+        y = np.array([])
+        z = np.array([])
+        dx = np.array([])
+        dy = np.array([])
+        dz = np.array([])
         for source in self.sources:
-            x.append(source['location'][0])
-            y.append(source['location'][1])
-            z.append(source['location'][2])
-            dx.append(source['unit'][0])
-            dy.append(source['unit'][1])
-            dz.append(source['unit'][2])
+            x = np.append(x,source['location'][0])
+            y = np.append(y,source['location'][1])
+            z = np.append(z,source['location'][2])
+            dx = np.append(dx,source['unit'][0])
+            dy = np.append(dy,source['unit'][1])
+            dz = np.append(dz,source['unit'][2])
         try:
             self.quiverAxes.remove()
         except:

@@ -36,14 +36,18 @@ class sourceGUI(GUI):
         self.window.destroy()
     def generateBeam(self):
         self.v /= nl.norm(self.v)
-        costheta = [np.dot(col,self.v)/nl.norm(col) for col in self.P.T]
+        normals = nl.norm(self.P,axis=0)
+        origin = normals==0 # save origin for later
+        normals[origin] = 1 # prevent divide by zero by replacing by 1s
+        dotProducts = np.einsum('ij,i->j',self.P,self.v)
+        costheta = np.divide(dotProducts,normals)
         sintheta = np.sqrt(1 - np.square(costheta))
         rotationMatrixT = np.vstack((costheta,-sintheta,self.Z,
                                     sintheta,costheta,self.Z,
                                     self.Z,self.Z,np.ones((1,self.numrays))))
-        rotationMatrixR = rotationMatrixT.T
-        rotationMatrix = rotationMatrixR.reshape(self.numrays,3,3)
+        rotationMatrix = rotationMatrixT.T.reshape(self.numrays,3,3)
         self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
+        self.Pnew[np.repeat(origin[np.newaxis,:],3,axis=0)]=0 # replace them
         self.V = np.repeat(self.v[:,np.newaxis],self.numrays,1)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
