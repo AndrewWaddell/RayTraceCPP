@@ -35,37 +35,18 @@ class sourceGUI(GUI):
         self.masterClass.plotSources()
         self.window.destroy()
     def generateBeam(self):
-        # rotate 0 0 1 to each axis respectively
-        cosThetaX = 0
-        sinThetaX = 0
-        cosThetaY = 0
-        sinThetaY = 0
-        cosThetaZ = 0
-        sinThetaZ = 0
-        rotX = [[1,0,0],
-                [0,cosThetaX,-sinThetaX],
-                [0,sinThetaX,cosThetaX]]
-        rotY = [[cosThetaY,0,sinThetaY],
-                [0,1,0],
-                [-sinThetaY,0,cosThetaY]]
-        rotZ = [[cosThetaZ,-sinThetaZ,0],
-                [sinThetaZ,cosThetaZ,0],
-                [0,0,1]]
-        
         self.v /= nl.norm(self.v)
-        normals = nl.norm(self.P,axis=0)
-        origin = normals==0 # save origin for later
-        normals[origin] = 1 # prevent divide by zero by replacing by 1s
-        dotProducts = np.einsum('ij,i->j',self.P,self.v)
-        costheta = np.divide(dotProducts,normals)
-        sintheta = np.sqrt(1 - np.square(costheta))
-        rotationMatrixT = np.vstack((costheta,-sintheta,self.Z,
-                                    sintheta,costheta,self.Z,
-                                    self.Z,self.Z,np.ones((1,self.numrays))))
-        rotationMatrix = rotationMatrixT.T.reshape(self.numrays,3,3)
-        self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
-        self.Pnew[np.repeat(origin[np.newaxis,:],3,axis=0)]=0 # replace them
-        print(rotationMatrix)
+        costheta = np.dot([0,0,1],self.v)
+        theta = np.arccos(costheta)
+        u = np.cross([0,0,1],self.v)
+        Su = [[0,-u[2],u[1]],
+              [u[2],0,-u[0]],
+              [-u[1],u[0],0]]
+        k = (1-costheta)/theta**2
+        Su2 = np.multiply(Su,Su)
+        R = np.eye(3) + Su + k*Su2
+        self.Pnew = np.multiply(R,self.P)
+        # self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
         self.V = np.repeat(self.v[:,np.newaxis],self.numrays,1)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
