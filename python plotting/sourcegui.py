@@ -35,6 +35,23 @@ class sourceGUI(GUI):
         self.masterClass.plotSources()
         self.window.destroy()
     def generateBeam(self):
+        # rotate 0 0 1 to each axis respectively
+        cosThetaX = 0
+        sinThetaX = 0
+        cosThetaY = 0
+        sinThetaY = 0
+        cosThetaZ = 0
+        sinThetaZ = 0
+        rotX = [[1,0,0],
+                [0,cosThetaX,-sinThetaX],
+                [0,sinThetaX,cosThetaX]]
+        rotY = [[cosThetaY,0,sinThetaY],
+                [0,1,0],
+                [-sinThetaY,0,cosThetaY]]
+        rotZ = [[cosThetaZ,-sinThetaZ,0],
+                [sinThetaZ,cosThetaZ,0],
+                [0,0,1]]
+        
         self.v /= nl.norm(self.v)
         normals = nl.norm(self.P,axis=0)
         origin = normals==0 # save origin for later
@@ -48,6 +65,7 @@ class sourceGUI(GUI):
         rotationMatrix = rotationMatrixT.T.reshape(self.numrays,3,3)
         self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
         self.Pnew[np.repeat(origin[np.newaxis,:],3,axis=0)]=0 # replace them
+        print(rotationMatrix)
         self.V = np.repeat(self.v[:,np.newaxis],self.numrays,1)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
