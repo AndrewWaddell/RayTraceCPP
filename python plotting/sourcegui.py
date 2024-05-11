@@ -37,14 +37,15 @@ class sourceGUI(GUI):
     def generateBeam(self):
         # Rodrigues' formula
         self.v /= nl.norm(self.v)
-        costheta = np.dot([0,0,1],self.v)
+        costhetaWrongDirection = np.dot([0,0,1],self.v)
         k = np.cross([0,0,1],self.v)
         K = [[0,-k[2],k[1]],
               [k[2],0,-k[0]],
               [-k[1],k[0],0]]
+        theta = np.arccos(costhetaWrongDirection)
+        s = np.sin(-theta)
+        costheta = np.cos(-theta)
         c = (1-costheta)
-        theta = np.arccos(costheta)
-        s = np.sin(theta)
         K2 = np.multiply(K,K)
         sK = np.multiply(s,K)
         cK2 = np.multiply(c,K2)
