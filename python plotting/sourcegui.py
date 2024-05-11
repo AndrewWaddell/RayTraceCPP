@@ -35,18 +35,21 @@ class sourceGUI(GUI):
         self.masterClass.plotSources()
         self.window.destroy()
     def generateBeam(self):
+        # Rodrigues' formula
         self.v /= nl.norm(self.v)
         costheta = np.dot([0,0,1],self.v)
+        k = np.cross([0,0,1],self.v)
+        K = [[0,-k[2],k[1]],
+              [k[2],0,-k[0]],
+              [-k[1],k[0],0]]
+        c = (1-costheta)
         theta = np.arccos(costheta)
-        u = np.cross([0,0,1],self.v)
-        Su = [[0,-u[2],u[1]],
-              [u[2],0,-u[0]],
-              [-u[1],u[0],0]]
-        k = (1-costheta)/theta**2
-        Su2 = np.multiply(Su,Su)
-        R = np.eye(3) + Su + k*Su2
-        self.Pnew = np.multiply(R,self.P)
-        # self.Pnew = np.einsum('ijk,ji->ki',rotationMatrix,self.P)
+        s = np.sin(theta)
+        K2 = np.multiply(K,K)
+        sK = np.multiply(s,K)
+        cK2 = np.multiply(c,K2)
+        R = np.eye(3) + sK + cK2
+        self.Pnew = np.einsum('jk,ji->ki',R,self.P)
         self.V = np.repeat(self.v[:,np.newaxis],self.numrays,1)
     def labels(self):
         self.densityLabel = tk.Label(master=self.densityFrame,
